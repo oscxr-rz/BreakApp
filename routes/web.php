@@ -9,6 +9,7 @@ Route::view('/', 'index')->name('index');
 //Carrito
 Route::prefix('/carrito')->group( function () {
     Route::get('/', [CarritoController::class, 'index'])->name('carrito');
+    Route::post('/', [CarritoController::class, 'comprarCarrito'])->name('carrito.comprar');
 });
 
 Route::prefix('/tarjeta-local')->group( function () {
