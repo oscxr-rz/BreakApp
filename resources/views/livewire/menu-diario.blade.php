@@ -1,6 +1,12 @@
 <div>
     @if (!empty($menu))
+
         <h1>Menú del Día - {{ $menu['fecha'] }}</h1>
+        @if (Session::has('mensaje'))
+            <div>
+                {{ Session::get('mensaje') }}
+            </div>
+        @endif
 
         @foreach ($menu['productos'] as $categoria => $productos)
             <h2>{{ $categoria }}</h2>
@@ -16,6 +22,8 @@
                         Tiempo: {{ $producto['tiempo_preparacion'] }}
                         <br>
                         Disponibles: {{ $producto['cantidad_disponible'] }}
+                        <br>
+                        <button wire:click="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">🛒</button>
                         <br><br>
                     </li>
                 @endforeach

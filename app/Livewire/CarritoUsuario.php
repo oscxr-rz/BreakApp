@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class CarritoUsuario extends Component
 {
-    public $id;
+    public int $id;
     public $carrito = [];
     protected CarritoService $carritoService;
 

@@ -1,16 +1,16 @@
 <div>
     @if (!empty($carrito['productos']))
+
+        @if (Session::has('mensaje'))
+            <div>
+                {{ Session::get('mensaje') }}
+            </div>
+        @endif
         @foreach ($carrito['productos'] as $categoria => $productos)
             <h2>{{ $categoria }}</h2>
 
             <ul>
                 @foreach ($productos as $producto)
-                    @if (Session::has('mensaje'))
-                        <div>
-                            {{ Session::get('mensaje') }}
-                        </div>
-                    @endif
-
                     <li class="{{ $producto['activoAhora'] === 0 ? 'bg-red-600' : 'bg-green-600' }}">
                         <img src="{{ $producto['imagen_url'] }}" alt="{{ $producto['nombre'] }}">
                         <strong>{{ $producto['nombre'] }}</strong> - ${{ $producto['precio'] }}
@@ -28,8 +28,7 @@
                         <button wire:click="eliminarAlCarrito({{ $producto['id_producto'] }}, 1)"
                             class="text-cyan-300 text-5xl">-</button>
 
-                        <button wire:click="quitarDelCarrito({{ $producto['id_producto'] }}, 1)"
-                            class="text-cyan-300 text-5xl">🗑️</button>
+                        <button wire:click="quitarDelCarrito({{ $producto['id_producto'] }}, 1)">🗑️</button>
                     </li>
                 @endforeach
             </ul>
