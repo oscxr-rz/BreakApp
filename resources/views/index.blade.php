@@ -14,6 +14,7 @@
         <ul>
             <li><a href="{{ route('carrito') }}">carrito</a></li>
             <li><a href="{{ route('tarjeta.local') }}">tarjeta local</a></li>
+            <li><a href="{{ route('ordenes') }}">ordenes</a></li>
         </ul>
     </nav>
     <livewire:menu-diario />

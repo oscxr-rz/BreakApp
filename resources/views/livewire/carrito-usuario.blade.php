@@ -1,10 +1,8 @@
 <div>
     @if (!empty($carrito['productos']))
 
-        @if (Session::has('mensaje'))
-            <div>
-                {{ Session::get('mensaje') }}
-            </div>
+        @if (session('mensaje'))
+            <p>{{ session('mensaje') }}</p>
         @endif
         @foreach ($carrito['productos'] as $categoria => $productos)
             <h2>{{ $categoria }}</h2>
@@ -47,7 +45,8 @@
             </p>
             <form action="{{ route('carrito.comprar') }}" method="POST">
                 @csrf
-                <input type="hidden" name="productos" id="" value="{{ json_encode(array(collect($carrito['productos'])->flatten(1)->where('activoAhora', 1))) }}">
+                <input type="hidden" name="productos" id=""
+                    value="{{ json_encode([collect($carrito['productos'])->flatten(1)->where('activoAhora', 1)]) }}">
                 <select name="metodo_pago" id="">
                     <option value="EFECTIVO">EFECTIVO</option>
                     <option value="SALDO">TARJETA LOCAL</option>

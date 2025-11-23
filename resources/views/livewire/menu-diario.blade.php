@@ -2,10 +2,8 @@
     @if (!empty($menu))
 
         <h1>Menú del Día - {{ $menu['fecha'] }}</h1>
-        @if (Session::has('mensaje'))
-            <div>
-                {{ Session::get('mensaje') }}
-            </div>
+        @if (session('mensaje'))
+            <p>{{ session('mensaje') }}</p>
         @endif
 
         @foreach ($menu['productos'] as $categoria => $productos)
