@@ -33,6 +33,8 @@
                 @endforeach
             </ul>
         @endforeach
+    @elseif (!session('idUsuario'))
+        <p>Inicie sesion o cree una cuenta para acceder al carrito</p>
     @else
         <p>No hay productos en el carrito</p>
     @endif
