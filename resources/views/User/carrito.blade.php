@@ -6,16 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>BreakApp</title>
+    <title>BreakApp - Carrito</title>
 </head>
 
 <body>
-    <nav>
-        <ul>
-            <li><a href="{{ route('carrito') }}">carrito</a></li>
-        </ul>
-    </nav>
-    <livewire:menu-diario />
+    <livewire:carrito-usuario />
 </body>
 
 </html>
