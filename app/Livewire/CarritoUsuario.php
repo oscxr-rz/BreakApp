@@ -3,7 +3,9 @@
 namespace App\Livewire;
 
 use App\Services\CarritoService;
+use Exception;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
@@ -12,6 +14,9 @@ class CarritoUsuario extends Component
     public int $id;
     public $carrito = [];
     protected CarritoService $carritoService;
+
+    public $metodo_pago = 'EFECTIVO';
+    public $hora_recogida = '';
 
     public function boot(CarritoService $carritoService)
     {
@@ -36,7 +41,7 @@ class CarritoUsuario extends Component
         }
     }
 
-        public function eliminarAlCarrito(int $idProducto, int $cantidad)
+    public function eliminarAlCarrito(int $idProducto, int $cantidad)
     {
         if ($this->carritoService->eliminar($this->id, $idProducto, $cantidad)) {
             Session::flash('mensaje', 'Eliminado correctamente');
@@ -47,6 +52,49 @@ class CarritoUsuario extends Component
     {
         if ($this->carritoService->quitar($this->id, $idProducto)) {
             Session::flash('mensaje', 'Producto borrado correctamente');
+        }
+    }
+
+    protected $rules = [
+        'metodo_pago' => 'required|string|in:EFECTIVO,SALDO,TARJETA',
+        'hora_recogida' => 'required|date_format:H:i',
+    ];
+
+    protected $messages = [
+        'metodo_pago.required' => 'Debes seleccionar un método de pago',
+        'hora_recogida.required' => 'Debes seleccionar una hora para recoger tus productos',
+    ];
+
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
+
+    public function comprarCarrito()
+    {
+        try {
+            $this->validate();
+
+            $productos = collect($this->carrito['productos'] ?? [])
+                ->flatten(1)
+                ->where('activoAhora', 1)
+                ->values()
+                ->toArray();
+
+            if (empty($productos)) {
+                $this->addError('productos', 'No hay productos en el carrito');
+                return;
+            }
+
+            if ($this->carritoService->comprar($this->id, $this->metodo_pago, $this->hora_recogida, $productos)) {
+                Session::flash('mensaje', 'Orden generada correctamente');
+            } else {
+                $this->addError('general', 'No se pudo procesar la orden');
+            }
+        } catch (ValidationException $e) {
+            throw $e;
+        } catch (Exception $e) {
+            $this->addError('general', 'Ocurrió un error al procesar tu compra');
         }
     }
 

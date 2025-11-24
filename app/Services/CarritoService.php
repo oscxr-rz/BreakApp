@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class CarritoService
@@ -53,5 +54,32 @@ class CarritoService
             ]);
 
         return $response->successful();
+    }
+
+    public function comprar(int $idUsuario, string $metodoPago, string $horaRecogida, array $productos)
+    {
+        try {
+            $idMenu = collect($productos)
+                ->pluck('id_menu')
+                ->unique()
+                ->count() === 1
+                ? collect($productos)->first()['id_menu']
+                : null;
+
+            $response = Http::withToken($this->token)
+                ->post("{$this->apiHost}/usuario/orden/{$idUsuario}", [
+                    'id_menu' => $idMenu,
+                    'metodo_pago' => $metodoPago,
+                    'hora_recogida' => $horaRecogida,
+                    'productos' => $productos
+                ]);
+
+            if ($response->successful()) {
+                return true;
+            }
+            return false;
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 }

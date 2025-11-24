@@ -43,16 +43,31 @@
                     2,
                 ) }}
             </p>
-            <form action="{{ route('carrito.comprar') }}" method="POST">
-                @csrf
-                <input type="hidden" name="productos" id=""
-                    value="{{ json_encode([collect($carrito['productos'])->flatten(1)->where('activoAhora', 1)]) }}">
-                <select name="metodo_pago" id="">
+            <form wire:submit.prevent="comprarCarrito">
+                <select wire:model.live="metodo_pago">
                     <option value="EFECTIVO">EFECTIVO</option>
                     <option value="SALDO">TARJETA LOCAL</option>
                 </select>
-                <input type="time" name="hora_recogida" id="">
-                <button type="submit">COMPRAR</button>
+                @error('metodo_pago')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+
+                <input type="time" wire:model.live="hora_recogida">
+                @error('hora_recogida')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+
+                @error('productos')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+                @error('general')
+                    <div class="text-danger">{{ $message }}</div>
+                @enderror
+
+                <button type="submit" wire:loading.attr="disabled">
+                    <span wire:loading.remove>COMPRAR</span>
+                    <span wire:loading>Procesando...</span>
+                </button>
             </form>
         </div>
     @elseif (!session('idUsuario'))
