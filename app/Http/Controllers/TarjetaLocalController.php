@@ -17,6 +17,6 @@ class TarjetaLocalController extends Controller
             $tarjetaLocal = $response->json('data');
         }
 
-        return view('User.tarjeta-local', compact('tarjetaLocal'));
+        return view('user.tarjeta-local', compact('tarjetaLocal'));
     }
 }
