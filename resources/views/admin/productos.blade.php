@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 
 <head>
@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>BreakApp - Categorías</title>
+    <title>BreakApp - Productos</title>
 </head>
 
 <body>
-    <livewire:admin.categorias />
+    <livewire:admin.productos />
     @livewireScripts
 </body>
 

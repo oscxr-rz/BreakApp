@@ -18,4 +18,5 @@ Route::prefix('/tarjeta-local')->group( function () {
 
 Route::view('/admin', 'admin.dashboard')->name('dashboard');
 Route::view('/categorias', 'admin.categorias')->name('admin.categorias');
+Route::view('/productos', 'admin.productos')->name('admin.productos');
 

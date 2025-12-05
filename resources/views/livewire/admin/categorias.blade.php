@@ -31,10 +31,17 @@
                         <td>
                             <button>Editar</button>
                             <button
-                                wire:click="cambiarEstado({{ $categoria['id_categoria'] }}, {{ $categoria['activo'] === 1 ? 0 : 1 }})">
-                                <span
-                                    wire:loading.remove>{{ $categoria['activo'] === 1 ? 'Desactivar' : 'Activar' }}</span>
-                                <span wire:loading>Procesando...</span></button>
+                                wire:click="cambiarEstado({{ $categoria['id_categoria'] }}, {{ $categoria['activo'] === 1 ? 0 : 1 }})"
+                                wire:loading.attr="disabled">
+                                <span class="block" wire:loading.class="hidden"
+                                    wire:target="cambiarEstado({{ $categoria['id_categoria'] }}, {{ $categoria['activo'] === 1 ? 0 : 1 }})">
+                                    {{ $categoria['activo'] === 1 ? 'Desactivar' : 'Activar' }}
+                                </span>
+                                <span class="hidden" wire:loading.class.remove="hidden"
+                                    wire:target="cambiarEstado({{ $categoria['id_categoria'] }}, {{ $categoria['activo'] === 1 ? 0 : 1 }})">
+                                    Procesando...
+                                </span>
+                            </button>
                         </td>
                     </tr>
                 @endforeach
@@ -63,9 +70,14 @@
                     <span>{{ $message }}</span>
                 @enderror
 
-                <button type="submit" wire:loading.attr="disabled">
-                    <span wire:loading.remove>CREAR</span>
-                    <span wire:loading>Procesando...</span>
+                <button type="submit" wire:loading.attr="disabled" wire:loading.class="pointer-events-none opacity-50"
+                    wire:target="crearCategoria">
+                    <span class="block" wire:loading.class="hidden" wire:target="crearCategoria">
+                        CREAR
+                    </span>
+                    <span class="hidden" wire:loading.class.remove="hidden" wire:target="crearCategoria">
+                        Procesando...
+                    </span>
                 </button>
             </form>
         </div>
@@ -88,9 +100,14 @@
                     <span>{{ $message }}</span>
                 @enderror
 
-                <button type="submit" wire:loading.attr="disabled">
-                    <span wire:loading.remove>Actualizar</span>
-                    <span wire:loading>Procesando...</span>
+                <button type="submit" wire:loading.attr="disabled" wire:loading.class="pointer-events-none opacity-50"
+                    wire:target="actualizarCategoria">
+                    <span class="block" wire:loading.class="hidden" wire:target="actualizarCategoria">
+                        ACTUALIZAR
+                    </span>
+                    <span class="hidden" wire:loading.class.remove="hidden" wire:target="actualizarCategoria">
+                        Procesando...
+                    </span>
                 </button>
             </form>
         </div>
@@ -99,4 +116,12 @@
             <p>No hay categorías disponibles</p>
         </div>
     @endif
+    @script
+        <script>
+            Echo.channel('admin')
+                .listen('.ActualizarCategoria', (e) => {
+                    $wire.cargarCategorias();
+                })
+        </script>
+    @endscript
 </div>

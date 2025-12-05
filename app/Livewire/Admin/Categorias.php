@@ -122,14 +122,6 @@ class Categorias extends Component
         }
     }
 
-    #[On('echo:admin,ActualizarCategoria')]
-
-    public function categoriaActualizada()
-    {
-        $this->cargarCategorias();
-        dd($this->categorias);
-    }
-
     public function render()
     {
         return view('livewire.admin.categorias');
