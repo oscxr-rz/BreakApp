@@ -5,6 +5,9 @@ use App\Http\Controllers\TarjetaLocalController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index')->name('index');
+
+Route::view('/register', 'auth.register')->name('register');
+
 Route::view('/ordenes', 'user.ordenes')->name('ordenes');
 
 //Carrito

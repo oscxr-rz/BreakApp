@@ -22,7 +22,7 @@ class MenuDiario extends Component
 
     public function mount()
     {
-        $this->id = 1;
+        $this->id = Session::get('id');
         $this->cargarMenu();
     }
 

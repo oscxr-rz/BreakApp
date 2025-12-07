@@ -4,6 +4,7 @@ namespace App\Services\admin;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 
 class ProductosService
 {
@@ -12,7 +13,7 @@ class ProductosService
 
     public function __construct()
     {
-        $this->token = '1|qpXariEJJxTGZnWtKw0v21rfFa7Nb9YZK0XqRMoma2d010aa';
+        $this->token = Session::get('api_token');
         $this->apiHost = env('API_HOST');
     }
 

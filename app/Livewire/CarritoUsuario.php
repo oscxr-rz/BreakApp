@@ -10,6 +10,8 @@ use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
+use function Pest\Laravel\session;
+
 class CarritoUsuario extends Component
 {
     public int $id;
@@ -31,7 +33,7 @@ class CarritoUsuario extends Component
 
     public function mount()
     {
-        $this->id = 1;
+        $this->id = Session::get('id');
         $this->cargarCarrito();
     }
 

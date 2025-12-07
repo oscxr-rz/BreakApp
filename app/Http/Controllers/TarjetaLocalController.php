@@ -7,8 +7,8 @@ use Illuminate\Support\Facades\Http;
 
 class TarjetaLocalController extends Controller
 {
-    private int $id = 1;
-    private string $token = "1|qpXariEJJxTGZnWtKw0v21rfFa7Nb9YZK0XqRMoma2d010aa";
+    private int $id = session()->get('id');
+    private string $token = session()->get('api_token');
     public function show()
     {
         $tarjetaLocal = [];
