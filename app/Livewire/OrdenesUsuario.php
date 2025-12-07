@@ -21,7 +21,7 @@ class OrdenesUsuario extends Component
 
     public function mount()
     {
-        $this->id = 3;
+        $this->id = 1;
         $this->cargarOrdenes();
     }
 

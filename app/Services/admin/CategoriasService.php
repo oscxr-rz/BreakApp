@@ -12,7 +12,7 @@ class CategoriasService
 
     public function __construct()
     {
-        $this->token = '2|WItwCkHKTzKpkr2LWRSQsKpqQKGEdGmluYpoVyEU14e4486e';
+        $this->token = '1|qpXariEJJxTGZnWtKw0v21rfFa7Nb9YZK0XqRMoma2d010aa';
         $this->apiHost = env('API_HOST');
     }
 

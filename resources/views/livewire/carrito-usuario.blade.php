@@ -69,14 +69,8 @@
             <h1>Comprar carrito</h1>
             <p>Productos: {{ collect($carrito['productos'])->flatten(1)->where('activoAhora', 1)->sum('cantidad') }}
             </p>
-            <p>Total:
-                {{ number_format(
-                    collect($carrito['productos'])->flatten(1)->where('activoAhora', 1)->sum(function ($producto) {
-                            return $producto['precio_unitario'] * $producto['cantidad'];
-                        }),
-                    2,
-                ) }}
-            </p>
+            <p>Total: {{ $total }}</p>
+            <p>Saldo Local Disponible: {{ $saldoLocal['saldo'] }}</p>
             <form wire:submit.prevent="comprarCarrito">
                 <select wire:model.live="metodo_pago">
                     <option value="EFECTIVO">EFECTIVO</option>
@@ -95,15 +89,21 @@
                     <div class="text-danger">{{ $message }}</div>
                 @enderror
 
+                @if ($saldoLocal['saldo'] < $total && $metodo_pago === 'SALDO')
+                    <p class="text-red-600">Saldo insuficiente</p>
+                @endif
+
+                @if ($metodo_pago !== 'SALDO' || $saldoLocal['saldo'] >= $total)
                 <button type="submit" wire:loading.attr="disabled" wire:loading.class="pointer-events-none opacity-50"
-                    wire:target="comprarCarrito">
-                    <span class="block" wire:loading.class="hidden" wire:target="comprarCarrito">
-                        COMPRAR
-                    </span>
-                    <span class="hidden" wire:loading.class.remove="hidden" wire:target="comprarCarrito">
-                        Procesando...
-                    </span>
-                </button>
+                wire:target="comprarCarrito">
+                <span class="block" wire:loading.class="hidden" wire:target="comprarCarrito">
+                    COMPRAR
+                </span>
+                <span class="hidden" wire:loading.class.remove="hidden" wire:target="comprarCarrito">
+                    Procesando...
+                </span>
+                @endif
+            </button>
             </form>
         </div>
     @elseif (!session('idUsuario'))

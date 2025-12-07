@@ -12,6 +12,7 @@
             <p>{{ $orden['estado'] }}</p>
             <p>{{ $orden['total'] }}</p>
             <p>{{ $orden['metodo_pago'] }}</p>
+            <p>{{ $orden['pagado'] === 1 ? 'PAGADO' : 'PAGO PENDIENTE' }}</p>
             <img src="{{ $orden['imagen_url'] }}" alt="orden_{{ $orden['id_orden'] }}">
             <p>{{ $orden['hora_recogida'] }}</p>
             @foreach ($orden['productos'] as $producto)

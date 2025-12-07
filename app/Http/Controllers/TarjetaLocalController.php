@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Http;
 
 class TarjetaLocalController extends Controller
 {
+    private int $id = 1;
+    private string $token = "1|qpXariEJJxTGZnWtKw0v21rfFa7Nb9YZK0XqRMoma2d010aa";
     public function show()
     {
         $tarjetaLocal = [];
-        $response = Http::withToken('2|WItwCkHKTzKpkr2LWRSQsKpqQKGEdGmluYpoVyEU14e4486e')
-            ->get(env('API_HOST') . '/usuario/tarjeta-local/3');
+        $response = Http::withToken($this->token)
+            ->get(env('API_HOST') . "/usuario/tarjeta-local/{$this->id}");
 
         if ($response->successful()) {
             $tarjetaLocal = $response->json('data');
