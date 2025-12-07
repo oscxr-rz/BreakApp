@@ -1,5 +1,7 @@
 <div>
-    @if (!empty($ordenes))
+    @if (!session('id'))
+        <p>Inicie sesion para ver las ordenes realizadas</p>
+    @elseif (!empty($ordenes))
         <h1>Ordenes</h1>
         @if (session('mensaje'))
             <p>{{ session('mensaje') }}</p>
@@ -35,8 +37,6 @@
                 </button>
             @endif
         @endforeach
-    @elseif (!session('idUsuario'))
-        <p>Inicie sesion para ver las ordenes realizadas</p>
     @else
         <p>No hay ordenes aún</p>
     @endif

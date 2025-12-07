@@ -1,6 +1,7 @@
 <div>
-    @if (!empty($carrito['productos']))
-
+    @if (!session('id'))
+        <p>Inicie sesión o cree una cuenta para acceder al carrito</p>
+    @elseif (!empty($carrito['productos']))
         @if (session('mensaje'))
             <p>{{ session('mensaje') }}</p>
         @endif
@@ -94,20 +95,18 @@
                 @endif
 
                 @if ($metodo_pago !== 'SALDO' || $saldoLocal['saldo'] >= $total)
-                <button type="submit" wire:loading.attr="disabled" wire:loading.class="pointer-events-none opacity-50"
-                wire:target="comprarCarrito">
-                <span class="block" wire:loading.class="hidden" wire:target="comprarCarrito">
-                    COMPRAR
-                </span>
-                <span class="hidden" wire:loading.class.remove="hidden" wire:target="comprarCarrito">
-                    Procesando...
-                </span>
+                    <button type="submit" wire:loading.attr="disabled"
+                        wire:loading.class="pointer-events-none opacity-50" wire:target="comprarCarrito">
+                        <span class="block" wire:loading.class="hidden" wire:target="comprarCarrito">
+                            COMPRAR
+                        </span>
+                        <span class="hidden" wire:loading.class.remove="hidden" wire:target="comprarCarrito">
+                            Procesando...
+                        </span>
                 @endif
-            </button>
+                </button>
             </form>
         </div>
-    @elseif (!session('idUsuario'))
-        <p>Inicie sesion o cree una cuenta para acceder al carrito</p>
     @else
         <p>No hay productos en el carrito</p>
     @endif
