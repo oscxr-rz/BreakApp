@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 
 class OrdenService
@@ -25,11 +26,15 @@ class OrdenService
 
     public function ocultarOrden(int $idUsuario, int $idOrden)
     {
-        $response = Http::withToken($this->token)
-            ->patch("{$this->apiHost}/usuario/orden/{$idUsuario}/ocultar", [
-                'id_orden' => $idOrden
-            ]);
+        try {
+            $response = Http::withToken($this->token)
+                ->patch("{$this->apiHost}/usuario/orden/{$idUsuario}/ocultar", [
+                    'id_orden' => $idOrden
+                ]);
 
-        return $response->successful();
+            return $response->successful();
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 }

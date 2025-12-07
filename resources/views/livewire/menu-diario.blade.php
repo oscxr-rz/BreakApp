@@ -5,6 +5,9 @@
         @if (session('mensaje'))
             <p>{{ session('mensaje') }}</p>
         @endif
+        @error('error')
+            {{ $message }}
+        @enderror
 
         @foreach ($menu['productos'] as $categoria => $productos)
             <h2>{{ $categoria }}</h2>
@@ -21,7 +24,17 @@
                         <br>
                         Disponibles: {{ $producto['cantidad_disponible'] }}
                         <br>
-                        <button wire:click="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">🛒</button>
+                        <button wire:click="agregarAlCarrito({{ $producto['id_producto'] }}, 1)"
+                            wire:loading.attr="disabled" class="text-cyan-300 text-5xl">
+                            <span class="block" wire:loading.class="hidden"
+                                wire:target="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">
+                                🛒
+                            </span>
+                            <span class="hidden" wire:loading.class.remove="hidden"
+                                wire:target="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">
+                                Procesando...
+                            </span>
+                        </button>
                         <br><br>
                     </li>
                 @endforeach
@@ -30,4 +43,12 @@
     @else
         <p>No hay menú disponible</p>
     @endif
+    @script
+        <script>
+            Echo.channel('menu')
+                .listen('ActualizarMenu', (e) => {
+                    $wire.cargarMenu();
+                })
+        </script>
+    @endscript
 </div>

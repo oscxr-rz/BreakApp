@@ -11,6 +11,7 @@
 
 <body>
     <livewire:ordenes-usuario />
+    @livewireScripts
 </body>
 
 </html>

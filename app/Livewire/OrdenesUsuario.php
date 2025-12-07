@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Services\OrdenService;
+use Exception;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -31,15 +32,15 @@ class OrdenesUsuario extends Component
 
     public function ocultarOrden(int $idOrden)
     {
-        if ($this->ordenService->ocultarOrden($this->id, $idOrden)) {
-            Session::flash('mensaje', 'Orden eliminada correctamente');
+        try {
+            if ($this->ordenService->ocultarOrden($this->id, $idOrden)) {
+                Session::flash('mensaje', 'Orden eliminada correctamente');
+            } else {
+                $this->addError('error', 'No se pudo eliminar la orden');
+            }
+        } catch (Exception $e) {
+            $this->addError('error', 'Ocurrió un error al momento de eliminar la orden');
         }
-    }
-
-    #[On('echo-private:usuario.{id},ActualizarOrden')]
-    public function ordenesActualizadas()
-    {
-        $this->cargarOrdenes();
     }
     public function render()
     {

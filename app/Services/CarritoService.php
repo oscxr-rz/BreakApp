@@ -26,34 +26,46 @@ class CarritoService
 
     public function agregar(int $idUsuario, int $idProducto, int $cantidad)
     {
-        $response = Http::withToken($this->token)
-            ->post("{$this->apiHost}/usuario/carrito/{$idUsuario}/add", [
-                'id_producto' => $idProducto,
-                'cantidad' => $cantidad
-            ]);
+        try {
+            $response = Http::withToken($this->token)
+                ->post("{$this->apiHost}/usuario/carrito/{$idUsuario}/add", [
+                    'id_producto' => $idProducto,
+                    'cantidad' => $cantidad
+                ]);
 
-        return $response->successful();
+            return $response->successful();
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function eliminar(int $idUsuario, int $idProducto, int $cantidad): bool
     {
-        $response = Http::withToken($this->token)
-            ->post("{$this->apiHost}/usuario/carrito/{$idUsuario}/remove", [
-                'id_producto' => $idProducto,
-                'cantidad' => $cantidad
-            ]);
+        try {
+            $response = Http::withToken($this->token)
+                ->post("{$this->apiHost}/usuario/carrito/{$idUsuario}/remove", [
+                    'id_producto' => $idProducto,
+                    'cantidad' => $cantidad
+                ]);
 
-        return $response->successful();
+            return $response->successful();
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function quitar(int $idUsuario, int $idProducto): bool
     {
-        $response = Http::withToken($this->token)
-            ->patch("{$this->apiHost}/usuario/carrito/{$idUsuario}/eliminar", [
-                'id_producto' => $idProducto
-            ]);
+        try {
+            $response = Http::withToken($this->token)
+                ->patch("{$this->apiHost}/usuario/carrito/{$idUsuario}/eliminar", [
+                    'id_producto' => $idProducto
+                ]);
 
-        return $response->successful();
+            return $response->successful();
+        } catch (Exception $e) {
+            throw $e;
+        }
     }
 
     public function comprar(int $idUsuario, string $metodoPago, string $horaRecogida, array $productos)

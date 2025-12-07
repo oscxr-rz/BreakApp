@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Services\CarritoService;
+use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\On;
@@ -36,15 +37,15 @@ class MenuDiario extends Component
 
     public function agregarAlCarrito(int $idProducto, int $cantidad)
     {
-        if ($this->carritoService->agregar($this->id, $idProducto, $cantidad)) {
-            Session::flash('mensaje', 'Agregado correctamente');
+        try {
+            if ($this->carritoService->agregar($this->id, $idProducto, $cantidad)) {
+                Session::flash('mensaje', 'Agregado correctamente');
+            } else {
+                $this->addError('error', 'No se pudo agregar el producto al carrito');
+            }
+        } catch (Exception $e) {
+            $this->addError('error', 'Ocurrió un error al momento de agregar el producto al carrito');
         }
-    }
-
-    #[On('echo:menu,ActualizarMenu')]
-    public function menuActualizado()
-    {
-        $this->cargarMenu();
     }
     public function render()
     {

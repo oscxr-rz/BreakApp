@@ -11,6 +11,7 @@
 
 <body>
     <livewire:carrito-usuario />
+    @livewireScripts
 </body>
 
 </html>

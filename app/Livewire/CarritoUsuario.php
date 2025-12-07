@@ -36,22 +36,40 @@ class CarritoUsuario extends Component
 
     public function agregarAlCarrito(int $idProducto, int $cantidad)
     {
-        if ($this->carritoService->agregar($this->id, $idProducto, $cantidad)) {
-            Session::flash('mensaje', 'Agregado correctamente');
+        try {
+            if ($this->carritoService->agregar($this->id, $idProducto, $cantidad)) {
+                Session::flash('mensaje', 'Producto gregado correctamente');
+            } else {
+                $this->addError('error', 'No se pudo agregar el producto al carrito');
+            }
+        } catch (Exception $e) {
+            $this->addError('error', 'Ocurrió un error al momento de agregar el producto al carrito');
         }
     }
 
     public function eliminarAlCarrito(int $idProducto, int $cantidad)
     {
-        if ($this->carritoService->eliminar($this->id, $idProducto, $cantidad)) {
-            Session::flash('mensaje', 'Eliminado correctamente');
+        try {
+            if ($this->carritoService->eliminar($this->id, $idProducto, $cantidad)) {
+                Session::flash('mensaje', 'Producto eliminado correctamente');
+            } else {
+                $this->addError('error', 'No se pudo eliminar el producto del carrito');
+            }
+        } catch (Exception $e) {
+            $this->addError('error', 'Ocurrió un error al momento de eliminar el producto carrito');
         }
     }
 
     public function quitarDelCarrito(int $idProducto)
     {
-        if ($this->carritoService->quitar($this->id, $idProducto)) {
-            Session::flash('mensaje', 'Producto borrado correctamente');
+        try {
+            if ($this->carritoService->quitar($this->id, $idProducto)) {
+                Session::flash('mensaje', 'Producto borrado del carrito correctamente');
+            } else {
+                $this->addError('error', 'No se pudo borrar el producto del carrito');
+            }
+        } catch (Exception $e) {
+            $this->addError('error', 'Ocurrió un error al momento de borrar el producto carrito');
         }
     }
 
@@ -78,6 +96,7 @@ class CarritoUsuario extends Component
             $productos = collect($this->carrito['productos'] ?? [])
                 ->flatten(1)
                 ->where('activoAhora', 1)
+                ->where('disponible', true)
                 ->values()
                 ->toArray();
 
@@ -89,19 +108,13 @@ class CarritoUsuario extends Component
             if ($this->carritoService->comprar($this->id, $this->metodo_pago, $this->hora_recogida, $productos)) {
                 Session::flash('mensaje', 'Orden generada correctamente');
             } else {
-                $this->addError('general', 'No se pudo procesar la orden');
+                $this->addError('error', 'No se pudo procesar la orden');
             }
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
-            $this->addError('general', 'Ocurrió un error al procesar tu compra');
+            $this->addError('error', 'Ocurrió un error al procesar tu compra');
         }
-    }
-
-    #[On('echo-private:usuario.{id},ActualizarCarrito')]
-    public function carritoActualizado()
-    {
-        $this->cargarCarrito();
     }
 
     public function render()
