@@ -93,18 +93,32 @@
                                 <!-- Info -->
                                 <div class="p-4 lg:p-5">
                                     <h3 class="font-bold text-base lg:text-lg mb-1 text-[#951327]">
-                                        {{ $producto['nombre'] }}</h3>
+                                        {{ $producto['nombre'] }}
+                                    </h3>
                                     <p class="text-xs lg:text-sm text-[#768e78] mb-3 line-clamp-2">
-                                        {{ $producto['descripcion'] }}</p>
+                                        {{ $producto['descripcion'] }}
+                                    </p>
 
-                                    <!-- Tiempo -->
-                                    <div class="flex items-center gap-1.5 mb-3 text-[#768e78]">
-                                        <svg class="w-4 h-4 lg:w-5 lg:h-5" fill="none" stroke="currentColor"
-                                            viewBox="0 0 24 24">
-                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-                                        </svg>
-                                        <span class="text-xs lg:text-sm">{{ $producto['tiempo_preparacion'] }}</span>
+                                    <!-- Tiempo y Cantidad Disponible -->
+                                    <div class="flex items-center justify-between mb-3">
+                                        <!-- Tiempo -->
+                                        <div class="flex items-center gap-1.5 text-[#768e78]">
+                                            <svg class="w-4 h-4 lg:w-5 lg:h-5" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                            <span
+                                                class="text-xs lg:text-sm">{{ $producto['tiempo_preparacion'] }}</span>
+                                        </div>
+
+                                        <!-- Cantidad Disponible -->
+                                        <div class="flex items-center gap-1.5">
+                                            <span
+                                                class="text-xs lg:text-sm font-semibold text-[#768e78] bg-green-100 px-2 py-1 rounded-lg">
+                                                {{ $producto['cantidad_disponible'] }} disponibles
+                                            </span>
+                                        </div>
                                     </div>
 
                                     <!-- Precio y Botón -->
@@ -112,7 +126,8 @@
                                         <div>
                                             <p class="text-xs lg:text-sm text-[#768e78]">Precio</p>
                                             <p class="font-bold text-xl lg:text-2xl text-[#951327]">
-                                                ${{ number_format($producto['precio'], 2) }}</p>
+                                                ${{ number_format($producto['precio'], 2) }}
+                                            </p>
                                         </div>
 
                                         <button wire:click="agregarAlCarrito({{ $producto['id_producto'] }}, 1)"

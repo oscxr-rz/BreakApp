@@ -18,7 +18,6 @@ window.Echo = new Echo({
         return {
             authorize: (socketId, callback) => {
                 const token = sessionStorage.getItem('api_token');
-                console.log(token);
 
                 if (!token) {
                     callback(new Error('No autenticado'));

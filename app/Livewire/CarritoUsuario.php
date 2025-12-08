@@ -10,8 +10,6 @@ use Illuminate\Validation\ValidationException;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-use function Pest\Laravel\session;
-
 class CarritoUsuario extends Component
 {
     public int $id;
@@ -55,12 +53,13 @@ class CarritoUsuario extends Component
     {
         try {
             if ($this->carritoService->agregar($this->id, $idProducto, $cantidad)) {
-                Session::flash('mensaje', 'Producto gregado correctamente');
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Producto agregado correctamente');
+                $this->cargarCarrito();
             } else {
-                $this->addError('error', 'No se pudo agregar el producto al carrito');
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo agregar el producto al carrito');
             }
         } catch (Exception $e) {
-            $this->addError('error', 'Ocurrió un error al momento de agregar el producto al carrito');
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al agregar el producto');
         }
     }
 
@@ -68,12 +67,13 @@ class CarritoUsuario extends Component
     {
         try {
             if ($this->carritoService->eliminar($this->id, $idProducto, $cantidad)) {
-                Session::flash('mensaje', 'Producto eliminado correctamente');
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Producto eliminado correctamente');
+                $this->cargarCarrito();
             } else {
-                $this->addError('error', 'No se pudo eliminar el producto del carrito');
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo eliminar el producto del carrito');
             }
         } catch (Exception $e) {
-            $this->addError('error', 'Ocurrió un error al momento de eliminar el producto carrito');
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al eliminar el producto');
         }
     }
 
@@ -81,12 +81,13 @@ class CarritoUsuario extends Component
     {
         try {
             if ($this->carritoService->quitar($this->id, $idProducto)) {
-                Session::flash('mensaje', 'Producto borrado del carrito correctamente');
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Producto borrado del carrito');
+                $this->cargarCarrito();
             } else {
-                $this->addError('error', 'No se pudo borrar el producto del carrito');
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo borrar el producto del carrito');
             }
         } catch (Exception $e) {
-            $this->addError('error', 'Ocurrió un error al momento de borrar el producto carrito');
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al borrar el producto');
         }
     }
 
@@ -118,19 +119,22 @@ class CarritoUsuario extends Component
                 ->toArray();
 
             if (empty($productos)) {
-                $this->addError('productos', 'No hay productos en el carrito');
+                $this->addError('productos', 'No hay productos disponibles en el carrito');
                 return;
             }
 
             if ($this->carritoService->comprar($this->id, $this->metodo_pago, $this->hora_recogida, $productos)) {
-                Session::flash('mensaje', 'Orden generada correctamente');
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Orden generada correctamente');
+                $this->cargarCarrito();
+                $this->metodo_pago = 'EFECTIVO';
+                $this->hora_recogida = '';
             } else {
-                $this->addError('error', 'No se pudo procesar la orden');
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo procesar la orden');
             }
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
-            $this->addError('error', 'Ocurrió un error al procesar tu compra');
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al procesar tu compra');
         }
     }
 
