@@ -9,6 +9,7 @@ Route::view('/', 'index')->name('index');
 Route::view('/singup', 'auth.singup')->name('singup');
 Route::view('/login', 'auth.login')->name('login');
 
+Route::view('/mi-cuenta', 'user.cuenta')->name('cuenta');
 Route::view('/ordenes', 'user.ordenes')->name('ordenes');
 
 //Carrito
