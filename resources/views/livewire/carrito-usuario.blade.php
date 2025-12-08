@@ -10,7 +10,7 @@
                 </svg>
             </div>
             <h3 class="text-xl lg:text-2xl font-bold text-[#951327] mb-2">Inicia sesión</h3>
-            <p class="text-sm lg:text-base text-[#768e78] text-center mb-6">Inicie sesión o cree una cuenta para acceder
+            <p class="text-sm lg:text-base text-[#768e78] text-center mb-6">Inicie sesión para acceder
                 al carrito</p>
             <a href="{{ route('login') }}"
                 class="bg-[#ea5f3a] hover:bg-[#951327] text-white px-6 py-3 rounded-xl font-semibold transition-all duration-300 shadow-md hover:shadow-lg">
@@ -21,12 +21,6 @@
         <!-- Header del Carrito -->
         <div class="px-4 md:px-6 lg:px-8 py-6 pb-40 lg:pb-6">
             <div class="flex items-center gap-3 mb-6">
-                <a href="{{ route('index') }}"
-                    class="w-10 h-10 flex items-center justify-center hover:bg-[#f2cc88]/20 rounded-full transition-colors">
-                    <svg class="w-6 h-6 text-[#951327]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </a>
                 <h1 class="text-2xl lg:text-3xl font-bold text-[#951327]">Carrito</h1>
             </div>
 
