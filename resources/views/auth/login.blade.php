@@ -10,7 +10,7 @@
     <title>BreakApp - Iniciar sesión</title>
 </head>
 
-<body>
+<body class="bg-green-300 min-h-screen flex items-center justify-center p-4">
     <livewire:auth.login />
 </body>
 

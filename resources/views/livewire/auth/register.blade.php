@@ -187,7 +187,7 @@
             class="bg-white p-4 rounded-lg shadow-sm border border-gray-200 text-center hover:shadow-md transition-shadow duration-300">
             <p class="text-sm text-gray-700">
                 ¿Ya tienes cuenta?
-                <a href="" wire:navigate
+                <a href="{{ route('login') }}" wire:navigate
                     class="text-blue-500 font-semibold hover:text-blue-600 hover:underline transition-all duration-200">
                     Iniciar sesión
                 </a>
