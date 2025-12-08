@@ -17,6 +17,7 @@
     <div class="max-w-7xl mx-auto">
         <livewire:menu-diario />
     </div>
+    @stack('script')
 </body>
 
 </html>

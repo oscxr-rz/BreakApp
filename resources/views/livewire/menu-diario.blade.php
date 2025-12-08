@@ -26,14 +26,14 @@
                             </path>
                         </svg>
                     </a>
-                    {{-- <button
+                    {{-- <a href=""
                         class="w-10 h-10 lg:w-11 lg:h-11 flex items-center justify-center hover:bg-slate-100 rounded-full transition-colors">
                         <svg class="w-6 h-6 lg:w-7 lg:h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9">
                             </path>
                         </svg>
-                    </button> --}}
+                    </a> --}}
                 </div>
             </div>
 
@@ -66,14 +66,13 @@
             <div class="flex gap-4 lg:gap-5 overflow-x-auto pb-2 scrollbar-hide -mx-4 px-4 md:-mx-6 md:px-6 lg:-mx-8 lg:px-8"
                 id="contenedorCategorias">
                 <!-- Botón Todas -->
-                <button onclick="filtrarPorCategoria('')" data-categoria=""
+                <button data-categoria=""
                     class="boton-categoria shrink-0 px-4 py-2 rounded-full bg-slate-700 text-white text-sm lg:text-base font-medium transition-all">
                     Todas
                 </button>
 
                 @foreach ($menu['productos'] as $categoria => $productos)
-                    <button onclick="filtrarPorCategoria('{{ strtolower($categoria) }}')"
-                        data-categoria="{{ strtolower($categoria) }}"
+                    <button data-categoria="{{ strtolower($categoria) }}"
                         class="boton-categoria shrink-0 px-4 py-2 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 text-sm lg:text-base font-medium transition-all">
                         {{ $categoria }}
                     </button>
@@ -102,7 +101,6 @@
                                 <div class="relative">
                                     <img src="{{ $producto['imagen_url'] }}" alt="{{ $producto['nombre'] }}"
                                         class="w-full h-44 md:h-52 lg:h-64 object-cover">
-
                                     {{-- <!-- Botón Favorito -->
                                     <button onclick=""
                                         class="absolute top-3 right-3 w-9 h-9 lg:w-10 lg:h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:scale-110 transition-transform">
@@ -205,66 +203,49 @@
 
     <!-- Toast Flotante para Mensaje de Éxito -->
     @if (session('mensaje'))
-        <div id="toastExito"
-            class="fixed top-5 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-xl shadow-2xl z-9999 text-sm lg:text-base font-medium flex items-center gap-3">
+        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show"
+            x-transition:leave="transition ease-in duration-500" x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed top-5 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-xl shadow-2xl z-[9999] text-sm lg:text-base font-medium flex items-center gap-3">
             <svg class="w-5 h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
             </svg>
             <span>{{ session('mensaje') }}</span>
+            <button @click="show = false" class="ml-2 hover:text-green-200 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
         </div>
     @endif
 
     <!-- Toast Flotante para Error -->
     @error('error')
-        <div id="toastError"
-            class="fixed top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-xl shadow-2xl z-9999 text-sm lg:text-base font-medium flex items-center gap-3">
+        <div x-data="{ show: true }" x-init="setTimeout(() => show = false, 3000)" x-show="show"
+            x-transition:leave="transition ease-in duration-500" x-transition:leave-start="opacity-100"
+            x-transition:leave-end="opacity-0"
+            class="fixed top-5 left-1/2 -translate-x-1/2 bg-red-600 text-white px-6 py-3 lg:px-8 lg:py-4 rounded-xl shadow-2xl z-[9999] text-sm lg:text-base font-medium flex items-center gap-3">
             <svg class="w-5 h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
             <span>{{ $message }}</span>
+            <button @click="show = false" class="ml-2 hover:text-red-200 transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                    </path>
+                </svg>
+            </button>
         </div>
     @enderror
 
-    @script
+    @push('script')
         <script>
-            // Escuchar actualizaciones del menú en tiempo real
-            Echo.channel('menu').listen('ActualizarMenu', (e) => {
-                $wire.cargarMenu();
-            });
-
-            // Ocultar toasts automáticamente después de 3 segundos
-            setTimeout(() => {
-                const toastExito = document.getElementById('toastExito');
-                const toastError = document.getElementById('toastError');
-
-                if (toastExito) {
-                    toastExito.style.opacity = '0';
-                    toastExito.style.transition = 'opacity 0.3s';
-                    setTimeout(() => toastExito.remove(), 300);
-                }
-
-                if (toastError) {
-                    toastError.style.opacity = '0';
-                    toastError.style.transition = 'opacity 0.3s';
-                    setTimeout(() => toastError.remove(), 300);
-                }
-            }, 3000);
-
-            // Búsqueda de productos
-            document.getElementById('buscarInput').addEventListener('input', function(e) {
-                const terminoBusqueda = e.target.value.toLowerCase();
-                filtrarProductos(terminoBusqueda);
-            });
-
-            // Filtrar por categoría
-            function filtrarPorCategoria(categoria) {
-                // Actualizar input de búsqueda con la categoría
+            window.filtrarPorCategoria = function(categoria) {
                 document.getElementById('buscarInput').value = categoria;
 
-                // Actualizar estilos de botones
                 document.querySelectorAll('.boton-categoria').forEach(boton => {
                     const categoriaBoton = boton.getAttribute('data-categoria');
-
                     if (categoriaBoton === categoria) {
                         boton.classList.remove('bg-slate-100', 'hover:bg-slate-200', 'text-slate-600');
                         boton.classList.add('bg-slate-700', 'text-white');
@@ -274,12 +255,10 @@
                     }
                 });
 
-                // Filtrar productos usando el mismo sistema de búsqueda
                 filtrarProductos(categoria);
-            }
+            };
 
-            // Filtrar productos
-            function filtrarProductos(terminoBusqueda) {
+            window.filtrarProductos = function(terminoBusqueda) {
                 const secciones = document.querySelectorAll('.seccion-categoria');
                 let hayResultados = false;
 
@@ -310,7 +289,35 @@
                 });
 
                 document.getElementById('sinResultados').style.display = hayResultados ? 'none' : 'flex';
-            }
+            };
+
+            document.addEventListener('DOMContentLoaded', function() {
+                // Búsqueda de productos
+                const buscarInput = document.getElementById('buscarInput');
+                if (buscarInput) {
+                    buscarInput.addEventListener('input', function(e) {
+                        const terminoBusqueda = e.target.value.toLowerCase();
+                        filtrarProductos(terminoBusqueda);
+                    });
+                }
+
+                // Event listeners para botones de categoría
+                document.querySelectorAll('.boton-categoria').forEach(boton => {
+                    boton.addEventListener('click', function() {
+                        const categoria = this.getAttribute('data-categoria');
+                        filtrarPorCategoria(categoria);
+                    });
+                });
+            });
+        </script>
+    @endpush
+
+    @script
+        <script>
+            // Escuchar actualizaciones del menú en tiempo real
+            Echo.channel('menu').listen('ActualizarMenu', (e) => {
+                $wire.cargarMenu();
+            });
         </script>
     @endscript
 </div>
