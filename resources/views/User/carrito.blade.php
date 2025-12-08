@@ -10,6 +10,8 @@
 </head>
 
 <body>
+    <!-- Componente de navegación -->
+    @include('layouts.navbar')
     <livewire:carrito-usuario />
     @livewireScripts
 </body>
