@@ -7,8 +7,14 @@ use Illuminate\Support\Facades\Http;
 
 class TarjetaLocalController extends Controller
 {
-    private int $id = session()->get('id');
-    private string $token = session()->get('api_token');
+    private int $id;
+    private string $token;
+
+    public function __construct()
+    {
+        $this->id = session()->get('id');
+        $this->token = session()->get('api_token');
+    }
     public function show()
     {
         $tarjetaLocal = [];
