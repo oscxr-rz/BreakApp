@@ -1,5 +1,5 @@
 <nav
-    class="fixed bottom-6 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] md:max-w-[500px] lg:max-w-[700px] xl:max-w-[800px] bg-linear-to-r from-[#951327]/95 via-[#b50001]/95 to-[#951327]/95 backdrop-blur-xl rounded-full px-6 lg:px-10 xl:px-12 py-3 lg:py-3 xl:py-4 shadow-[0_10px_40px_rgba(149,19,39,0.35)] border border-[#fcc88a]/10 z-50">
+    class="fixed bottom-1 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] md:max-w-[500px] lg:max-w-[700px] xl:max-w-[800px] bg-linear-to-r from-[#951327]/95 via-[#b50001]/95 to-[#951327]/95 backdrop-blur-xl rounded-full px-6 lg:px-10 xl:px-12 py-3 lg:py-3 xl:py-4 shadow-[0_10px_40px_rgba(149,19,39,0.35)] border border-[#fcc88a]/10 z-50">
     <div class="flex items-center justify-around gap-2 lg:gap-4">
 
         <!-- Menú Principal -->

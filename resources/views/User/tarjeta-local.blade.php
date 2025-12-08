@@ -9,16 +9,17 @@
     <title>BreakApp - Tarjeta Local</title>
 </head>
 
-<body class="bg-linear-to-br from-[#f2cc88]/20 via-white to-[#fcc88a]/10 min-h-screen pb-32">
+<body>
     <!-- Componente de navegación -->
     @include('layouts.navbar')
 
+    <!-- Header -->
+    <div class="text-center mb-8 bg-[#951327] pt-3 pb-3">
+        <h1 class="text-2xl lg:text-3xl font-bold text-white mb-2">Tarjeta Local</h1>
+        <p class="text-sm lg:text-base text-white" >Gestiona tu saldo</p>
+    </div>
+
     <div class="container mx-auto px-4 py-8 max-w-md lg:max-w-2xl">
-        <!-- Header -->
-        <div class="text-center mb-8">
-            <h1 class="text-2xl lg:text-3xl font-bold text-[#951327] mb-2">Tarjeta Local</h1>
-            <p class="text-sm lg:text-base text-[#768e78]">Gestiona tu saldo</p>
-        </div>
 
         @if (!session('id'))
             <!-- Estado: Sin sesión -->
