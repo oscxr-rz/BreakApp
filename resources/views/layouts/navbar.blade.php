@@ -24,30 +24,6 @@
             @endif
         </a>
 
-        <!-- Carrito -->
-        <a href="{{ route('carrito') }}"
-            class="group flex flex-col lg:flex-row items-center justify-center gap-1 lg:gap-2 w-14 h-14 lg:w-auto lg:h-10 xl:h-11 lg:px-4 xl:px-5 rounded-2xl lg:rounded-full transition-all duration-300 {{ request()->routeIs('carrito') ? 'bg-white shadow-lg scale-105' : 'hover:bg-white/10' }}">
-
-            @if (request()->routeIs('carrito'))
-                <svg class="w-5 h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-[#951327]" fill="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                    </path>
-                </svg>
-                <span
-                    class="text-[10px] lg:text-sm xl:text-base font-semibold text-[#951327] lg:block hidden">Carrito</span>
-            @else
-                <svg class="w-5 h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-[#f2cc88] group-hover:text-white transition-colors"
-                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                    </path>
-                </svg>
-                <span
-                    class="text-[10px] lg:text-sm xl:text-base font-medium text-[#f2cc88] group-hover:text-white transition-colors lg:block hidden">Carrito</span>
-            @endif
-        </a>
-
         <!-- Tarjeta Local -->
         <a href="{{ route('tarjeta.local') }}"
             class="group flex flex-col lg:flex-row items-center justify-center gap-1 lg:gap-2 w-14 h-14 lg:w-auto lg:h-10 xl:h-11 lg:px-4 xl:px-5 rounded-2xl lg:rounded-full transition-all duration-300 {{ request()->routeIs('tarjeta.local') ? 'bg-white shadow-lg scale-105' : 'hover:bg-white/10' }}">

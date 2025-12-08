@@ -34,14 +34,16 @@ class OrdenesUsuario extends Component
     {
         try {
             if ($this->ordenService->ocultarOrden($this->id, $idOrden)) {
-                Session::flash('mensaje', 'Orden eliminada correctamente');
+                $this->dispatch('mensaje-exito', mensaje: 'Orden eliminada correctamente');
+                $this->cargarOrdenes();
             } else {
-                $this->addError('error', 'No se pudo eliminar la orden');
+                $this->dispatch('mensaje-error', mensaje: 'No se pudo eliminar la orden');
             }
         } catch (Exception $e) {
-            $this->addError('error', 'Ocurrió un error al momento de eliminar la orden');
+            $this->dispatch('mensaje-error', mensaje: 'Ocurrió un error al momento de eliminar la orden');
         }
     }
+
     public function render()
     {
         return view('livewire.ordenes-usuario');
