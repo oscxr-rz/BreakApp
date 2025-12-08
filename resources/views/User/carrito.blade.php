@@ -18,6 +18,7 @@
     </div>
 
     <livewire:carrito-usuario />
+    @stack('script')
 </body>
 
 </html>

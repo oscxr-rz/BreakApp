@@ -61,14 +61,29 @@
                                                 @endif
                                             </div>
 
-                                            <!-- Botón eliminar -->
+                                            <!-- Botón eliminar COMPLETO del carrito -->
                                             <button wire:click="quitarDelCarrito({{ $producto['id_producto'] }})"
+                                                wire:loading.attr="disabled"
                                                 class="text-gray-400 hover:text-red-600 transition p-1">
-                                                <svg class="w-5 h-5" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-                                                </svg>
+                                                <span wire:loading.remove
+                                                    wire:target="quitarDelCarrito({{ $producto['id_producto'] }})">
+                                                    <svg class="w-5 h-5" fill="none" stroke="currentColor"
+                                                        viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                    </svg>
+                                                </span>
+                                                <span class="hidden" wire:loading.class.remove="hidden"
+                                                    wire:target="quitarDelCarrito({{ $producto['id_producto'] }})">
+                                                    <svg class="animate-spin w-5 h-5" fill="none"
+                                                        viewBox="0 0 24 24">
+                                                        <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                            stroke="currentColor" stroke-width="4"></circle>
+                                                        <path class="opacity-75" fill="currentColor"
+                                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                                        </path>
+                                                    </svg>
+                                                </span>
                                             </button>
                                         </div>
 
@@ -77,29 +92,63 @@
                                             <span
                                                 class="text-xl font-bold text-gray-900">${{ number_format($producto['precio_unitario'], 2) }}</span>
 
-                                            <!-- Controles cantidad -->
+                                            <!-- Controles cantidad (+ y -) -->
                                             <div class="flex items-center gap-3 bg-gray-100 rounded-lg px-3 py-2">
+                                                <!-- Botón RESTAR cantidad -->
                                                 <button
                                                     wire:click="eliminarAlCarrito({{ $producto['id_producto'] }}, 1)"
+                                                    wire:loading.attr="disabled"
                                                     class="w-8 h-8 flex items-center justify-center hover:bg-white rounded-md transition">
-                                                    <svg class="w-4 h-4 text-gray-700" fill="none"
-                                                        stroke="currentColor" viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" d="M20 12H4" />
-                                                    </svg>
+                                                    <span wire:loading.remove
+                                                        wire:target="eliminarAlCarrito({{ $producto['id_producto'] }}, 1)">
+                                                        <svg class="w-4 h-4 text-gray-700" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M20 12H4" />
+                                                        </svg>
+                                                    </span>
+                                                    <span class="hidden" wire:loading.class.remove="hidden"
+                                                        wire:target="eliminarAlCarrito({{ $producto['id_producto'] }}, 1)">
+                                                        <svg class="animate-spin w-4 h-4" fill="none"
+                                                            viewBox="0 0 24 24">
+                                                            <circle class="opacity-25" cx="12" cy="12"
+                                                                r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                            <path class="opacity-75" fill="currentColor"
+                                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                                            </path>
+                                                        </svg>
+                                                    </span>
                                                 </button>
 
+                                                <!-- Cantidad actual -->
                                                 <span
                                                     class="font-semibold text-gray-900 min-w-8 text-center">{{ $producto['cantidad'] }}</span>
 
+                                                <!-- Botón SUMAR cantidad -->
                                                 <button
                                                     wire:click="agregarAlCarrito({{ $producto['id_producto'] }}, 1)"
+                                                    wire:loading.attr="disabled"
                                                     class="w-8 h-8 flex items-center justify-center bg-blue-600 hover:bg-blue-700 rounded-md transition">
-                                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor"
-                                                        viewBox="0 0 24 24">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" d="M12 4v16m8-8H4" />
-                                                    </svg>
+                                                    <span wire:loading.remove
+                                                        wire:target="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">
+                                                        <svg class="w-4 h-4 text-white" fill="none"
+                                                            stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M12 4v16m8-8H4" />
+                                                        </svg>
+                                                    </span>
+                                                    <span class="hidden" wire:loading.class.remove="hidden"
+                                                        wire:target="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">
+                                                        <svg class="animate-spin w-4 h-4 text-white" fill="none"
+                                                            viewBox="0 0 24 24">
+                                                            <circle class="opacity-25" cx="12" cy="12"
+                                                                r="10" stroke="currentColor" stroke-width="4">
+                                                            </circle>
+                                                            <path class="opacity-75" fill="currentColor"
+                                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                                            </path>
+                                                        </svg>
+                                                    </span>
                                                 </button>
                                             </div>
                                         </div>
@@ -111,7 +160,7 @@
                 </div>
 
                 <!-- Resumen del pedido -->
-                <div class="lg:col-span-4">
+                <div class="lg:col-span-4" x-data="{ expandido: false }">
                     <!-- Desktop - Sidebar sticky -->
                     <div class="hidden lg:block bg-white rounded-xl p-6 shadow-sm sticky top-6">
                         <h2 class="text-lg font-bold text-gray-900 mb-4">Resumen</h2>
@@ -124,6 +173,9 @@
                                 <option value="EFECTIVO">Efectivo</option>
                                 <option value="SALDO">Tarjeta Local</option>
                             </select>
+                            @error('metodo_pago')
+                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <!-- Hora de recogida -->
@@ -131,6 +183,9 @@
                             <label class="block text-sm font-medium text-gray-700 mb-2">Hora de recogida</label>
                             <input type="time" wire:model.live="hora_recogida"
                                 class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition">
+                            @error('hora_recogida')
+                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
 
                         <!-- Saldo disponible -->
@@ -161,7 +216,7 @@
                             </div>
                         @endif
 
-                        <!-- Errores -->
+                        <!-- Errores de productos -->
                         @error('productos')
                             <div class="bg-red-50 border border-red-200 rounded-lg p-3 mb-4">
                                 <p class="text-sm text-red-800">{{ $message }}</p>
@@ -206,24 +261,32 @@
                         @endif
                     </div>
 
-                    <!-- Móvil - Resumen fijo abajo -->
+                    <!-- Móvil - Resumen fijo abajo con Alpine.js -->
                     <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t shadow-2xl z-30">
                         <div class="p-4 pb-24">
                             <!-- Header colapsable -->
-                            <button onclick="toggleResumen()" class="w-full flex items-center justify-between mb-3">
+                            <button @click="expandido = !expandido"
+                                class="w-full flex items-center justify-between mb-3">
                                 <div class="flex items-center gap-2">
                                     <span class="text-sm font-medium text-gray-600">Total</span>
                                     <span class="text-xl font-bold text-blue-600">${{ $total }}</span>
                                 </div>
-                                <svg id="chevron-icon" class="w-5 h-5 text-gray-600 transition-transform"
-                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 text-gray-600 transition-transform"
+                                    :class="expandido ? 'rotate-180' : ''" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 9l-7 7-7-7" />
                                 </svg>
                             </button>
 
-                            <!-- Panel expandible -->
-                            <div id="resumen-panel" class="hidden">
+                            <!-- Panel expandible con transiciones Alpine -->
+                            <div x-show="expandido" x-transition:enter="transition ease-out duration-300"
+                                x-transition:enter-start="opacity-0 transform translate-y-4"
+                                x-transition:enter-end="opacity-100 transform translate-y-0"
+                                x-transition:leave="transition ease-in duration-200"
+                                x-transition:leave-start="opacity-100 transform translate-y-0"
+                                x-transition:leave-end="opacity-0 transform translate-y-4" style="display: none;">
+
                                 <!-- Método de pago -->
                                 <div class="mb-3">
                                     <select wire:model.live="metodo_pago"
@@ -231,6 +294,9 @@
                                         <option value="EFECTIVO">Efectivo</option>
                                         <option value="SALDO">Tarjeta Local</option>
                                     </select>
+                                    @error('metodo_pago')
+                                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
                                 <!-- Hora de recogida -->
@@ -238,9 +304,12 @@
                                     <input type="time" wire:model.live="hora_recogida"
                                         placeholder="Hora de recogida"
                                         class="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm">
+                                    @error('hora_recogida')
+                                        <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
+                                    @enderror
                                 </div>
 
-                                <!-- Saldo disponible -->
+                                <!-- Saldo disponible móvil -->
                                 @if ($metodo_pago === 'SALDO')
                                     <div class="bg-blue-50 rounded-lg p-2 mb-3">
                                         <div class="flex justify-between text-xs">
@@ -251,20 +320,28 @@
                                     </div>
                                 @endif
 
+                                <!-- Alerta saldo insuficiente móvil -->
                                 @if ($saldoLocal['saldo'] < $total && $metodo_pago === 'SALDO')
                                     <div class="bg-red-50 rounded-lg p-2 mb-3">
                                         <p class="text-xs text-red-800">Faltan
                                             ${{ number_format($total - $saldoLocal['saldo'], 2) }}</p>
                                     </div>
                                 @endif
+
+                                <!-- Error productos móvil -->
+                                @error('productos')
+                                    <div class="bg-red-50 rounded-lg p-2 mb-3">
+                                        <p class="text-xs text-red-800">{{ $message }}</p>
+                                    </div>
+                                @enderror
                             </div>
 
-                            <!-- Botón checkout -->
+                            <!-- Botón checkout móvil -->
                             @if ($metodo_pago !== 'SALDO' || $saldoLocal['saldo'] >= $total)
                                 <button wire:click="comprarCarrito" wire:loading.attr="disabled"
                                     class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 rounded-lg font-semibold transition">
-                                    <span wire:loading.remove>Finalizar compra</span>
-                                    <span wire:loading>Procesando...</span>
+                                    <span wire:loading.remove wire:target="comprarCarrito">Finalizar compra</span>
+                                    <span wire:loading wire:target="comprarCarrito">Procesando...</span>
                                 </button>
                             @else
                                 <button disabled
@@ -292,4 +369,41 @@
             </a>
         </div>
     @endif
+
+    <!-- Toast de Mensajes Flotantes -->
+    <div x-data="{
+        show: false,
+        tipo: 'exito',
+        mensaje: ''
+    }"
+        @mostrar-toast.window="
+        tipo = $event.detail.tipo;
+        mensaje = $event.detail.mensaje;
+        show = true;
+        setTimeout(() => show = false, 2000);
+     "
+        x-show="show" x-transition:enter="transition ease-out duration-300"
+        x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+        x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
+        x-transition:leave-end="opacity-0 translate-y-2" :class="tipo === 'exito' ? 'bg-green-600' : 'bg-red-600'"
+        class="fixed top-5 left-1/2 -translate-x-1/2 text-white px-5 py-3 rounded-lg shadow-xl z-[9999] text-sm font-medium flex items-center gap-2.5"
+        style="display: none;">
+
+        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path x-show="tipo === 'exito'" fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                clip-rule="evenodd" />
+            <path x-show="tipo === 'error'" fill-rule="evenodd"
+                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                clip-rule="evenodd" />
+        </svg>
+
+        <span x-text="mensaje"></span>
+
+        <button @click="show = false" class="ml-1 hover:bg-white/20 rounded-full p-1 transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </button>
+    </div>
 </div>
