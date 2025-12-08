@@ -9,17 +9,17 @@
     <title>BreakApp - Tarjeta Local</title>
 </head>
 
-<body>
+<body class="bg-gray-50">
     <!-- Componente de navegación -->
     @include('layouts.navbar')
 
     <!-- Header -->
-    <div class="text-center mb-8 bg-[#951327] pt-3 pb-3">
+    <div class="text-center bg-[#951327] pt-3 pb-3">
         <h1 class="text-2xl lg:text-3xl font-bold text-white mb-2">Tarjeta Local</h1>
-        <p class="text-sm lg:text-base text-white" >Gestiona tu saldo</p>
+        <p class="text-sm lg:text-base text-white">Gestiona tu saldo</p>
     </div>
 
-    <div class="container mx-auto px-4 py-8 max-w-md lg:max-w-2xl">
+    <div class="container mx-auto px-4 py-6 pb-24 max-w-md lg:max-w-2xl">
 
         @if (!session('id'))
             <!-- Estado: Sin sesión -->
@@ -45,7 +45,7 @@
             </div>
         @elseif (!empty($tarjetaLocal))
             <!-- Tarjeta de Crédito Visual -->
-            <div class="mb-8">
+            <div class="mb-6">
                 <div
                     class="relative w-full max-w-[400px] mx-auto aspect-[1.586/1] bg-linear-to-br from-[#951327] via-[#b50001] to-[#951327] rounded-3xl shadow-2xl p-6 lg:p-8 text-white overflow-hidden">
                     <!-- Patrón de fondo decorativo -->
@@ -118,7 +118,7 @@
             </div>
 
             <!-- Detalles de la Tarjeta -->
-            <div class="bg-white rounded-3xl p-6 lg:p-8 shadow-lg border border-[#f2cc88]/30">
+            <div class="bg-white rounded-3xl p-6 lg:p-8 shadow-lg border border-[#f2cc88]/30 mb-6">
                 <h3 class="text-lg lg:text-xl font-bold text-[#951327] mb-4">Detalles de la Tarjeta</h3>
 
                 <div class="space-y-4">

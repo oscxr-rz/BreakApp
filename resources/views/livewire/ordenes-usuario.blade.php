@@ -1,5 +1,5 @@
 <div class="min-h-screen bg-gray-50 py-6">
-    <div class="container mx-auto px-4 max-w-4xl">
+    <div class="container mx-auto px-4 max-w-4xl pb-24">
 
         @if (!session('id'))
             <!-- Sin sesión -->

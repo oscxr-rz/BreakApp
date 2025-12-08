@@ -1,52 +1,52 @@
 <div class="w-full px-4 md:px-6 lg:px-8 py-6">
+    <!-- Header Superior -->
+    <header class="mb-4">
+        <div class="flex items-center justify-between mb-4">
+            <!-- Logo -->
+            <div class="flex items-center gap-2 lg:gap-3">
+                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-[#951327] rounded-full flex items-center justify-center">
+                    <img src="{{ asset('storage/logo.jpg') }}" alt="Logo">
+                </div>
+                <span class="font-semibold text-lg lg:text-xl text-[#951327]">BreakApp</span>
+            </div>
+
+            <!-- Iconos Derecha -->
+            <div class="flex items-center gap-2 lg:gap-3">
+                <a href="{{ route('carrito') }}"
+                    class="relative w-10 h-10 lg:w-11 lg:h-11 flex items-center justify-center hover:bg-[#fcc88a]/20 rounded-full transition-colors">
+                    <svg class="w-6 h-6 lg:w-7 lg:h-7 text-[#951327]" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                        </path>
+                    </svg>
+                </a>
+                <!-- Icono de Notificaciones -->
+                {{-- <a href="" class="w-10 h-10 lg:w-11 lg:h-11 flex items-center justify-center hover:bg-[#fcc88a]/20 rounded-full transition-colors">
+                    <svg class="w-6 h-6 lg:w-7 lg:h-7 text-[#951327]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
+                    </svg>
+                </a> --}}
+            </div>
+        </div>
+
+        <!-- Fecha -->
+        <div class="flex items-center gap-2 text-sm lg:text-base text-[#768e78] mb-4">
+            <span>{{ $menu['fecha']  ?? ''}}</span>
+        </div>
+
+        <!-- Barra de Búsqueda -->
+        <div class="relative">
+            <input type="text" placeholder="Buscar productos..." id="buscarInput"
+                class="w-full bg-[#f2cc88]/10 rounded-xl lg:rounded-2xl px-4 py-3 lg:py-3.5 pl-11 lg:pl-12 text-sm lg:text-base border-none focus:ring-2 focus:ring-[#ea5f3a] transition-all">
+            <svg class="w-5 h-5 lg:w-6 lg:h-6 absolute left-3 lg:left-4 top-1/2 -translate-y-1/2 text-[#768e78]"
+                fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+        </div>
+    </header>
     @if (!empty($menu))
-        <!-- Header Superior -->
-        <header class="mb-4">
-            <div class="flex items-center justify-between mb-4">
-                <!-- Logo -->
-                <div class="flex items-center gap-2 lg:gap-3">
-                    <div class="w-10 h-10 lg:w-12 lg:h-12 bg-[#951327] rounded-full flex items-center justify-center">
-                        <img src="{{ asset('storage/logo.jpg') }}" alt="Logo">
-                    </div>
-                    <span class="font-semibold text-lg lg:text-xl text-[#951327]">BreakApp</span>
-                </div>
-
-                <!-- Iconos Derecha -->
-                <div class="flex items-center gap-2 lg:gap-3">
-                    <a href="{{ route('carrito') }}"
-                        class="relative w-10 h-10 lg:w-11 lg:h-11 flex items-center justify-center hover:bg-[#fcc88a]/20 rounded-full transition-colors">
-                        <svg class="w-6 h-6 lg:w-7 lg:h-7 text-[#951327]" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                            </path>
-                        </svg>
-                    </a>
-                    <!-- Icono de Notificaciones -->
-                    {{-- <a href="" class="w-10 h-10 lg:w-11 lg:h-11 flex items-center justify-center hover:bg-[#fcc88a]/20 rounded-full transition-colors">
-                        <svg class="w-6 h-6 lg:w-7 lg:h-7 text-[#951327]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path>
-                        </svg>
-                    </a> --}}
-                </div>
-            </div>
-
-            <!-- Fecha -->
-            <div class="flex items-center gap-2 text-sm lg:text-base text-[#768e78] mb-4">
-                <span>{{ $menu['fecha'] }}</span>
-            </div>
-
-            <!-- Barra de Búsqueda -->
-            <div class="relative">
-                <input type="text" placeholder="Buscar productos..." id="buscarInput"
-                    class="w-full bg-[#f2cc88]/10 rounded-xl lg:rounded-2xl px-4 py-3 lg:py-3.5 pl-11 lg:pl-12 text-sm lg:text-base border-none focus:ring-2 focus:ring-[#ea5f3a] transition-all">
-                <svg class="w-5 h-5 lg:w-6 lg:h-6 absolute left-3 lg:left-4 top-1/2 -translate-y-1/2 text-[#768e78]"
-                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                </svg>
-            </div>
-        </header>
 
         <!-- Sección de Categorías -->
         <section class="mb-6 lg:mb-8">

@@ -16,7 +16,6 @@
     @elseif (!empty($carrito['productos']))
         <!-- Carrito con productos -->
         <div class="max-w-7xl mx-auto px-4 py-6">
-            <h1 class="text-2xl font-bold text-gray-900 mb-6">Mi carrito</h1>
 
             <div class="lg:grid lg:grid-cols-12 lg:gap-8">
                 <!-- Lista de productos -->

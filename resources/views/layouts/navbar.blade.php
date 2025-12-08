@@ -1,10 +1,10 @@
 <nav
-    class="fixed bottom-1 left-1/2 -translate-x-1/2 w-[90%] max-w-[400px] md:max-w-[500px] lg:max-w-[700px] xl:max-w-[800px] bg-linear-to-r from-[#951327]/95 via-[#b50001]/95 to-[#951327]/95 backdrop-blur-xl rounded-full px-6 lg:px-10 xl:px-12 py-3 lg:py-3 xl:py-4 shadow-[0_10px_40px_rgba(149,19,39,0.35)] border border-[#fcc88a]/10 z-50">
-    <div class="flex items-center justify-around gap-2 lg:gap-4">
+    class="fixed bottom-2 left-1/2 -translate-x-1/2 w-[92%] max-w-[380px] md:max-w-[500px] lg:max-w-[700px] xl:max-w-[800px] bg-linear-to-r from-[#951327]/95 via-[#b50001]/95 to-[#951327]/95 backdrop-blur-xl rounded-full px-4 lg:px-10 xl:px-12 py-2.5 lg:py-3 xl:py-4 shadow-[0_10px_40px_rgba(149,19,39,0.35)] border border-[#fcc88a]/10 z-50">
+    <div class="flex items-center justify-around gap-1 lg:gap-4">
 
         <!-- Menú Principal -->
         <a href="{{ route('index') }}"
-            class="group flex flex-col lg:flex-row items-center justify-center gap-1 lg:gap-2 w-14 h-14 lg:w-auto lg:h-10 xl:h-11 lg:px-4 xl:px-5 rounded-2xl lg:rounded-full transition-all duration-300 {{ request()->routeIs('index') ? 'bg-white shadow-lg scale-105' : 'hover:bg-white/10' }}">
+            class="group flex flex-col lg:flex-row items-center justify-center gap-0.5 lg:gap-2 w-16 h-12 lg:w-auto lg:h-10 xl:h-11 lg:px-4 xl:px-5 rounded-xl lg:rounded-full transition-all duration-300 {{ request()->routeIs('index') ? 'bg-white shadow-lg scale-105' : 'hover:bg-white/10' }}">
 
             @if (request()->routeIs('index'))
                 <svg class="w-5 h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-[#951327]" fill="currentColor" viewBox="0 0 24 24">
@@ -12,7 +12,7 @@
                         d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                 </svg>
                 <span
-                    class="text-[10px] lg:text-sm xl:text-base font-semibold text-[#951327] lg:block hidden">Inicio</span>
+                    class="text-[9px] lg:text-sm xl:text-base font-semibold text-[#951327] lg:block hidden">Inicio</span>
             @else
                 <svg class="w-5 h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-[#f2cc88] group-hover:text-white transition-colors"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -20,13 +20,13 @@
                         d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
                 </svg>
                 <span
-                    class="text-[10px] lg:text-sm xl:text-base font-medium text-[#f2cc88] group-hover:text-white transition-colors lg:block hidden">Inicio</span>
+                    class="text-[9px] lg:text-sm xl:text-base font-medium text-[#f2cc88] group-hover:text-white transition-colors lg:block hidden">Inicio</span>
             @endif
         </a>
 
         <!-- Tarjeta Local -->
         <a href="{{ route('tarjeta.local') }}"
-            class="group flex flex-col lg:flex-row items-center justify-center gap-1 lg:gap-2 w-14 h-14 lg:w-auto lg:h-10 xl:h-11 lg:px-4 xl:px-5 rounded-2xl lg:rounded-full transition-all duration-300 {{ request()->routeIs('tarjeta.local') ? 'bg-white shadow-lg scale-105' : 'hover:bg-white/10' }}">
+            class="group flex flex-col lg:flex-row items-center justify-center gap-0.5 lg:gap-2 w-16 h-12 lg:w-auto lg:h-10 xl:h-11 lg:px-4 xl:px-5 rounded-xl lg:rounded-full transition-all duration-300 {{ request()->routeIs('tarjeta.local') ? 'bg-white shadow-lg scale-105' : 'hover:bg-white/10' }}">
 
             @if (request()->routeIs('tarjeta.local'))
                 <svg class="w-5 h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-[#951327]" fill="currentColor" viewBox="0 0 24 24">
@@ -35,7 +35,7 @@
                     </path>
                 </svg>
                 <span
-                    class="text-[10px] lg:text-sm xl:text-base font-semibold text-[#951327] lg:block hidden">Tarjeta</span>
+                    class="text-[9px] lg:text-sm xl:text-base font-semibold text-[#951327] lg:block hidden">Tarjeta</span>
             @else
                 <svg class="w-5 h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-[#f2cc88] group-hover:text-white transition-colors"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -44,13 +44,13 @@
                     </path>
                 </svg>
                 <span
-                    class="text-[10px] lg:text-sm xl:text-base font-medium text-[#f2cc88] group-hover:text-white transition-colors lg:block hidden">Tarjeta</span>
+                    class="text-[9px] lg:text-sm xl:text-base font-medium text-[#f2cc88] group-hover:text-white transition-colors lg:block hidden">Tarjeta</span>
             @endif
         </a>
 
         <!-- Órdenes -->
         <a href="{{ route('ordenes') }}"
-            class="group flex flex-col lg:flex-row items-center justify-center gap-1 lg:gap-2 w-14 h-14 lg:w-auto lg:h-10 xl:h-11 lg:px-4 xl:px-5 rounded-2xl lg:rounded-full transition-all duration-300 {{ request()->routeIs('ordenes') ? 'bg-white shadow-lg scale-105' : 'hover:bg-white/10' }}">
+            class="group flex flex-col lg:flex-row items-center justify-center gap-0.5 lg:gap-2 w-16 h-12 lg:w-auto lg:h-10 xl:h-11 lg:px-4 xl:px-5 rounded-xl lg:rounded-full transition-all duration-300 {{ request()->routeIs('ordenes') ? 'bg-white shadow-lg scale-105' : 'hover:bg-white/10' }}">
 
             @if (request()->routeIs('ordenes'))
                 <svg class="w-5 h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-[#951327]" fill="currentColor" viewBox="0 0 24 24">
@@ -59,7 +59,7 @@
                     </path>
                 </svg>
                 <span
-                    class="text-[10px] lg:text-sm xl:text-base font-semibold text-[#951327] lg:block hidden">Órdenes</span>
+                    class="text-[9px] lg:text-sm xl:text-base font-semibold text-[#951327] lg:block hidden">Órdenes</span>
             @else
                 <svg class="w-5 h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-[#f2cc88] group-hover:text-white transition-colors"
                     fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,7 +68,7 @@
                     </path>
                 </svg>
                 <span
-                    class="text-[10px] lg:text-sm xl:text-base font-medium text-[#f2cc88] group-hover:text-white transition-colors lg:block hidden">Órdenes</span>
+                    class="text-[9px] lg:text-sm xl:text-base font-medium text-[#f2cc88] group-hover:text-white transition-colors lg:block hidden">Órdenes</span>
             @endif
         </a>
     </div>
