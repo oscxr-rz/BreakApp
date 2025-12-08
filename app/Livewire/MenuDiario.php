@@ -39,12 +39,12 @@ class MenuDiario extends Component
     {
         try {
             if ($this->carritoService->agregar($this->id, $idProducto, $cantidad)) {
-                Session::flash('mensaje', 'Agregado correctamente');
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Agregado correctamente');
             } else {
-                $this->addError('error', 'No se pudo agregar el producto al carrito');
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo agregar el producto al carrito');
             }
         } catch (Exception $e) {
-            $this->addError('error', 'Ocurrió un error al momento de agregar el producto al carrito');
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al momento de agregar el producto al carrito');
         }
     }
     public function render()
