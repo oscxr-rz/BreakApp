@@ -34,13 +34,13 @@ class OrdenesUsuario extends Component
     {
         try {
             if ($this->ordenService->ocultarOrden($this->id, $idOrden)) {
-                $this->dispatch('mensaje-exito', mensaje: 'Orden eliminada correctamente');
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Orden eliminada correctamente');
                 $this->cargarOrdenes();
             } else {
-                $this->dispatch('mensaje-error', mensaje: 'No se pudo eliminar la orden');
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo eliminar la orden');
             }
         } catch (Exception $e) {
-            $this->dispatch('mensaje-error', mensaje: 'Ocurrió un error al momento de eliminar la orden');
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al momento de eliminar la orden');
         }
     }
 

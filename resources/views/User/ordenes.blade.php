@@ -9,14 +9,8 @@
     <title>BreakApp - Órdenes</title>
 </head>
 
-<body>
+<body class="pb-20 lg:pb-24">
     @include('layouts.navbar')
-
-    <!-- Header -->
-    <div class="text-center mb-8 bg-[#951327] p-8 shadow-lg">
-        <h1 class="text-3xl font-bold text-white mb-2">Mis Órdenes</h1>
-        <p class="text-white/90">Historial de pedidos</p>
-    </div>
     <livewire:ordenes-usuario />
     @stack('script')
 </body>

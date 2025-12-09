@@ -9,7 +9,7 @@
     <title>BreakApp - Tarjeta Local</title>
 </head>
 
-<body class="bg-gray-50">
+<body class="pb-20 lg:pb-24">
     @include('layouts.navbar')
     <livewire:tarjeta-local-usuario />
 </body>

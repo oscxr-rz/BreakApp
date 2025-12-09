@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Services\TarjetaLocalService;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Session;
 use Livewire\Component;
 
 class TarjetaLocalUsuario extends Component
@@ -19,7 +20,8 @@ class TarjetaLocalUsuario extends Component
 
     public function mount()
     {
-        $this->id = session()->get('id') ?? 0;
+        $this->id = Session::get('id') ?? 0;
+        $this->cargarTarjeta();
     }
 
     public function cargarTarjeta()
