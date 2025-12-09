@@ -6,8 +6,11 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index')->name('index');
 
-Route::view('/singup', 'auth.singup')->name('singup');
-Route::view('/login', 'auth.login')->name('login');
+
+Route::middleware('auth.guest')->group(function () {
+    Route::view('/singup', 'auth.singup')->name('singup');
+    Route::view('/login', 'auth.login')->name('login');
+});
 
 Route::view('/mi-cuenta', 'user.cuenta')->name('cuenta');
 Route::view('/carrito', 'user.carrito')->name('carrito');
@@ -18,4 +21,3 @@ Route::view('/ordenes', 'user.ordenes')->name('ordenes');
 Route::view('/admin', 'admin.dashboard')->name('dashboard');
 Route::view('/categorias', 'admin.categorias')->name('admin.categorias');
 Route::view('/productos', 'admin.productos')->name('admin.productos');
-

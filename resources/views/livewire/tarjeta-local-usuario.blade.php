@@ -11,7 +11,7 @@
                 <h2 class="text-xl font-semibold text-gray-900 mb-2">Acceso Requerido</h2>
                 <p class="text-gray-500 text-sm mb-6">Inicia sesión para acceder a los datos de tu tarjeta</p>
                 <a href="{{ route('login') }}"
-                    class="inline-block w-full py-3 bg-gradient-to-r from-[#951327] to-[#b50001] text-white rounded-xl font-medium hover:shadow-lg transition-all">
+                    class="inline-block w-full py-3 bg-linear-to-r from-[#951327] to-[#b50001] text-white rounded-xl font-medium hover:shadow-lg transition-all">
                     Iniciar Sesión
                 </a>
             </div>
@@ -34,7 +34,7 @@
             <!-- Tarjeta Visual -->
             <div class="bg-white px-6 py-8">
                 <div
-                    class="relative w-full max-w-[380px] mx-auto aspect-[1.586/1] bg-gradient-to-br from-[#951327] via-[#b50001] to-[#951327] rounded-3xl shadow-xl p-6 text-white overflow-hidden">
+                    class="relative w-full max-w-[380px] mx-auto aspect-[1.586/1] bg-linear-to-br from-[#951327] via-[#b50001] to-[#951327] rounded-3xl shadow-xl p-6 text-white overflow-hidden">
                     <!-- Patrón decorativo -->
                     <div class="absolute inset-0 opacity-10">
                         <div
@@ -52,7 +52,7 @@
                                 <p class="text-xs opacity-80 mb-1">Tarjeta Local</p>
                                 <p class="text-lg font-bold">BreakApp</p>
                             </div>
-                            <div class="w-10 h-10 bg-gradient-to-br from-[#fcc88a] to-[#f2cc88] rounded-lg"></div>
+                            <div class="w-10 h-10 bg-linear-to-br from-[#fcc88a] to-[#f2cc88] rounded-lg"></div>
                         </div>
 
                         <div>

@@ -9,12 +9,8 @@
     <title>BreakApp - Carrito</title>
 </head>
 
-<body>
+<body class="pb-20 lg:pb-24">
     @include('layouts.navbar')
-    <div class="text-center mb-8 bg-[#951327] pt-3 pb-3">
-        <h1 class="text-2xl lg:text-3xl font-bold text-white mb-2">Mi Carrito</h1>
-    </div>
-
     <livewire:carrito-usuario />
     @stack('script')
 </body>
