@@ -10,7 +10,6 @@
 </head>
 
 <body>
-    <!-- Componente de navegación -->
     @include('layouts.navbar')
 
     <!-- Header -->

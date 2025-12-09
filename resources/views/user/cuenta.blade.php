@@ -6,7 +6,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <title>BreakApp - Cuenta</title>
 </head>
-<body>
+<body class="pb-20 lg:pb-24">
+    @include('layouts.navbar')
     <livewire:cuenta-usuario />
     @stack('script')
 </body>

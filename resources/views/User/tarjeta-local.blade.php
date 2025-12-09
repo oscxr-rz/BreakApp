@@ -10,7 +10,6 @@
 </head>
 
 <body class="bg-gray-50">
-    <!-- Componente de navegación -->
     @include('layouts.navbar')
 
     <!-- Header -->

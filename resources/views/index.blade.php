@@ -9,7 +9,7 @@
     <title>BreakApp</title>
 </head>
 
-<body class="bg-white pb-24">
+<body class="bg-white pb-20 lg:pb-24">
 
     <!-- Componente de navegación -->
     @include('layouts.navbar')

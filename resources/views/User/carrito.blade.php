@@ -10,9 +10,7 @@
 </head>
 
 <body>
-    <!-- Componente de navegación -->
     @include('layouts.navbar')
-
     <div class="text-center mb-8 bg-[#951327] pt-3 pb-3">
         <h1 class="text-2xl lg:text-3xl font-bold text-white mb-2">Mi Carrito</h1>
     </div>
