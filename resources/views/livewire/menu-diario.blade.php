@@ -12,6 +12,18 @@
 
             <!-- Iconos Derecha -->
             <div class="flex items-center gap-2 lg:gap-3">
+                @if (!session('id'))
+                    <a href="{{ route('login') }}"
+                        class="flex items-center gap-2 px-3 py-2 lg:px-4 lg:py-2.5 bg-[#951327] hover:bg-[#7a0f1f] text-white rounded-xl transition-all">
+                        <svg class="w-5 h-5 lg:w-5 lg:h-5" fill="none" stroke="currentColor" stroke-width="1.5"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                        </svg>
+                        <span class="text-sm lg:text-base font-medium">Iniciar sesión</span>
+                    </a>
+                @endif
+
                 <a href="{{ route('carrito') }}"
                     class="relative w-10 h-10 lg:w-11 lg:h-11 flex items-center justify-center hover:bg-[#fcc88a]/20 rounded-full transition-colors">
                     <svg class="w-6 h-6 lg:w-7 lg:h-7 text-[#951327]" fill="none" stroke="currentColor"
@@ -32,7 +44,7 @@
 
         <!-- Fecha -->
         <div class="flex items-center gap-2 text-sm lg:text-base text-[#768e78] mb-4">
-            <span>{{ $menu['fecha']  ?? ''}}</span>
+            <span>{{ $menu['fecha'] ?? '' }}</span>
         </div>
 
         <!-- Barra de Búsqueda -->
@@ -132,31 +144,31 @@
 
                                         @if (session('id'))
                                             <button wire:click="agregarAlCarrito({{ $producto['id_producto'] }}, 1)"
-                                            wire:loading.attr="disabled"
-                                            class="bg-[#ea5f3a] hover:bg-[#951327] disabled:bg-[#768e78] text-white px-3 lg:px-4 py-2.5 lg:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 active:scale-95 text-sm lg:text-base shadow-md hover:shadow-lg"
-                                            @if ($producto['cantidad_disponible'] <= 0) disabled @endif>
-                                            <span wire:loading.remove
-                                                wire:target="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">
-                                                <svg class="w-5 h-5 lg:w-6 lg:h-6" fill="none" stroke="currentColor"
-                                                    viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round"
-                                                        stroke-width="2"
-                                                        d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
-                                                    </path>
-                                                </svg>
-                                            </span>
-                                            <span wire:loading
-                                                wire:target="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">
-                                                <svg class="animate-spin w-5 h-5 lg:w-6 lg:h-6" fill="none"
-                                                    viewBox="0 0 24 24">
-                                                    <circle class="opacity-25" cx="12" cy="12" r="10"
-                                                        stroke="currentColor" stroke-width="4"></circle>
-                                                    <path class="opacity-75" fill="currentColor"
-                                                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                                    </path>
-                                                </svg>
-                                            </span>
-                                        </button>
+                                                wire:loading.attr="disabled"
+                                                class="bg-[#ea5f3a] hover:bg-[#951327] disabled:bg-[#768e78] text-white px-3 lg:px-4 py-2.5 lg:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 active:scale-95 text-sm lg:text-base shadow-md hover:shadow-lg"
+                                                @if ($producto['cantidad_disponible'] <= 0) disabled @endif>
+                                                <span wire:loading.remove
+                                                    wire:target="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">
+                                                    <svg class="w-5 h-5 lg:w-6 lg:h-6" fill="none"
+                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                                <span wire:loading
+                                                    wire:target="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">
+                                                    <svg class="animate-spin w-5 h-5 lg:w-6 lg:h-6" fill="none"
+                                                        viewBox="0 0 24 24">
+                                                        <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                            stroke="currentColor" stroke-width="4"></circle>
+                                                        <path class="opacity-75" fill="currentColor"
+                                                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                                        </path>
+                                                    </svg>
+                                                </span>
+                                            </button>
                                         @endif
                                     </div>
                                 </div>
@@ -202,35 +214,33 @@
         mensaje: ''
     }"
         @mostrar-toast.window="
-        tipo = $event.detail.tipo;
-        mensaje = $event.detail.mensaje;
-        show = true;
-        setTimeout(() => show = false, 2000);
-     "
+    tipo = $event.detail.tipo;
+    mensaje = $event.detail.mensaje;
+    show = true;
+    setTimeout(() => show = false, 3000);
+ "
         x-show="show" x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-2"
-        :class="tipo === 'exito' ? 'bg-[#768e78]' : 'bg-[#e79897]'"
-        class="fixed top-5 left-1/2 -translate-x-1/2 text-white px-5 py-3 rounded-2xl shadow-xl z-[9999] text-sm font-medium flex items-center gap-2.5 backdrop-blur-sm">
+        class="fixed top-6 right-6 px-6 py-4 rounded-2xl shadow-xl z-50 transform transition-all duration-300"
+        :class="tipo === 'exito'
+            ?
+            'bg-linear-to-r from-green-500 to-emerald-500 text-white' :
+            'bg-linear-to-r from-red-500 to-pink-500 text-white'"
+        style="display: none;">
 
-        <!-- Icono dinámico -->
-        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-            <path x-show="tipo === 'exito'" fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                clip-rule="evenodd" />
-            <path x-show="tipo === 'error'" fill-rule="evenodd"
-                d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
-                clip-rule="evenodd" />
-        </svg>
-
-        <span x-text="mensaje"></span>
-
-        <button @click="show = false" class="ml-1 hover:bg-white/20 rounded-full p-1 transition-colors">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        <div class="flex items-center gap-3">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <path x-show="tipo === 'exito'" fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                    clip-rule="evenodd" />
+                <path x-show="tipo === 'error'" fill-rule="evenodd"
+                    d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"
+                    clip-rule="evenodd" />
             </svg>
-        </button>
+            <span class="font-medium text-sm" x-text="mensaje"></span>
+        </div>
     </div>
 
     @push('script')

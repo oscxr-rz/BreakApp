@@ -10,11 +10,8 @@
 </head>
 
 <body class="bg-white pb-20 lg:pb-24">
-
-    <!-- Componente de navegación -->
     @include('layouts.navbar')
 
-    <!-- Contenido principal -->
     <div class="max-w-7xl mx-auto">
         <livewire:menu-diario />
     </div>
