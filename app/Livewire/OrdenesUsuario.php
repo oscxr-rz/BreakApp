@@ -21,7 +21,7 @@ class OrdenesUsuario extends Component
 
     public function mount()
     {
-        $this->id = Session::get('id');
+        $this->id = Session::get('id') ?? 0;
         $this->cargarOrdenes();
     }
 

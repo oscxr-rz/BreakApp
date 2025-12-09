@@ -30,8 +30,8 @@ class Register extends Component
             'telefono' => 'required|numeric|min_digits:10|max_digits:10',
             'password' => 'required|string|min:6',
             'passwordVerificacion' => 'required|string|min:6|same:password',
-            'grupo' => 'nullable|string',
-            'semestre' => 'nullable|string'
+            'grupo' => 'nullable|string|in:A,B,C,D,E,F,G',
+            'semestre' => 'nullable|string|in:1,2,3,4,5,6'
         ];
     }
 

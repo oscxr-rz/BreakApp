@@ -71,5 +71,27 @@
                     class="text-[9px] lg:text-sm xl:text-base font-medium text-[#f2cc88] group-hover:text-white transition-colors lg:block hidden">Órdenes</span>
             @endif
         </a>
+
+        <!-- Perfil -->
+        <a href="{{ route('cuenta') }}"
+            class="group flex flex-col lg:flex-row items-center justify-center gap-0.5 lg:gap-2 w-16 h-12 lg:w-auto lg:h-10 xl:h-11 lg:px-4 xl:px-5 rounded-xl lg:rounded-full transition-all duration-300 {{ request()->routeIs('cuenta') ? 'bg-white shadow-lg scale-105' : 'hover:bg-white/10' }}">
+
+            @if (request()->routeIs('cuenta'))
+                <svg class="w-5 h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-[#951327]" fill="currentColor" viewBox="0 0 24 24">
+                    <path
+                        d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                </svg>
+                <span
+                    class="text-[9px] lg:text-sm xl:text-base font-semibold text-[#951327] lg:block hidden">Cuenta</span>
+            @else
+                <svg class="w-5 h-5 lg:w-5 lg:h-5 xl:w-6 xl:h-6 text-[#f2cc88] group-hover:text-white transition-colors"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span
+                    class="text-[9px] lg:text-sm xl:text-base font-medium text-[#f2cc88] group-hover:text-white transition-colors lg:block hidden">Cuenta</span>
+            @endif
+        </a>
     </div>
 </nav>

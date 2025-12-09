@@ -9,6 +9,8 @@ use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
+use function Pest\Laravel\session;
+
 class CuentaUsuario extends Component
 {
 
@@ -36,7 +38,7 @@ class CuentaUsuario extends Component
 
     public function mount()
     {
-        $this->id = session()->get('id');
+        $this->id = Session::get('id') ?? 0;
         $this->cargarUsuario();
     }
 
@@ -44,9 +46,13 @@ class CuentaUsuario extends Component
     {
         $this->usuario = $this->usuarioService->obtenerUsuario($this->id) ?? [];
 
-        if ($this->usuario['grupo']) {
-            $this->semestre = $this->usuario['grupo'][0];
-            $this->grupo = $this->usuario['grupo'][1];
+        if ($this->usuario) {
+            $this->nombre = $this->usuario['nombre'];
+            $this->apellido = $this->usuario['apellido'];
+            $this->email = $this->usuario['email'];
+            $this->telefono = $this->usuario['telefono'];
+            $this->semestre = $this->usuario['grupo'][0] ?? null;
+            $this->grupo = $this->usuario['grupo'][1] ?? null;
         }
     }
 
@@ -57,8 +63,8 @@ class CuentaUsuario extends Component
             'apellido' => 'required|string',
             'email' => 'required|email',
             'telefono' => 'required|numeric|min_digits:10|max_digits:10',
-            'grupo' => 'nullable|string',
-            'semestre' => 'nullable|string'
+            'grupo' => 'nullable|string|in:A,B,C,D,E,F,G',
+            'semestre' => 'nullable|string|in:1,2,3,4,5,6'
         ];
     }
     protected function reglasPassword()
@@ -122,26 +128,81 @@ class CuentaUsuario extends Component
             ]);
 
             if ($this->usuarioService->img($this->id, $this->imagen)) {
-                Session::flash('mensaje', 'se envió correctamente');
                 $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Imagen actualizada correctamente');
                 $this->reset('imagen');
                 $this->cargarUsuario();
             } else {
                 $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo actualizar la imagen');
-                Session::flash('mensaje', 'no se envio');
             }
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
             $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al actualizar la imagen');
-                Session::flash('mensaje', 'error');
         }
     }
-    public function actualizarDatos() {}
+    public function actualizarDatos()
+    {
+        try {
+            $this->validate();
 
-    public function actualizarPassword() {}
+            $this->gradoGrupo = ($this->semestre && $this->grupo)
+                ? $this->semestre . $this->grupo
+                : null;
 
-    public function desactivarCuenta() {}
+            if ($this->usuarioService->datos($this->id, $this->nombre, $this->apellido, $this->email, $this->telefono, $this->gradoGrupo)) {
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Datos actualizados correctamente');
+                $this->reset('nombre', 'apellido', 'email', 'telefono', 'semestre', 'grupo');
+                $this->cargarUsuario();
+            } else {
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo actualizar los datos');
+            }
+        } catch (ValidationException $e) {
+            throw $e;
+        } catch (Exception $e) {
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al actualizar los datos');
+        }
+    }
+
+    public function actualizarPassword()
+    {
+        try {
+            $this->validate();
+
+            if ($this->usuarioService->password($this->id, $this->password, $this->newPassword)) {
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Contraseña actualizada correctamente');
+                $this->reset('nombre', 'apellido', 'email', 'telefono', 'semestre', 'grupo');
+                $this->cargarUsuario();
+            } else {
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo actualizar la contraseña');
+            }
+        } catch (ValidationException $e) {
+            throw $e;
+        } catch (Exception $e) {
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al actualizar la contraseña');
+        }
+    }
+
+    public function desactivarCuenta()
+    {
+        try {
+            $this->validate([
+                'password' => 'required|string|min:6'
+            ]);
+
+            if ($this->usuarioService->desactivar($this->id, $this->password)) {
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Cuenta desactiavada correctamente');
+                $this->reset('password');
+                Session::flush();
+                $this->cargarUsuario();
+            } else {
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo desactivar la cuenta');
+            }
+        } catch (ValidationException $e) {
+            throw $e;
+        } catch (Exception $e) {
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al desactivar la cuenta');
+        }
+    }
     public function render()
     {
         return view('livewire.cuenta-usuario');

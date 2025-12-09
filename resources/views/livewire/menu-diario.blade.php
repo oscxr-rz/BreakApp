@@ -130,7 +130,8 @@
                                             </p>
                                         </div>
 
-                                        <button wire:click="agregarAlCarrito({{ $producto['id_producto'] }}, 1)"
+                                        @if (session('id'))
+                                            <button wire:click="agregarAlCarrito({{ $producto['id_producto'] }}, 1)"
                                             wire:loading.attr="disabled"
                                             class="bg-[#ea5f3a] hover:bg-[#951327] disabled:bg-[#768e78] text-white px-3 lg:px-4 py-2.5 lg:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 active:scale-95 text-sm lg:text-base shadow-md hover:shadow-lg"
                                             @if ($producto['cantidad_disponible'] <= 0) disabled @endif>
@@ -156,6 +157,7 @@
                                                 </svg>
                                             </span>
                                         </button>
+                                        @endif
                                     </div>
                                 </div>
                             </div>

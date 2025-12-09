@@ -13,7 +13,7 @@ class CarritoService
 
     public function __construct()
     {
-        $this->token = Session::get('api_token');
+        $this->token = Session::get('api_token') ?? '';
         $this->apiHost = env('API_HOST');
     }
 

@@ -12,8 +12,8 @@ class TarjetaLocalController extends Controller
 
     public function __construct()
     {
-        $this->id = session()->get('id');
-        $this->token = session()->get('api_token');
+        $this->id = session()->get('id') ?? 0;
+        $this->token = session()->get('api_token') ?? '';
     }
     public function show()
     {

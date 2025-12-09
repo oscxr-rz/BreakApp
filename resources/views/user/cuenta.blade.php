@@ -8,6 +8,6 @@
 </head>
 <body>
     <livewire:cuenta-usuario />
-    @livewireScripts
+    @stack('script')
 </body>
 </html>
