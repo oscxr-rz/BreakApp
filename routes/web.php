@@ -1,11 +1,14 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleController;
 use App\Http\Controllers\CarritoController;
 use App\Http\Controllers\TarjetaLocalController;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index')->name('index');
 
+Route::get('auth/google', [GoogleController::class, 'redirectToGoole'])->name('auth.google');
+Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
 Route::middleware('auth.guest')->group(function () {
     Route::view('/login', 'auth.login')->name('login');

@@ -6,6 +6,8 @@ use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
 
+use function Pest\Laravel\session;
+
 class UsuarioService
 {
     private string $token;
@@ -71,6 +73,16 @@ class UsuarioService
                 ]);
 
             return $response->successful();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
+    public function loguot()
+    {
+        try {
+            Session::flush();
+            return !Session::has('id');
         } catch (Exception $e) {
             throw $e;
         }
