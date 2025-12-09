@@ -60,7 +60,7 @@
 
                     @if ($imagen)
                         <button type="submit" wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                            class="w-full py-3 bg-blue-500 text-white rounded-xl font-medium hover:bg-blue-600 transition-colors mb-4">
+                            class="w-full py-3 bg-linear-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all mb-4">
                             <span class="block" wire:loading.class="hidden" wire:target="actualizarImg">
                                 Guardar Imagen
                             </span>
@@ -211,7 +211,7 @@
 
                     <div class="px-6 py-4">
                         <button type="submit" wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                            class="w-full py-3 bg-blue-500 text-white rounded-xl font-medium hover:bg-blue-600 transition-colors">
+                            class="w-full py-3 bg-linear-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all">
                             <span class="block" wire:loading.class="hidden" wire:target="actualizarDatos">
                                 Guardar Cambios
                             </span>
@@ -232,9 +232,20 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-xs text-gray-500 mb-2">Contraseña Actual</label>
-                                    <input type="password" wire:model.live="password" autocomplete="current-password"
-                                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 transition-colors" 
-                                        placeholder="••••••••">
+                                    <div class="relative">
+                                        <input id="current-password" type="password" wire:model.live="password" autocomplete="current-password"
+                                            class="w-full px-4 py-3 pr-12 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-500 transition-colors" 
+                                            placeholder="••••••••">
+                                        <button type="button" onclick="togglePassword('current')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                            <svg id="current-eye-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                            </svg>
+                                            <svg id="current-eye-closed" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                                            </svg>
+                                        </button>
+                                    </div>
                                     @error('password')
                                         <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
                                     @enderror
@@ -242,9 +253,20 @@
 
                                 <div>
                                     <label class="block text-xs text-gray-500 mb-2">Nueva Contraseña</label>
-                                    <input type="password" wire:model.live="newPassword" autocomplete="new-password"
-                                        class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-blue-500 transition-colors" 
-                                        placeholder="••••••••">
+                                    <div class="relative">
+                                        <input id="new-password" type="password" wire:model.live="newPassword" autocomplete="new-password"
+                                            class="w-full px-4 py-3 pr-12 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-500 transition-colors" 
+                                            placeholder="••••••••">
+                                        <button type="button" onclick="togglePassword('new')" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                            <svg id="new-eye-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                            </svg>
+                                            <svg id="new-eye-closed" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                                            </svg>
+                                        </button>
+                                    </div>
                                     @error('newPassword')
                                         <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
                                     @enderror
@@ -252,7 +274,7 @@
                             </div>
 
                             <button type="submit" wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                                class="w-full mt-4 py-3 bg-purple-500 text-white rounded-xl font-medium hover:bg-purple-600 transition-colors">
+                                class="w-full mt-4 py-3 bg-linear-to-r from-purple-500 to-pink-500 text-white rounded-xl font-medium hover:shadow-lg transition-all">
                                 <span class="block" wire:loading.class="hidden" wire:target="actualizarPassword">
                                     Actualizar Contraseña
                                 </span>
@@ -278,8 +300,8 @@
         </div>
 
         <!-- Modal Desactivar Cuenta -->
-        <div id="modal-desactivar" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
-            <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6" onclick="event.stopPropagation()">
+        <div id="modal-desactivar" class="hidden fixed inset-0 bg-white/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 border border-gray-100">
                 <div class="flex items-center justify-center w-14 h-14 bg-red-100 rounded-full mx-auto mb-4">
                     <svg class="w-7 h-7 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
@@ -292,22 +314,33 @@
                 <form wire:submit.prevent="desactivarCuenta">
                     <input type="email" name="email" autocomplete="username" class="hidden" value="{{ $usuario['email'] ?? '' }}">
                     <div class="mb-4">
-                        <input type="password" wire:model.live="password" autocomplete="current-password"
-                            class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-red-500" 
-                            placeholder="Confirmar contraseña">
-                        @error('password')
+                        <div class="relative">
+                            <input id="modal-password" type="password" wire:model="passwordConfirm" autocomplete="current-password"
+                                class="w-full px-4 py-3 pr-12 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-red-500" 
+                                placeholder="Confirmar contraseña">
+                            <button type="button" onclick="toggleModalPassword()" class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                                <svg id="modal-eye-open" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
+                                <svg id="modal-eye-closed" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"/>
+                                </svg>
+                            </button>
+                        </div>
+                        @error('passwordConfirm')
                             <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
                         @enderror
                     </div>
 
                     <div class="flex gap-3">
                         <button type="button"
-                            onclick="document.getElementById('modal-desactivar').classList.add('hidden')"
+                            onclick="closeModal()"
                             class="flex-1 py-3 bg-gray-100 text-gray-700 rounded-xl font-medium hover:bg-gray-200 transition-colors">
                             Cancelar
                         </button>
                         <button type="submit" wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                            class="flex-1 py-3 bg-red-500 text-white rounded-xl font-medium hover:bg-red-600 transition-colors">
+                            class="flex-1 py-3 bg-linear-to-r from-red-500 to-pink-500 text-white rounded-xl font-medium hover:shadow-lg transition-all">
                             <span class="block" wire:loading.class="hidden" wire:target="desactivarCuenta">
                                 Desactivar
                             </span>
@@ -336,12 +369,62 @@
 
     @push('script')
         <script>
-            // Cerrar modal al hacer clic fuera
+            // Funciones para mostrar/ocultar contraseñas
+            function togglePassword(type) {
+                const input = document.getElementById(type + '-password');
+                const eyeOpen = document.getElementById(type + '-eye-open');
+                const eyeClosed = document.getElementById(type + '-eye-closed');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    eyeOpen.classList.add('hidden');
+                    eyeClosed.classList.remove('hidden');
+                } else {
+                    input.type = 'password';
+                    eyeOpen.classList.remove('hidden');
+                    eyeClosed.classList.add('hidden');
+                }
+            }
+
+            function toggleModalPassword() {
+                const input = document.getElementById('modal-password');
+                const eyeOpen = document.getElementById('modal-eye-open');
+                const eyeClosed = document.getElementById('modal-eye-closed');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    eyeOpen.classList.add('hidden');
+                    eyeClosed.classList.remove('hidden');
+                } else {
+                    input.type = 'password';
+                    eyeOpen.classList.remove('hidden');
+                    eyeClosed.classList.add('hidden');
+                }
+            }
+
+            // Función para cerrar modal
+            function closeModal() {
+                document.getElementById('modal-desactivar').classList.add('hidden');
+                // Resetear el campo de contraseña y el icono
+                const input = document.getElementById('modal-password');
+                const eyeOpen = document.getElementById('modal-eye-open');
+                const eyeClosed = document.getElementById('modal-eye-closed');
+                if (input) {
+                    input.type = 'password';
+                    input.value = '';
+                }
+                if (eyeOpen && eyeClosed) {
+                    eyeOpen.classList.remove('hidden');
+                    eyeClosed.classList.add('hidden');
+                }
+            }
+
+            // Cerrar modal al hacer clic fuera (pero no en el formulario)
             const modal = document.getElementById('modal-desactivar');
             if (modal) {
                 modal.addEventListener('click', function(e) {
                     if (e.target === this) {
-                        this.classList.add('hidden');
+                        closeModal();
                     }
                 });
             }
@@ -354,8 +437,8 @@
                 const toast = document.createElement('div');
                 toast.className = `fixed top-6 right-6 px-6 py-4 rounded-2xl shadow-xl z-50 transform transition-all duration-300 ${
                     tipo === 'exito' 
-                        ? 'bg-green-500 text-white' 
-                        : 'bg-red-500 text-white'
+                        ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white' 
+                        : 'bg-gradient-to-r from-red-500 to-pink-500 text-white'
                 }`;
                 
                 toast.innerHTML = `

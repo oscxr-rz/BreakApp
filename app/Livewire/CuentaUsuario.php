@@ -26,6 +26,7 @@ class CuentaUsuario extends Component
     public $telefono;
     public $password;
     public $newPassword;
+    public $passwordConfirm;
 
     public $gradoGrupo;
     public $grupo;
@@ -102,10 +103,14 @@ class CuentaUsuario extends Component
         'password.required' => 'Debe ingresar una contraseña',
         'password.string' => 'La contraseña debe ser texto válido',
         'password.min' => 'La contraseña debe tener al menos 6 caracteres',
-
+        
         'newPassword.required' => 'Debe ingresar la nueva contraseña',
         'newPassword.string' => 'Debe ser texto válido',
         'newPassword.min' => 'Debe tener al menos 6 caracteres',
+
+        'passwordConfirm.required' => 'Debe ingresar una contraseña',
+        'passwordConfirm.string' => 'La contraseña debe ser texto válido',
+        'passwordConfirm.min' => 'La contraseña debe tener al menos 6 caracteres',
 
         'grupo.string' => 'El grupo debe ser texto válido',
         'semestre.string' => 'El semestre debe ser texto válido',
@@ -186,12 +191,12 @@ class CuentaUsuario extends Component
     {
         try {
             $this->validate([
-                'password' => 'required|string|min:6'
+                'passwordConfirm' => 'required|string|min:6'
             ]);
 
-            if ($this->usuarioService->desactivar($this->id, $this->password)) {
+            if ($this->usuarioService->desactivar($this->id, $this->passwordConfirm)) {
                 $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Cuenta desactiavada correctamente');
-                $this->reset('password');
+                $this->reset('passwordConfirm');
                 Session::flush();
                 $this->cargarUsuario();
             } else {
