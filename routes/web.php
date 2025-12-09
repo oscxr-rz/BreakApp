@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index')->name('index');
 
-Route::get('auth/google', [GoogleController::class, 'redirectToGoole'])->name('auth.google');
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
 Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
 Route::middleware('auth.guest')->group(function () {

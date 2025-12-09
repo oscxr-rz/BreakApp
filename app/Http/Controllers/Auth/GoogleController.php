@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Session\SessionController;
 use App\Models\Usuario;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Laravel\Socialite\Facades\Socialite;
 
 class GoogleController
 {
-    public function redirectToGoole()
+    public function redirectToGoogle()
     {
         return Socialite::driver('google')->redirect();
     }
@@ -20,38 +22,29 @@ class GoogleController
         try {
             $googleUser = Socialite::driver('google')->user();
 
-            $findUser = Usuario::where('correo', $googleUser->email)->first();
+            $email = $googleUser->getEmail();
+            $nameParts = explode(' ', $googleUser->getName(), 2);
+            $nombre = $nameParts[0];
+            $apellido = isset($nameParts[1]) ? $nameParts[1] : ' ';
 
-            if ($findUser) {
+            $response = Http::post(env('API_HOST') . '/login/google', [
+                'email' => $email,
+                'nombre' => $nombre,
+                'apellido' => $apellido
+            ]);
 
-                $this->CreateSession($findUser);
-
-                $tipo = session()->get('tipo');
-
-                if ($tipo == 'Administrador') {
-                    return redirect()->route('admin.inicio');
-                }
-
-                return redirect()->route('home');
-            } else {
-
-                $nameParts = explode(' ', $googleUser->name, 2);
-                $nombre = $nameParts[0];
-                $apellido = isset($nameParts[1]) ? $nameParts[1] : '';
-
-                $newUser = Usuario::create([
-                    'nombre' => $nombre,
-                    'apellido' => $apellido,
-                    'telefono' => null,
-                    'correo' => $googleUser->email,
+            if ($response->successful()) {
+                session([
+                    'api_token' => $response->json('token'),
+                    'id' => $response->json('usuario')['id_usuario'],
+                    'nombre' => $response->json('usuario')['nombre'],
+                    'tipo' => $response->json('usuario')['tipo'],
                 ]);
-
-                $this->CreateSession($newUser);
-
-                return redirect()->route('home');
+                return redirect()->route('index');
             }
-        } catch (\Exception $e) {
-            return redirect('/login')->with('mensaje', 'Error en el login');
+            return redirect()->route('login')->with('error', $response->json('message'));
+        } catch (Exception $e) {
+            return redirect()->route('login')->with('error', 'Ocurrió un error al momento de iniciar sesión');
         }
     }
 }
