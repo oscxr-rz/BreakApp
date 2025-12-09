@@ -196,9 +196,8 @@ class CuentaUsuario extends Component
 
             if ($this->usuarioService->desactivar($this->id, $this->passwordConfirm)) {
                 $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Cuenta desactiavada correctamente');
-                $this->reset('passwordConfirm');
                 Session::flush();
-                $this->cargarUsuario();
+                return $this->redirect(route('index'));
             } else {
                 $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo desactivar la cuenta');
             }

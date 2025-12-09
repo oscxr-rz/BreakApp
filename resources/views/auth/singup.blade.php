@@ -10,8 +10,10 @@
     <title>BreakApp - Crear cuenta</title>
 </head>
 
-<body class="bg-green-300 min-h-screen flex items-center justify-center p-4">
+<body class="bg-[#951327] min-h-screen flex items-center justify-center p-4 pb-20 lg:pb-24">
+    @include('layouts.navbar')
     <livewire:auth.register />
+    @stack('script')
 </body>
 
 </html>

@@ -53,7 +53,7 @@ class Login extends Component
             if ($response->successful()) {
                 $this->guardarSession($response->json('data'), $response->json('token'));
                 Session::flash('mensaje', 'Se inició sesión correctamente');
-                $this->reset(['email', 'telefono', 'password']);
+                return $this->redirect(route('index'));
             } else {
                 $this->addError('error', $response->json('message'));
             }

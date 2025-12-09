@@ -89,20 +89,54 @@
                     </div>
 
                     <!-- Contraseña -->
-                    <div>
-                        <input type="password" wire:model.live="password" autocomplete="new-password"
-                            class="appearance-none w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent sm:text-sm transition-all duration-200"
+                    <div class="relative">
+                        <input id="password-field" type="password" wire:model.live="password"
+                            autocomplete="new-password"
+                            class="appearance-none w-full px-3 py-2 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent sm:text-sm transition-all duration-200"
                             placeholder="Contraseña">
+                        <button type="button"
+                            onclick="togglePasswordVisibility('password-field', 'password-eye-open', 'password-eye-closed')"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <svg id="password-eye-open" class="w-5 h-5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <svg id="password-eye-closed" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                            </svg>
+                        </button>
                         @error('password')
                             <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
                         @enderror
                     </div>
 
                     <!-- Confirmar Contraseña -->
-                    <div>
-                        <input type="password" wire:model.live="passwordVerificacion" autocomplete="new-password"
-                            class="appearance-none w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent sm:text-sm transition-all duration-200"
+                    <div class="relative">
+                        <input id="password-confirm-field" type="password" wire:model.live="passwordVerificacion"
+                            autocomplete="new-password"
+                            class="appearance-none w-full px-3 py-2 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent sm:text-sm transition-all duration-200"
                             placeholder="Confirmar contraseña">
+                        <button type="button"
+                            onclick="togglePasswordVisibility('password-confirm-field', 'confirm-eye-open', 'confirm-eye-closed')"
+                            class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <svg id="confirm-eye-open" class="w-5 h-5" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                            </svg>
+                            <svg id="confirm-eye-closed" class="w-5 h-5 hidden" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" />
+                            </svg>
+                        </button>
                         @error('passwordVerificacion')
                             <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
                         @enderror
@@ -152,8 +186,8 @@
                 </div>
 
                 <!-- Botón Crear Cuenta -->
-                <button type="submit" wire:loading.attr="disabled" wire:loading.class="opacity-50 cursor-not-allowed"
-                    wire:target="crearCuenta"
+                <button type="submit" wire:loading.attr="disabled"
+                    wire:loading.class="opacity-50 cursor-not-allowed" wire:target="crearCuenta"
                     class="w-full flex justify-center items-center py-2.5 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-blue-500 hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400 transition-all duration-200 transform hover:scale-105 active:scale-95">
 
                     <span wire:loading.remove wire:target="crearCuenta">
@@ -172,13 +206,6 @@
                     </span>
                 </button>
 
-                {{-- <!-- Divisor -->
-                <div class="flex items-center my-3">
-                    <div class="grow border-t border-gray-300"></div>
-                    <span class="mx-4 text-gray-500 text-sm font-medium">O</span>
-                    <div class="grow border-t border-gray-300"></div>
-                </div> --}}
-
             </form>
         </div>
 
@@ -195,4 +222,24 @@
         </div>
 
     </div>
+
+    @push('script')
+        <script>
+            function togglePasswordVisibility(fieldId, eyeOpenId, eyeClosedId) {
+                const input = document.getElementById(fieldId);
+                const eyeOpen = document.getElementById(eyeOpenId);
+                const eyeClosed = document.getElementById(eyeClosedId);
+
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    eyeOpen.classList.add('hidden');
+                    eyeClosed.classList.remove('hidden');
+                } else {
+                    input.type = 'password';
+                    eyeOpen.classList.remove('hidden');
+                    eyeClosed.classList.add('hidden');
+                }
+            }
+        </script>
+    @endpush
 </div>

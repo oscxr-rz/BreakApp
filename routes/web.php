@@ -8,8 +8,8 @@ Route::view('/', 'index')->name('index');
 
 
 Route::middleware('auth.guest')->group(function () {
-    Route::view('/singup', 'auth.singup')->name('singup');
     Route::view('/login', 'auth.login')->name('login');
+    Route::view('/singup', 'auth.singup')->name('singup');
 });
 
 Route::view('/mi-cuenta', 'user.cuenta')->name('cuenta');

@@ -90,7 +90,7 @@ class Register extends Component
             if ($response->successful()) {
                 $this->guardarSession($response->json('data'), $response->json('token'));
                 Session::flash('mensaje', 'Cuenta creada correctamente');
-                $this->reset(['nombre', 'apellido', 'email', 'telefono', 'password', 'passwordVerificacion', 'semestre', 'grupo']);
+                return $this->redirect(route('index'));
             } else {
                 $this->addError('error', $response->json('message'));
             }
