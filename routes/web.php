@@ -10,16 +10,10 @@ Route::view('/singup', 'auth.singup')->name('singup');
 Route::view('/login', 'auth.login')->name('login');
 
 Route::view('/mi-cuenta', 'user.cuenta')->name('cuenta');
+Route::view('/carrito', 'user.carrito')->name('carrito');
+Route::view('/tarjeta-local', 'user.tarjeta-local')->name('tarjeta.local');
 Route::view('/ordenes', 'user.ordenes')->name('ordenes');
 
-//Carrito
-Route::prefix('/carrito')->group( function () {
-    Route::get('/', [CarritoController::class, 'index'])->name('carrito');
-});
-
-Route::prefix('/tarjeta-local')->group( function () {
-    Route::get('/', [TarjetaLocalController::class, 'show'])->name('tarjeta.local');
-});
 
 Route::view('/admin', 'admin.dashboard')->name('dashboard');
 Route::view('/categorias', 'admin.categorias')->name('admin.categorias');
