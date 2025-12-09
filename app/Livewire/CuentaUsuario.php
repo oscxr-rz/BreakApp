@@ -170,7 +170,7 @@ class CuentaUsuario extends Component
 
             if ($this->usuarioService->password($this->id, $this->password, $this->newPassword)) {
                 $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Contraseña actualizada correctamente');
-                $this->reset('nombre', 'apellido', 'email', 'telefono', 'semestre', 'grupo');
+                $this->reset('password', 'newPassword');
                 $this->cargarUsuario();
             } else {
                 $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo actualizar la contraseña');
