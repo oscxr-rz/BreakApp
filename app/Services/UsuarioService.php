@@ -81,8 +81,10 @@ class UsuarioService
     public function loguot()
     {
         try {
-            Session::flush();
-            return !Session::has('id');
+            $response = Http::withToken($this->token)
+                ->get("{$this->apiHost}/logout");
+
+            return $response->successful();
         } catch (Exception $e) {
             throw $e;
         }

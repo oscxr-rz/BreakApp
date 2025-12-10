@@ -1,18 +1,29 @@
 <div class="min-h-screen bg-gray-50">
+    <!-- Header -->
+    <div class="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-20">
+        <button onclick="window.history.back()"
+            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
+            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+        </button>
+        <h1 class="text-lg font-semibold text-gray-900">Mi Carrito</h1>
+        <div class="w-10"></div>
+    </div>
     @if (!session('id'))
         <!-- Sin sesión -->
         <div class="max-w-md mx-auto pt-20 px-4">
             <div class="bg-white rounded-3xl shadow-sm p-8 text-center">
                 <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-10 h-10 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                 </div>
-                <h2 class="text-xl font-semibold text-gray-900 mb-2">Inicia sesión</h2>
-                <p class="text-gray-500 text-sm mb-6">Necesitas iniciar sesión para ver tu carrito</p>
+                <h2 class="text-xl font-semibold text-gray-900 mb-2">Inicie sesión</h2>
+                <p class="text-gray-500 text-sm mb-6">Necesita iniciar sesión para ver su carrito</p>
                 <a href="{{ route('login') }}"
-                    class="inline-block bg-linear-to-r from-blue-500 to-cyan-500 hover:shadow-lg text-white px-6 py-3 rounded-xl font-medium transition-all">
+                    class="inline-block w-full py-3 bg-linear-to-r from-[#951327] to-[#b50001] text-white rounded-xl font-medium hover:shadow-lg transition-all">
                     Iniciar Sesión
                 </a>
             </div>
@@ -20,19 +31,6 @@
     @elseif (!empty($carrito['productos']))
         <!-- Carrito con productos -->
         <div class="max-w-7xl mx-auto">
-            <!-- Header -->
-            <div
-                class="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-20">
-                <button onclick="window.history.back()"
-                    class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
-                    <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-                    </svg>
-                </button>
-                <h1 class="text-lg font-semibold text-gray-900">Mi Carrito</h1>
-                <div class="w-10"></div>
-            </div>
-
             <div class="lg:grid lg:grid-cols-12 lg:gap-8 lg:px-6 lg:py-8">
                 <!-- Lista de productos -->
                 <div class="lg:col-span-8 space-y-3 px-4 py-4 lg:px-0">

@@ -103,7 +103,7 @@ class CuentaUsuario extends Component
         'password.required' => 'Debe ingresar una contraseña',
         'password.string' => 'La contraseña debe ser texto válido',
         'password.min' => 'La contraseña debe tener al menos 6 caracteres',
-        
+
         'newPassword.required' => 'Debe ingresar la nueva contraseña',
         'newPassword.string' => 'Debe ser texto válido',
         'newPassword.min' => 'Debe tener al menos 6 caracteres',
@@ -184,6 +184,21 @@ class CuentaUsuario extends Component
             throw $e;
         } catch (Exception $e) {
             $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al actualizar la contraseña');
+        }
+    }
+
+    public function cerrarSesion()
+    {
+        try {
+            if ($this->usuarioService->loguot()) {
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Sesión cerrada');
+                Session::flush();
+                return $this->redirect(route('index'));
+            } else {
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo cerrar sesión');
+            }
+        } catch (Exception $e) {
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al cerrar sesión');
         }
     }
 

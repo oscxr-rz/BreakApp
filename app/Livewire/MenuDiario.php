@@ -15,12 +15,10 @@ class MenuDiario extends Component
     public $menu = [];
     public int $id;
     protected CarritoService $carritoService;
-    protected UsuarioService $usuarioService;
 
-    public function boot(CarritoService $carritoService, UsuarioService $usuarioService)
+    public function boot(CarritoService $carritoService)
     {
         $this->carritoService = $carritoService;
-        $this->usuarioService = $usuarioService;
     }
 
     public function mount()
@@ -51,19 +49,6 @@ class MenuDiario extends Component
         }
     }
 
-    public function cerrarSesion()
-    {
-        try {
-            if ($this->usuarioService->loguot()) {
-                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Sesión cerrada');
-                return $this->redirect(route('index'));
-            } else {
-                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo cerrar sesión');
-            }
-        } catch (Exception $e) {
-            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al cerrar sesión');
-        }
-    }
     public function render()
     {
         return view('livewire.menu-diario');
