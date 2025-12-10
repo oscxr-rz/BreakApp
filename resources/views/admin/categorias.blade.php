@@ -10,8 +10,12 @@
 </head>
 
 <body>
-    <livewire:admin.categorias />
+    @include('admin.layouts.navbar')
+    <main class="lg:ml-[180px] min-h-screen">    
+        <livewire:admin.categorias />
+    </main>
     @livewireScripts
+    @stack('script')
 </body>
 
 </html>

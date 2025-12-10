@@ -4,19 +4,23 @@ namespace App\Livewire\Admin;
 
 use App\Services\admin\CategoriasService;
 use Exception;
-use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
-use Livewire\Attributes\On;
 use Livewire\Component;
 
 class Categorias extends Component
 {
     public $categorias = [];
     protected CategoriasService $categoriasService;
-    public $idCategoria = null;
-    public $nombre = '';
-    public $descripcion = '';
-    public $activo = null;
+    public $crear_nombre = '';
+    public $crear_descripcion = '';
+    public $crear_activo = '';
+    
+    public $editar_id = null;
+    public $editar_nombre = '';
+    public $editar_descripcion = '';
+    
+    public $modalCrearAbierto = false;
+    public $modalEditarAbierto = false;
 
     public function boot(CategoriasService $categoriasService)
     {
@@ -33,77 +37,95 @@ class Categorias extends Component
         $this->categorias = $this->categoriasService->obtenerCategorias() ?? [];
     }
 
-    protected function reglasCrear()
+    public function abrirModalCrear()
     {
-        return [
-            'nombre' => 'required|string',
-            'descripcion' => 'required|string',
-            'activo' => 'required|in:0,1'
-        ];
+        $this->reset(['crear_nombre', 'crear_descripcion', 'crear_activo']);
+        $this->resetErrorBag();
+        $this->modalCrearAbierto = true;
     }
 
-    protected function reglasActualizar()
+    public function cerrarModalCrear()
     {
-        return [
-            'idCategoria' => 'required|integer|min:1',
-            'nombre' => 'required|string',
-            'descripcion' => 'required|string'
-        ];
+        $this->modalCrearAbierto = false;
+        $this->reset(['crear_nombre', 'crear_descripcion', 'crear_activo']);
+        $this->resetErrorBag();
     }
 
-    public function rules()
+    public function abrirModalEditar($id, $nombre, $descripcion)
     {
-        if ($this->idCategoria) {
-            return $this->reglasActualizar();
-        }
-
-        return $this->reglasCrear();
+        $this->editar_id = $id;
+        $this->editar_nombre = $nombre;
+        $this->editar_descripcion = $descripcion;
+        $this->resetErrorBag();
+        $this->modalEditarAbierto = true;
     }
 
-    protected $messages = [
-        'nombre.required' => 'Debe ingresar el nombre de la categoría',
-        'descripcion.required' => 'Debe ingresar la descripción de la categoría',
-        'activo.required' => 'Debe elegir si estará activa o no',
-    ];
-
-    public function updated($propertyName)
+ 
+    public function cerrarModalEditar()
     {
-        $this->validateOnly($propertyName);
+        $this->modalEditarAbierto = false;
+        $this->reset(['editar_id', 'editar_nombre', 'editar_descripcion']);
+        $this->resetErrorBag();
     }
 
     public function crearCategoria()
     {
         try {
-            $this->validate();
+            $this->validate([
+                'crear_nombre' => 'required|string|min:3|max:100',
+                'crear_descripcion' => 'required|string|min:5|max:255',
+                'crear_activo' => 'required|in:0,1'
+            ], [
+                'crear_nombre.required' => 'El nombre es obligatorio',
+                'crear_nombre.min' => 'El nombre debe tener al menos 3 caracteres',
+                'crear_nombre.max' => 'El nombre no puede exceder 100 caracteres',
+                'crear_descripcion.required' => 'La descripción es obligatoria',
+                'crear_descripcion.min' => 'La descripción debe tener al menos 5 caracteres',
+                'crear_descripcion.max' => 'La descripción no puede exceder 255 caracteres',
+                'crear_activo.required' => 'Debe seleccionar un estado',
+                'crear_activo.in' => 'El estado debe ser Activa o Inactiva',
+            ]);
 
-            if ($this->categoriasService->crear($this->nombre, $this->descripcion, $this->activo)) {
-                Session::flash('mensaje', 'Categoría creada correctamente');
-                $this->reset(['nombre', 'descripcion', 'activo']);
+            if ($this->categoriasService->crear($this->crear_nombre, $this->crear_descripcion, $this->crear_activo)) {
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Categoría creada correctamente');
+                $this->cerrarModalCrear();
+                $this->cargarCategorias();
             } else {
-                $this->addError('mensaje', 'No se pudo crear la categoría');
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo crear la categoría');
             }
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
-            $this->addError('mensaje', 'Ocurrió un error al crear la categoría');
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al crear la categoría');
         }
     }
 
     public function actualizarCategoria()
     {
         try {
-            $this->validate();
+            $this->validate([
+                'editar_nombre' => 'required|string|min:3|max:100',
+                'editar_descripcion' => 'required|string|min:5|max:255'
+            ], [
+                'editar_nombre.required' => 'El nombre es obligatorio',
+                'editar_nombre.min' => 'El nombre debe tener al menos 3 caracteres',
+                'editar_nombre.max' => 'El nombre no puede exceder 100 caracteres',
+                'editar_descripcion.required' => 'La descripción es obligatoria',
+                'editar_descripcion.min' => 'La descripción debe tener al menos 5 caracteres',
+                'editar_descripcion.max' => 'La descripción no puede exceder 255 caracteres',
+            ]);
 
-            if ($this->categoriasService->actualizar($this->idCategoria, $this->nombre, $this->descripcion)) {
-                Session::flash('mensaje', 'Categoría actualizada correctamente');
-                $this->reset(['idCategoria', 'nombre', 'descripcion']);
+            if ($this->categoriasService->actualizar($this->editar_id, $this->editar_nombre, $this->editar_descripcion)) {
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Categoría actualizada correctamente');
+                $this->cerrarModalEditar();
+                $this->cargarCategorias();
             } else {
-                $this->addError('error', 'No se pudo actualizar la categoría');
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo actualizar la categoría');
             }
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
-            $this->addError('error', 'Ocurrió un error al actualizar la categoría');
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al actualizar la categoría');
         }
     }
 
@@ -111,14 +133,14 @@ class Categorias extends Component
     {
         try {
             if ($this->categoriasService->cambiarEstado($idCategoria, $activo)) {
-                Session::flash('mensaje', 'Categoría actualizada correctamente');
+                $mensaje = $activo == 1 ? 'Categoría activada correctamente' : 'Categoría desactivada correctamente';
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: $mensaje);
+                $this->cargarCategorias();
             } else {
-                $this->addError('error', 'No se pudo actualizar la categoría');
+                $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo actualizar la categoría');
             }
-        } catch (ValidationException $e) {
-            throw $e;
         } catch (Exception $e) {
-            $this->addError('error', 'Ocurrió un error al cambiar el estado de la categoría');
+            $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al actualizar la categoría');
         }
     }
 

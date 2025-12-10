@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es"  x-data="{ mobileMenu: false }">
 
 <head>
     <meta charset="UTF-8">
@@ -9,9 +9,13 @@
     <title>BreakApp - Productos</title>
 </head>
 
-<body>
-    <livewire:admin.productos />
+<body class="bg-gray-50">
+    @include('admin.layouts.navbar')
+    <main class="lg:ml-[180px] min-h-screen">
+        <livewire:admin.productos />
+    </main>
     @livewireScripts
+    @stack('script')
 </body>
 
 </html>
