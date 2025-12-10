@@ -195,7 +195,7 @@
                         <div class="mb-4">
                             <label class="block text-xs font-medium text-gray-500 mb-2">Hora de recogida</label>
                             <input type="time" wire:model.live="hora_recogida"
-                                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-gray-50">
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-gray-50" placeholder="Hora de recogida">
                             @error('hora_recogida')
                                 <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                             @enderror

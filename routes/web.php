@@ -7,12 +7,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'index')->name('index');
 
-Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
-Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 
 Route::middleware('auth.guest')->group(function () {
     Route::view('/login', 'auth.login')->name('login');
     Route::view('/singup', 'auth.singup')->name('singup');
+    Route::get('auth/google', [GoogleController::class, 'redirectToGoogle'])->name('auth.google');
+    Route::get('auth/google/callback', [GoogleController::class, 'handleGoogleCallback'])->name('auth.google.callback');
 });
 
 Route::view('/mi-cuenta', 'user.cuenta')->name('cuenta');
