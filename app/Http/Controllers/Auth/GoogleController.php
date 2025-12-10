@@ -17,11 +17,16 @@ class GoogleController
         return Socialite::driver('google')->redirect();
     }
 
-    public function handleGoogleCallback()
+    public function handleGoogleCallback(Request $request)
     {
         try {
-            $googleUser = Socialite::driver('google')->user();
+            if (!$request->has('code')) {
+                return redirect()->route('login')
+                    ->with('error', 'Acceso no autorizado. Por favor, inicia sesión correctamente.');
+            }
 
+            $googleUser = Socialite::driver('google')->user();
+            
             $email = $googleUser->getEmail();
             $nameParts = explode(' ', $googleUser->getName(), 2);
             $nombre = $nameParts[0];
@@ -34,11 +39,12 @@ class GoogleController
             ]);
 
             if ($response->successful()) {
+                $data = $response->json('data');
                 session([
                     'api_token' => $response->json('token'),
-                    'id' => $response->json('usuario')['id_usuario'],
-                    'nombre' => $response->json('usuario')['nombre'],
-                    'tipo' => $response->json('usuario')['tipo'],
+                    'id' => $data['id_usuario'],
+                    'nombre' => $data['nombre'],
+                    'tipo' => $data['tipo'],
                 ]);
                 return redirect()->route('index');
             }
