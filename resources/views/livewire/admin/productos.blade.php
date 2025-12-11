@@ -126,8 +126,8 @@
                                                 <div class="flex items-center gap-3">
                                                     <div
                                                         class="shrink-0 w-12 h-12 rounded-lg overflow-hidden bg-gray-100">
-                                                        @if (!empty($producto['imagen']))
-                                                            <img src="{{ asset('storage/' . $producto['imagen']) }}"
+                                                        @if (!empty($producto['imagen_url']))
+                                                            <img src="{{ $producto['imagen_url'] }}"
                                                                 alt="{{ $producto['nombre'] }}"
                                                                 class="w-full h-full object-cover">
                                                         @else
