@@ -34,11 +34,7 @@ class CategoriasService
                     'descripcion' => $descripcion,
                     'activo' => $activo
                 ]);
-
-            if ($response->successful()) {
-                return true;
-            }
-            return false;
+            return $response->successful();
         } catch (Exception $e) {
             throw $e;
         }
@@ -52,11 +48,7 @@ class CategoriasService
                 'descripcion' => $descrpcion
             ]);
 
-            if ($response->successful()) {
-                return true;
-            }
-
-            return false;
+            return $response->successful();
         } catch (Exception $e) {
             throw $e;
         }
@@ -68,11 +60,7 @@ class CategoriasService
                 'activo' => $activo
             ]);
 
-            if ($response->successful()) {
-                return true;
-            }
-
-            return false;
+            return $response->successful();
         } catch (Exception $e) {
             throw $e;
         }

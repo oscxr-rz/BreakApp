@@ -87,10 +87,7 @@ class CarritoService
                     'productos' => $productos
                 ]);
 
-            if ($response->successful()) {
-                return true;
-            }
-            return false;
+            return $response->successful();
         } catch (Exception $e) {
             throw $e;
         }
