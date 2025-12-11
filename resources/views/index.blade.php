@@ -12,9 +12,11 @@
 <body class="bg-white pb-20 lg:pb-24">
     @include('layouts.navbar')
 
-    <div class="max-w-7xl mx-auto">
-        <livewire:menu-diario />
-    </div>
+    <main>
+        <div class="max-w-7xl mx-auto">
+            <livewire:menu-diario />
+        </div>
+    </main>
 
     @stack('script')
 </body>

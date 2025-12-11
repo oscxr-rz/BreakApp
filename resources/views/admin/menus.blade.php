@@ -6,14 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>BreakApp - Carrito</title>
+    <title>BreakApp - Menús</title>
 </head>
 
-<body class="pb-20 lg:pb-24">
-    @include('layouts.navbar')
-    <main>
-        <livewire:carrito-usuario />
+<body>
+    @include('admin.layouts.navbar')
+    <main class="lg:ml-[180px] min-h-screen">
+        <livewire:admin.menus />
     </main>
+    @livewireScripts
     @stack('script')
 </body>
 

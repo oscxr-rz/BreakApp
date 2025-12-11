@@ -11,7 +11,9 @@
 
 <body class="pb-20 lg:pb-24">
     @include('layouts.navbar')
-    <livewire:ordenes-usuario />
+    <main>
+        <livewire:ordenes-usuario />
+    </main>
     @stack('script')
 </body>
 

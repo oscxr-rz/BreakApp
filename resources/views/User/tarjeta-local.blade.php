@@ -11,7 +11,9 @@
 
 <body class="pb-20 lg:pb-24">
     @include('layouts.navbar')
-    <livewire:tarjeta-local-usuario />
+    <main>
+        <livewire:tarjeta-local-usuario />
+    </main>
 </body>
 
 </html>
