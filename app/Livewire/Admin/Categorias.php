@@ -14,11 +14,11 @@ class Categorias extends Component
     public $crear_nombre = '';
     public $crear_descripcion = '';
     public $crear_activo = '';
-    
+
     public $editar_id = null;
     public $editar_nombre = '';
     public $editar_descripcion = '';
-    
+
     public $modalCrearAbierto = false;
     public $modalEditarAbierto = false;
 
@@ -60,7 +60,7 @@ class Categorias extends Component
         $this->modalEditarAbierto = true;
     }
 
- 
+
     public function cerrarModalEditar()
     {
         $this->modalEditarAbierto = false;
@@ -92,11 +92,13 @@ class Categorias extends Component
                 $this->cargarCategorias();
             } else {
                 $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo crear la categoría');
+                $this->cerrarModalCrear();
             }
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
             $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al crear la categoría');
+            $this->cerrarModalCrear();
         }
     }
 
@@ -121,11 +123,13 @@ class Categorias extends Component
                 $this->cargarCategorias();
             } else {
                 $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo actualizar la categoría');
+                $this->cerrarModalEditar();
             }
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
             $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al actualizar la categoría');
+            $this->cerrarModalEditar();
         }
     }
 

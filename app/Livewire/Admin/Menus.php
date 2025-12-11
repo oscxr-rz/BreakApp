@@ -95,11 +95,13 @@ class Menus extends Component
                 $this->cargarMenus();
             } else {
                 $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo crear el menú');
+                $this->cerrarModalCrear();
             }
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
             $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al crear el menú');
+            $this->cerrarModalCrear();
         }
     }
 
@@ -128,11 +130,13 @@ class Menus extends Component
                 $this->cargarMenus();
             } else {
                 $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo actualizar el menú');
+                $this->cerrarModalEditar();
             }
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
             $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al actualizar el menú');
+            $this->cerrarModalEditar();
         }
     }
 

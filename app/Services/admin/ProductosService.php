@@ -34,14 +34,12 @@ class ProductosService
                     fopen($imagen->getRealPath(), 'r'),
                     $imagen->getClientOriginalName()
                 )
-                ->post("{$this->apiHost}/admin/productos", [
-                    'id_categoria' => $idCategoria,
-                    'nombre' => $nombre,
-                    'descripcion' => $descripcion,
-                    'precio' => $precio,
-                    'tiempo_preparacion' => $tiempoPreparacion,
-                    'activo' => $activo
-                ]);
+                ->attach('id_categoria', $idCategoria)
+                ->attach('nombre', $nombre)
+                ->attach('descripcion', $descripcion)
+                ->attach('precio', $precio)
+                ->attach('tiempo_preparacion', $tiempoPreparacion)
+                ->post("{$this->apiHost}/admin/productos/");
 
             return $response->successful();
         } catch (Exception $e) {

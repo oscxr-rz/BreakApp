@@ -124,11 +124,13 @@ class Productos extends Component
                 $this->cargarProductos();
             } else {
                 $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo crear el producto');
+                $this->cerrarModalCrear();
             }
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
             $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al crear el producto');
+            $this->cerrarModalCrear();
         }
     }
 
@@ -161,11 +163,13 @@ class Productos extends Component
                 $this->cargarProductos();
             } else {
                 $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo actualizar el producto');
+                $this->cerrarModalEditar();
             }
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
             $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al actualizar el producto');
+            $this->cerrarModalEditar();
         }
     }
 
