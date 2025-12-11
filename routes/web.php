@@ -24,3 +24,4 @@ Route::view('/ordenes', 'user.ordenes')->name('ordenes');
 Route::view('/admin', 'admin.dashboard')->name('dashboard');
 Route::view('/categorias', 'admin.categorias')->name('admin.categorias');
 Route::view('/productos', 'admin.productos')->name('admin.productos');
+Route::view('/menus', 'admin.menus')->name('admin.menus');
