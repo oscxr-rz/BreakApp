@@ -38,4 +38,18 @@ class OrdenService
             throw $e;
         }
     }
+
+    public function cambiarEstado($idOrden, $estado)
+    {
+        try {
+            $response = Http::withToken($this->token)
+                ->patch("{$this->apiHost}/admin/ordenes/{$idOrden}/estado", [
+                    'estado' => $estado
+                ]);
+
+            return $response->successful();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
 }
