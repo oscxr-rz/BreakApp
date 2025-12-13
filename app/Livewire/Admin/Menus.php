@@ -7,26 +7,22 @@ use App\Services\Admin\ProductosService;
 use Livewire\Component;
 use Illuminate\Validation\ValidationException;
 use Exception;
-use Illuminate\Support\Facades\Log;
 
 class Menus extends Component
 {
     public $menus = [];
     public $productos = [];
-    
+
     protected MenusService $menusService;
     protected ProductosService $productosService;
 
-    // Propiedades para crear
     public $crear_fecha = '';
     public $crear_productos = [];
 
-    // Propiedades para editar
     public $editar_idMenu = null;
     public $editar_fecha = '';
     public $editar_productos = [];
 
-    // Controles de modales
     public $modalCrearAbierto = false;
     public $modalEditarAbierto = false;
 
@@ -50,61 +46,30 @@ class Menus extends Component
     public function cargarProductos()
     {
         $productosRaw = $this->productosService->obtenerProductos() ?? [];
-        
-        Log::info('=== INICIO cargarProductos ===');
-        Log::info('ProductosRaw tipo:', ['tipo' => gettype($productosRaw)]);
-        Log::info('ProductosRaw count:', ['count' => count($productosRaw)]);
-        
         $productosAplanados = [];
-        
-        // Si es un array asociativo con categorías como keys
-        if (!empty($productosRaw) && !isset($productosRaw[0])) {
-            Log::info('Detectado array asociativo (agrupado por categoría)');
-            foreach ($productosRaw as $categoria => $items) {
-                Log::info("Procesando categoría: $categoria", ['items_count' => count($items)]);
-                if (is_array($items)) {
-                    foreach ($items as $producto) {
-                        // Solo agregar productos activos
-                        if (isset($producto['activo']) && $producto['activo'] == 1) {
-                            // Asegurarnos de que tenga la categoría en el formato correcto
-                            if (!isset($producto['categoria']) || is_string($producto['categoria'])) {
-                                $producto['categoria'] = $categoria;
-                            }
-                            $productosAplanados[] = $producto;
+
+        foreach ($productosRaw as $categoria => $items) {
+            if (is_array($items)) {
+                foreach ($items as $producto) {
+                    if (isset($producto['activo']) && $producto['activo'] == 1) {
+                        if (!isset($producto['categoria']) || is_string($producto['categoria'])) {
+                            $producto['categoria'] = $categoria;
                         }
+                        $productosAplanados[] = $producto;
                     }
                 }
             }
-        } 
-        // Si ya es un array indexado de productos
-        else {
-            Log::info('Detectado array indexado');
-            foreach ($productosRaw as $producto) {
-                if (isset($producto['activo']) && $producto['activo'] == 1) {
-                    $productosAplanados[] = $producto;
-                }
-            }
         }
-        
-        Log::info('ProductosAplanados final count:', ['count' => count($productosAplanados)]);
-        Log::info('Primeros 3 productos:', ['productos' => array_slice($productosAplanados, 0, 3)]);
-        Log::info('=== FIN cargarProductos ===');
-        
+
         $this->productos = $productosAplanados;
     }
 
     public function abrirModalCrear()
     {
-        // Primero recargar productos para asegurar que estén actualizados
         $this->cargarProductos();
-        
-        Log::info('=== abrirModalCrear ===');
-        Log::info('Productos count antes de inicializar:', ['count' => count($this->productos)]);
-        
         $this->reset(['crear_fecha', 'crear_productos']);
         $this->resetErrorBag();
-        
-        // Inicializar array de productos con valores por defecto
+
         $this->crear_productos = [];
         foreach ($this->productos as $producto) {
             if (isset($producto['id_producto'])) {
@@ -114,12 +79,8 @@ class Menus extends Component
                 ];
             }
         }
-        
-        Log::info('crear_productos inicializado:', ['count' => count($this->crear_productos)]);
-        
-        // Establecer fecha de hoy por defecto
+
         $this->crear_fecha = now()->format('Y-m-d');
-        
         $this->modalCrearAbierto = true;
     }
 
@@ -132,29 +93,19 @@ class Menus extends Component
 
     public function abrirModalEditar($idMenu)
     {
-        // Primero recargar productos para asegurar que estén actualizados
         $this->cargarProductos();
-        
-        Log::info('=== abrirModalEditar ===');
-        Log::info('Productos count antes de inicializar:', ['count' => count($this->productos)]);
-        
         $this->resetErrorBag();
-        
-        // Buscar el menú
+
         $menu = collect($this->menus)->firstWhere('id_menu', $idMenu);
-        
+
         if (!$menu) {
             $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Menú no encontrado');
             return;
         }
-        
+
         $this->editar_idMenu = $idMenu;
         $this->editar_fecha = $menu['fecha'];
-        
-        // Inicializar array de productos
-        $this->editar_productos = [];
-        
-        // Obtener productos del menú actual (aplanar el array agrupado por categoría)
+
         $productosDelMenu = [];
         if (isset($menu['productos']) && is_array($menu['productos'])) {
             foreach ($menu['productos'] as $categoria => $items) {
@@ -167,34 +118,28 @@ class Menus extends Component
                 }
             }
         }
-        
-        Log::info('Productos del menú encontrados:', ['count' => count($productosDelMenu)]);
-        
-        // Inicializar todos los productos
+
+        $this->editar_productos = [];
         foreach ($this->productos as $producto) {
             if (!isset($producto['id_producto'])) {
                 continue;
             }
-            
+
             $idProducto = $producto['id_producto'];
-            
+
             if (isset($productosDelMenu[$idProducto])) {
-                // Producto está en el menú
                 $this->editar_productos[$idProducto] = [
                     'seleccionado' => true,
                     'cantidad_disponible' => $productosDelMenu[$idProducto]['cantidad_disponible'] ?? 10
                 ];
             } else {
-                // Producto no está en el menú
                 $this->editar_productos[$idProducto] = [
                     'seleccionado' => false,
                     'cantidad_disponible' => 10
                 ];
             }
         }
-        
-        Log::info('editar_productos inicializado:', ['count' => count($this->editar_productos)]);
-        
+
         $this->modalEditarAbierto = true;
     }
 
@@ -208,7 +153,6 @@ class Menus extends Component
     public function crearMenu()
     {
         try {
-            // Validar fecha
             $this->validate([
                 'crear_fecha' => 'required|date|after_or_equal:today',
             ], [
@@ -217,10 +161,9 @@ class Menus extends Component
                 'crear_fecha.after_or_equal' => 'La fecha no puede ser anterior a hoy',
             ]);
 
-            // Filtrar solo productos seleccionados
             $productosSeleccionados = collect($this->crear_productos)
                 ->filter(fn($prod) => !empty($prod['seleccionado']))
-                ->map(function($prod, $idProducto) {
+                ->map(function ($prod, $idProducto) {
                     return [
                         'id_producto' => $idProducto,
                         'cantidad_disponible' => (int)($prod['cantidad_disponible'] ?? 10)
@@ -229,13 +172,11 @@ class Menus extends Component
                 ->values()
                 ->toArray();
 
-            // Validar que haya al menos un producto
             if (empty($productosSeleccionados)) {
                 $this->addError('crear_productos', 'Debe seleccionar al menos un producto');
                 return;
             }
 
-            // Validar cantidades
             foreach ($productosSeleccionados as $producto) {
                 if ($producto['cantidad_disponible'] < 0) {
                     $this->addError('crear_productos', 'Las cantidades no pueden ser negativas');
@@ -243,19 +184,17 @@ class Menus extends Component
                 }
             }
 
-            // Crear el menú
             if ($this->menusService->crear($this->crear_fecha, $productosSeleccionados)) {
                 $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Menú creado correctamente');
                 $this->cerrarModalCrear();
                 $this->cargarMenus();
             } else {
                 $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo crear el menú');
+                $this->cerrarModalCrear();
             }
-            
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
-            Log::error('Error al crear menú:', ['error' => $e->getMessage()]);
             $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al crear el menú');
             $this->cerrarModalCrear();
         }
@@ -264,7 +203,6 @@ class Menus extends Component
     public function actualizarMenu()
     {
         try {
-            // Validar fecha
             $this->validate([
                 'editar_fecha' => 'required|date|after_or_equal:today',
             ], [
@@ -273,10 +211,9 @@ class Menus extends Component
                 'editar_fecha.after_or_equal' => 'La fecha no puede ser anterior a hoy',
             ]);
 
-            // Filtrar solo productos seleccionados
             $productosSeleccionados = collect($this->editar_productos)
                 ->filter(fn($prod) => !empty($prod['seleccionado']))
-                ->map(function($prod, $idProducto) {
+                ->map(function ($prod, $idProducto) {
                     return [
                         'id_producto' => $idProducto,
                         'cantidad_disponible' => (int)($prod['cantidad_disponible'] ?? 10)
@@ -285,13 +222,11 @@ class Menus extends Component
                 ->values()
                 ->toArray();
 
-            // Validar que haya al menos un producto
             if (empty($productosSeleccionados)) {
                 $this->addError('editar_productos', 'Debe seleccionar al menos un producto');
                 return;
             }
 
-            // Validar cantidades
             foreach ($productosSeleccionados as $producto) {
                 if ($producto['cantidad_disponible'] < 0) {
                     $this->addError('editar_productos', 'Las cantidades no pueden ser negativas');
@@ -299,19 +234,17 @@ class Menus extends Component
                 }
             }
 
-            // Actualizar el menú
             if ($this->menusService->actualizar($this->editar_idMenu, $this->editar_fecha, $productosSeleccionados)) {
                 $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Menú actualizado correctamente');
                 $this->cerrarModalEditar();
                 $this->cargarMenus();
             } else {
                 $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo actualizar el menú');
+                $this->cerrarModalEditar();
             }
-            
         } catch (ValidationException $e) {
             throw $e;
         } catch (Exception $e) {
-            Log::error('Error al actualizar menú:', ['error' => $e->getMessage()]);
             $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al actualizar el menú');
             $this->cerrarModalEditar();
         }
@@ -319,9 +252,6 @@ class Menus extends Component
 
     public function render()
     {
-        Log::info('=== RENDER ===');
-        Log::info('Productos en render:', ['count' => count($this->productos)]);
-        
         return view('livewire.admin.menus');
     }
 }
