@@ -10,11 +10,14 @@ use Illuminate\Support\Facades\Session;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
+use function Pest\Laravel\session;
+
 class MenuDiario extends Component
 {
     public $menu = [];
     public int $id;
     protected CarritoService $carritoService;
+    public $api_token;
 
     public function boot(CarritoService $carritoService)
     {
@@ -25,6 +28,7 @@ class MenuDiario extends Component
     {
         $this->id = Session::get('id') ?? 0;
         $this->cargarMenu();
+        $this->api_token = Session::get('api_token') ?? '';
     }
 
     public function cargarMenu()

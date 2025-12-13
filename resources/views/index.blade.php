@@ -14,6 +14,7 @@
 
     <main>
         <div class="max-w-7xl mx-auto">
+            <livewire:components.notificacion />
             <livewire:menu-diario />
         </div>
     </main>

@@ -304,6 +304,10 @@
                     });
                 });
             });
+
+            localStorage.setItem('api_token', @json($api_token));
+            localStorage.setItem('id', @json($id));
+
         </script>
     @endpush
 
