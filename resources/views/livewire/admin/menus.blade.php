@@ -268,10 +268,173 @@
                         <!-- Fecha -->
                         <div class="mt-4">
                             <label class="block text-sm font-medium text-gray-700 mb-2">Fecha del Menú *</label>
+                            <input type="date" wire:model="crear_fecha" required
+                                class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            @error('crear_fecha')
+                                <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
+                            @enderror
+                            @error('crear_productos')
+                                <span class="text-red-500 text-xs mt-2 block">{{ $message }}</span>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <!-- Body - Lista de productos -->
+                    <div class="flex-1 overflow-y-auto p-6">
+                        <div class="mb-4">
+                            <h4 class="text-sm font-medium text-gray-900 mb-3">
+                                Selecciona los productos del menú
+                                <span class="text-xs text-gray-500">(Total: {{ count($this->productos) }}
+                                    productos)</span>
+                            </h4>
+                            <!-- Búsqueda en modal crear -->
+                            <div class="relative">
+                                <svg class="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400"
+                                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                                </svg>
+                                <input type="text"
+                                    class="busqueda-modal-crear w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                    placeholder="Buscar productos por nombre o descripción...">
+                            </div>
+                        </div>
+
+                        @if (empty($this->productos))
+                            <div class="text-center py-8">
+                                <p class="text-gray-500">No hay productos disponibles</p>
+                            </div>
+                        @else
+                            <div class="space-y-3" id="listaProductosCrear">
+                                @foreach ($this->productos as $producto)
+                                    <div class="producto-card-crear border border-gray-200 rounded-lg p-4 hover:border-blue-300 transition-colors {{ !empty($crear_productos[$producto['id_producto']]['seleccionado']) ? 'bg-blue-50 border-blue-300' : '' }}"
+                                        data-nombre="{{ strtolower($producto['nombre']) }}"
+                                        data-descripcion="{{ strtolower($producto['descripcion'] ?? '') }}">
+                                        <div class="flex items-start gap-4">
+                                            <!-- Checkbox -->
+                                            <div class="pt-1">
+                                                <input type="checkbox"
+                                                    wire:model.live="crear_productos.{{ $producto['id_producto'] }}.seleccionado"
+                                                    id="crear_prod_{{ $producto['id_producto'] }}"
+                                                    class="w-5 h-5 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
+                                            </div>
+
+                                            <!-- Imagen -->
+                                            <div class="shrink-0 w-20 h-20 rounded-lg overflow-hidden bg-gray-200">
+                                                <img src="{{ $producto['imagen_url'] }}"
+                                                    alt="{{ $producto['nombre'] }}"
+                                                    class="w-full h-full object-cover">
+                                            </div>
+
+                                            <!-- Info del producto -->
+                                            <div class="flex-1 min-w-0">
+                                                <label for="crear_prod_{{ $producto['id_producto'] }}"
+                                                    class="cursor-pointer">
+                                                    <h5 class="font-medium text-gray-900">{{ $producto['nombre'] }}
+                                                    </h5>
+                                                    <p class="text-sm text-gray-600 line-clamp-2">
+                                                        {{ $producto['descripcion'] ?? 'Sin descripción' }}</p>
+                                                    <div class="flex items-center gap-3 mt-2">
+                                                        <span class="text-sm font-semibold text-green-600">
+                                                            ${{ number_format($producto['precio'], 2) }}
+                                                        </span>
+                                                        <span class="text-xs text-gray-500">
+                                                            {{ $producto['tiempo_preparacion'] }} min
+                                                        </span>
+                                                        @if (isset($producto['categoria']))
+                                                            <span
+                                                                class="text-xs px-2 py-1 bg-blue-100 text-blue-700 rounded">
+                                                                {{ is_array($producto['categoria']) ? $producto['categoria']['nombre'] ?? ($producto['categoria'][0] ?? 'Sin categoría') : $producto['categoria'] }}
+                                                            </span>
+                                                        @endif
+                                                    </div>
+                                                </label>
+                                            </div>
+
+                                            <!-- Input de cantidad -->
+                                            @if (!empty($crear_productos[$producto['id_producto']]['seleccionado']))
+                                                <div class="shrink-0">
+                                                    <label class="block text-xs text-gray-500 mb-1">Cantidad</label>
+                                                    <input type="number"
+                                                        wire:model="crear_productos.{{ $producto['id_producto'] }}.cantidad_disponible"
+                                                        min="0"
+                                                        class="w-24 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                                </div>
+                                            @endif
+                                        </div>
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <div id="sin-resultados-crear" class="hidden text-center py-8">
+                                <svg class="w-12 h-12 text-gray-400 mx-auto mb-3" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <h3 class="text-sm font-semibold text-gray-900 mb-1">No se encontraron productos</h3>
+                                <p class="text-sm text-gray-500">Intenta con otra búsqueda</p>
+                            </div>
+                        @endif
+                    </div>
+
+                    <!-- Footer -->
+                    <div class="bg-white border-t border-gray-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-600">
+                                <span class="font-medium">Productos seleccionados:</span>
+                                <span
+                                    class="ml-2">{{ collect($crear_productos)->where('seleccionado', true)->count() }}</span>
+                            </div>
+                            <div class="flex gap-3">
+                                <button type="button" wire:click="cerrarModalCrear"
+                                    class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors">
+                                    Cancelar
+                                </button>
+                                <button type="submit"
+                                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50"
+                                    wire:loading.attr="disabled">
+                                    <span wire:loading.remove wire:target="crearMenu">Crear Menú</span>
+                                    <span wire:loading wire:target="crearMenu"
+                                        style="display: none;">Creando...</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    @endif
+
+    <!-- Modal Editar Menú -->
+    @if ($modalEditarAbierto)
+        <div class="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+            wire:click="cerrarModalEditar">
+            <div class="bg-white rounded-2xl shadow-2xl max-w-5xl w-full max-h-[90vh] overflow-hidden" wire:click.stop>
+                <form wire:submit.prevent="actualizarMenu" class="flex flex-col h-full max-h-[90vh]">
+                    <!-- Header -->
+                    <div class="bg-white border-b border-gray-200 p-6">
+                        <div class="flex items-center justify-between">
+                            <h3 class="text-xl font-semibold text-gray-900">Editar Menú</h3>
+                            <button type="button" wire:click="cerrarModalEditar"
+                                class="text-gray-400 hover:text-gray-600">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+
+                        <!-- Fecha -->
+                        <div class="mt-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Fecha del Menú *</label>
                             <input type="date" wire:model="editar_fecha" required
                                 class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
                             @error('editar_fecha')
                                 <span class="text-red-500 text-xs mt-1 block">{{ $message }}</span>
+                            @enderror
+                            @error('editar_productos')
+                                <span class="text-red-500 text-xs mt-2 block">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
@@ -373,10 +536,6 @@
                                 <p class="text-sm text-gray-500">Intenta con otra búsqueda</p>
                             </div>
                         @endif
-
-                        @error('editar_productos')
-                            <span class="text-red-500 text-xs mt-2 block">{{ $message }}</span>
-                        @enderror
                     </div>
 
                     <!-- Footer -->

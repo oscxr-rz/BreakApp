@@ -161,6 +161,13 @@ class Menus extends Component
                 'crear_fecha.after_or_equal' => 'La fecha no puede ser anterior a hoy',
             ]);
 
+            $menuExistente = collect($this->menus)->firstWhere('fecha', $this->crear_fecha);
+
+            if ($menuExistente) {
+                $this->addError('crear_fecha', 'Ya existe un menú con esa fecha');
+                return;
+            }
+
             $productosSeleccionados = collect($this->crear_productos)
                 ->filter(fn($prod) => !empty($prod['seleccionado']))
                 ->map(function ($prod, $idProducto) {
@@ -210,6 +217,13 @@ class Menus extends Component
                 'editar_fecha.date' => 'Debe ser una fecha válida',
                 'editar_fecha.after_or_equal' => 'La fecha no puede ser anterior a hoy',
             ]);
+
+            $menuExistente = collect($this->menus)->firstWhere('fecha', $this->editar_fecha);
+
+            if ($this->editar_idMenu !== $menuExistente['id_menu']) {
+                $this->addError('editar_fecha', 'Ya existe un menú con esa fecha');
+                return;
+            }
 
             $productosSeleccionados = collect($this->editar_productos)
                 ->filter(fn($prod) => !empty($prod['seleccionado']))
