@@ -3,23 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>BreakApp</title>
+    <title>BreakApp - Notificaciones</title>
 </head>
 
-<body class="bg-white pb-20 lg:pb-24">
+<body>
     @include('layouts.navbar')
 
     <main>
         <div class="max-w-7xl mx-auto">
-            <livewire:components.notificacion />
-            <livewire:menu-diario />
+            <livewire:notificaciones-usuario />
         </div>
     </main>
-
-    @stack('script')
     @livewireScripts
 </body>
 
