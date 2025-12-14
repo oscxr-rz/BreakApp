@@ -287,7 +287,7 @@
     @script
         <script>
             Echo.channel('admin')
-                .listen('.ActualizarMenu', (e) => {
+                .listen('.ActualizarOrdenes', (e) => {
                     $wire.cargarOrdenes();
                 });
         </script>
