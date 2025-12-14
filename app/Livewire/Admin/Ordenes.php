@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Services\OrdenService;
+use App\Services\admin\OrdenesService;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;
@@ -10,11 +10,11 @@ use Livewire\Component;
 class Ordenes extends Component
 {
     public $ordenes = [];
-    protected OrdenService $ordenService;
+    protected OrdenesService $ordenesService;
 
-    public function boot(OrdenService $ordenService)
+    public function boot(OrdenesService $ordenesService)
     {
-        $this->ordenService = $ordenService;
+        $this->ordenesService = $ordenesService;
     }
 
     public function mount()
@@ -24,15 +24,13 @@ class Ordenes extends Component
 
     public function cargarOrdenes()
     {
-        $response = Http::withToken(session('api_token'))
-            ->get(env('API_HOST') . '/admin/ordenes');
-        $this->ordenes = $response->successful() ? $response->json('data') : [];
+        $this->ordenes = $this->ordenesService->obtenerOrdenes() ?? [];
     }
 
     public function cambiarEstado(int $idOrden, string $estado)
     {
         try {
-            if ($this->ordenService->cambiarEstado($idOrden, $estado)) {
+            if ($this->ordenesService->cambiarEstado($idOrden, $estado)) {
                 $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: "Orden {$idOrden} actualizada a {$estado}");
                 $this->cargarOrdenes();
             } else {
