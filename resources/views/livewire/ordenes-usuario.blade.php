@@ -123,6 +123,15 @@
                                     <span wire:loading
                                         wire:target="ocultarOrden({{ $orden['id_orden'] }})">Procesando...</span>
                                 </button>
+
+                                <button wire:click="obtenerTicket({{ $orden['id_orden'] }})"
+                                    wire:loading.attr="disabled" wire:loading.class="opacity-50"
+                                    class="w-full mt-2 py-3 bg-red-50 text-red-600 rounded-xl font-medium hover:bg-red-100 transition-colors border border-red-200 text-sm">
+                                    <span wire:loading.remove
+                                        wire:target="obtenerTicket({{ $orden['id_orden'] }})">Obtener Ticket</span>
+                                    <span wire:loading
+                                        wire:target="obtenerTicket({{ $orden['id_orden'] }})">Procesando...</span>
+                                </button>
                             @endif
                         </div>
 

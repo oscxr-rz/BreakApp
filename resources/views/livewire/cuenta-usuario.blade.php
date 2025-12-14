@@ -22,7 +22,7 @@
                 <h2 class="text-xl font-semibold text-gray-900 mb-2">Acceso Requerido</h2>
                 <p class="text-gray-500 text-sm mb-6">Inicie sesión para acceder a los datos de su cuenta</p>
                 <a href="{{ route('login') }}"
-                    class="inline-block w-full py-3 bg-linear-to-rrom-[#951327] to-[#b50001] text-white rounded-xl font-medium hover:shadow-lg transition-all">
+                    class="inline-block w-full py-3 bg-linear-to-r from-[#951327] to-[#b50001] text-white rounded-xl font-medium hover:shadow-lg transition-all">
                     Iniciar Sesión
                 </a>
             </div>

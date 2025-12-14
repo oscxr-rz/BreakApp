@@ -34,6 +34,7 @@ class CategoriasService
                     'descripcion' => $descripcion,
                     'activo' => $activo
                 ]);
+                
             return $response->successful();
         } catch (Exception $e) {
             throw $e;

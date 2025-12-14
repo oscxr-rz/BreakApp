@@ -22,7 +22,7 @@ Route::view('/notificacion/{id}', 'user.notificacion-show')->name('notificacion'
 Route::view('/tarjeta-local', 'user.tarjeta-local')->name('tarjeta.local');
 Route::view('/ordenes', 'user.ordenes')->name('ordenes');
 
-Route::prefix('/admin')->group(function () {
+Route::middleware('auth.admin')->prefix('/admin')->group(function () {
     Route::view('/admin', 'admin.dashboard')->name('dashboard');
     Route::view('/categorias', 'admin.categorias')->name('admin.categorias');
     Route::view('/productos', 'admin.productos')->name('admin.productos');
