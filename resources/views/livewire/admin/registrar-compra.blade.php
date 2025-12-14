@@ -1,14 +1,13 @@
 <div class="min-h-screen bg-gray-50 pb-32 lg:pb-0">
     <!-- Header -->
-    <div class="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-20 shadow-sm">
-        <button onclick="window.history.back()"
-            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
-            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-        </button>
-        <h1 class="text-lg font-semibold text-gray-900">Registrar Compra</h1>
-        <div class="w-10"></div>
+    <div class="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">Capturar Orden</h1>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Notificaciones -->
@@ -49,8 +48,8 @@
                     <div class="relative">
                         <input type="text" placeholder="Buscar productos..." id="buscarInput"
                             class="w-full bg-white rounded-xl px-4 py-3 pl-11 text-sm border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all">
-                        <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                         </svg>
@@ -76,14 +75,19 @@
                             <section class="seccion-categoria mb-8" data-categoria="{{ strtolower($categoria) }}">
                                 <div class="flex items-center justify-between mb-4">
                                     <h2 class="font-bold text-lg text-gray-900">{{ $categoria }}</h2>
-                                    <span class="text-sm text-gray-500">{{ count($productos) }} producto{{ count($productos) !== 1 ? 's' : '' }}</span>
+                                    <span class="text-sm text-gray-500">{{ count($productos) }}
+                                        producto{{ count($productos) !== 1 ? 's' : '' }}</span>
                                 </div>
 
                                 <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
                                     @foreach ($productos as $producto)
                                         @php
-                                            $estaSeleccionado = isset($productosSeleccionados[$producto['id_producto']]);
-                                            $cantidadSeleccionada = $estaSeleccionado ? $productosSeleccionados[$producto['id_producto']]['cantidad'] : 0;
+                                            $estaSeleccionado = isset(
+                                                $productosSeleccionados[$producto['id_producto']],
+                                            );
+                                            $cantidadSeleccionada = $estaSeleccionado
+                                                ? $productosSeleccionados[$producto['id_producto']]['cantidad']
+                                                : 0;
                                         @endphp
 
                                         <div class="tarjeta-producto bg-white rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-300 {{ $estaSeleccionado ? 'ring-2 ring-blue-500' : '' }}"
@@ -93,12 +97,13 @@
 
                                             <!-- Imagen -->
                                             <div class="relative">
-                                                <img src="{{ $producto['imagen_url'] }}" 
+                                                <img src="{{ $producto['imagen_url'] }}"
                                                     alt="{{ $producto['nombre'] }}"
                                                     class="w-full h-44 lg:h-52 object-cover">
-                                                
+
                                                 @if ($estaSeleccionado)
-                                                    <div class="absolute top-3 right-3 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold shadow-lg">
+                                                    <div
+                                                        class="absolute top-3 right-3 bg-blue-600 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold shadow-lg">
                                                         {{ $cantidadSeleccionada }}
                                                     </div>
                                                 @endif
@@ -116,14 +121,18 @@
                                                 <!-- Tiempo y Cantidad -->
                                                 <div class="flex items-center justify-between mb-3">
                                                     <div class="flex items-center gap-1.5 text-gray-500">
-                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                        <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                            viewBox="0 0 24 24">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
                                                                 d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                                         </svg>
-                                                        <span class="text-xs">{{ $producto['tiempo_preparacion'] ?? 'N/A' }}</span>
+                                                        <span
+                                                            class="text-xs">{{ $producto['tiempo_preparacion'] ?? 'N/A' }}</span>
                                                     </div>
 
-                                                    <span class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded-lg">
+                                                    <span
+                                                        class="text-xs font-semibold text-green-600 bg-green-50 px-2 py-1 rounded-lg">
                                                         {{ $producto['cantidad_disponible'] ?? 0 }} disp.
                                                     </span>
                                                 </div>
@@ -139,34 +148,46 @@
 
                                                     @if ($estaSeleccionado)
                                                         <!-- Controles de cantidad -->
-                                                        <div class="flex items-center gap-1 bg-blue-50 rounded-lg px-1.5 py-1 border border-blue-200">
-                                                            <button wire:click="decrementarCantidad({{ $producto['id_producto'] }})"
+                                                        <div
+                                                            class="flex items-center gap-1 bg-blue-50 rounded-lg px-1.5 py-1 border border-blue-200">
+                                                            <button
+                                                                wire:click="decrementarCantidad({{ $producto['id_producto'] }})"
                                                                 wire:loading.attr="disabled"
                                                                 class="w-7 h-7 flex items-center justify-center hover:bg-blue-100 rounded transition">
-                                                                <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4" />
+                                                                <svg class="w-4 h-4 text-blue-600" fill="none"
+                                                                    stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                                        stroke-width="2.5" d="M20 12H4" />
                                                                 </svg>
                                                             </button>
 
-                                                            <span class="font-semibold text-blue-600 min-w-6 text-center">
+                                                            <span
+                                                                class="font-semibold text-blue-600 min-w-6 text-center">
                                                                 {{ $cantidadSeleccionada }}
                                                             </span>
 
-                                                            <button wire:click="incrementarCantidad({{ $producto['id_producto'] }})"
+                                                            <button
+                                                                wire:click="incrementarCantidad({{ $producto['id_producto'] }})"
                                                                 wire:loading.attr="disabled"
                                                                 class="w-7 h-7 flex items-center justify-center bg-blue-600 hover:bg-blue-700 rounded transition">
-                                                                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+                                                                <svg class="w-4 h-4 text-white" fill="none"
+                                                                    stroke="currentColor" viewBox="0 0 24 24">
+                                                                    <path stroke-linecap="round"
+                                                                        stroke-linejoin="round" stroke-width="2.5"
+                                                                        d="M12 4v16m8-8H4" />
                                                                 </svg>
                                                             </button>
                                                         </div>
                                                     @else
                                                         <!-- Botón agregar -->
-                                                        <button wire:click="toggleProducto({{ $producto['id_producto'] }}, '{{ $categoria }}')"
+                                                        <button
+                                                            wire:click="toggleProducto({{ $producto['id_producto'] }}, '{{ $categoria }}')"
                                                             wire:loading.attr="disabled"
                                                             class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-lg font-semibold transition-all text-sm shadow-sm disabled:opacity-50 flex items-center gap-1">
-                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                            <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                                viewBox="0 0 24 24">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2"
                                                                     d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z">
                                                                 </path>
                                                             </svg>
@@ -184,7 +205,8 @@
                     <!-- Sin resultados -->
                     <div id="sinResultados" class="hidden flex-col items-center justify-center py-20">
                         <div class="w-32 h-32 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                            <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor"
+                                viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                             </svg>
@@ -197,7 +219,8 @@
                 <!-- Resumen de compra -->
                 <div class="lg:col-span-4" x-data="{ expandido: false }">
                     <!-- Desktop - Sidebar sticky -->
-                    <div class="hidden lg:block bg-white rounded-2xl p-6 shadow-lg border border-gray-100 sticky top-24">
+                    <div
+                        class="hidden lg:block bg-white rounded-2xl p-6 shadow-lg border border-gray-100 sticky top-24">
                         <h2 class="text-lg font-bold text-gray-900 mb-4">Resumen de Compra</h2>
 
                         <!-- Campos de cliente y pago -->
@@ -217,7 +240,8 @@
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Con cuánto paga</label>
                                 <div class="relative">
-                                    <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
+                                    <span
+                                        class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 font-medium">$</span>
                                     <input type="number" step="0.01" wire:model.live="montoPagado"
                                         placeholder="0.00"
                                         class="w-full pl-8 pr-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
@@ -237,13 +261,16 @@
                                             <div class="flex-1 pr-2">
                                                 <p class="font-medium text-sm text-gray-900">{{ $item['nombre'] }}</p>
                                                 <p class="text-xs text-gray-500 mt-1">
-                                                    {{ $item['cantidad'] }} × ${{ number_format($item['precio_unitario'], 2) }}
+                                                    {{ $item['cantidad'] }} ×
+                                                    ${{ number_format($item['precio_unitario'], 2) }}
                                                 </p>
                                             </div>
                                             <button wire:click="quitarProducto({{ $idProducto }})"
                                                 class="text-red-500 hover:text-red-700 hover:bg-red-50 p-1 rounded transition">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
                                             </button>
                                         </div>
@@ -258,11 +285,13 @@
                             <div class="border-t border-gray-200 pt-4 mb-4 space-y-3">
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm text-gray-600">
-                                        Subtotal ({{ count($productosSeleccionados) }} producto{{ count($productosSeleccionados) !== 1 ? 's' : '' }})
+                                        Subtotal ({{ count($productosSeleccionados) }}
+                                        producto{{ count($productosSeleccionados) !== 1 ? 's' : '' }})
                                     </span>
-                                    <span class="text-sm font-medium text-gray-900">${{ number_format($total, 2) }}</span>
+                                    <span
+                                        class="text-sm font-medium text-gray-900">${{ number_format($total, 2) }}</span>
                                 </div>
-                                
+
                                 <div class="flex justify-between items-center">
                                     <span class="text-base font-semibold text-gray-900">Total</span>
                                     <span class="text-2xl font-bold text-blue-600">
@@ -273,7 +302,8 @@
                                 @if ($montoPagado > 0)
                                     <div class="flex justify-between items-center pt-3 border-t border-gray-200">
                                         <span class="text-base font-semibold text-gray-900">Cambio</span>
-                                        <span class="text-2xl font-bold {{ $cambio >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                                        <span
+                                            class="text-2xl font-bold {{ $cambio >= 0 ? 'text-green-600' : 'text-red-600' }}">
                                             ${{ number_format($cambio, 2) }}
                                         </span>
                                     </div>
@@ -282,14 +312,15 @@
 
                             <!-- Botones -->
                             <div class="space-y-2">
-                                <button wire:click="registrarCompra" 
-                                    wire:loading.attr="disabled"
+                                <button wire:click="registrarCompra" wire:loading.attr="disabled"
                                     wire:target="registrarCompra"
                                     class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-white py-3.5 rounded-xl font-semibold transition-all">
                                     <span wire:loading.remove wire:target="registrarCompra">Registrar Compra</span>
-                                    <span wire:loading wire:target="registrarCompra" class="flex items-center justify-center gap-2">
+                                    <span wire:loading wire:target="registrarCompra"
+                                        class="flex items-center justify-center gap-2">
                                         <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                stroke="currentColor" stroke-width="4"></circle>
                                             <path class="opacity-75" fill="currentColor"
                                                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                             </path>
@@ -298,15 +329,15 @@
                                     </span>
                                 </button>
 
-                                <button wire:click="limpiarFormulario"
-                                    wire:loading.attr="disabled"
+                                <button wire:click="limpiarFormulario" wire:loading.attr="disabled"
                                     class="w-full bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-colors disabled:opacity-50">
                                     Limpiar Todo
                                 </button>
                             </div>
                         @else
                             <div class="text-center py-8">
-                                <svg class="w-16 h-16 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-16 h-16 text-gray-300 mx-auto mb-3" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
                                 </svg>
@@ -317,19 +348,23 @@
                     </div>
 
                     <!-- Móvil - Resumen fijo abajo -->
-                    <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-30 rounded-t-3xl">
+                    <div
+                        class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-30 rounded-t-3xl">
                         <div class="p-4 pb-6">
                             @if (!empty($productosSeleccionados))
-                                <button @click="expandido = !expandido" class="w-full flex items-center justify-between mb-3">
+                                <button @click="expandido = !expandido"
+                                    class="w-full flex items-center justify-between mb-3">
                                     <div class="flex items-center gap-2">
                                         <span class="text-sm font-medium text-gray-600">Total</span>
                                         <span class="text-xl font-bold text-blue-600">
                                             ${{ number_format($total, 2) }}
                                         </span>
                                     </div>
-                                    <svg class="w-5 h-5 text-gray-600 transition-transform" :class="expandido ? 'rotate-180' : ''" 
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    <svg class="w-5 h-5 text-gray-600 transition-transform"
+                                        :class="expandido ? 'rotate-180' : ''" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </button>
 
@@ -339,9 +374,10 @@
                                         <input type="text" wire:model.live="nombreCliente"
                                             placeholder="Nombre del cliente"
                                             class="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm">
-                                        
+
                                         <div class="relative">
-                                            <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
+                                            <span
+                                                class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">$</span>
                                             <input type="number" step="0.01" wire:model.live="montoPagado"
                                                 placeholder="Con cuánto paga"
                                                 class="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-lg text-sm">
@@ -350,7 +386,8 @@
                                         @if ($montoPagado > 0)
                                             <div class="flex justify-between items-center p-2 bg-green-50 rounded-lg">
                                                 <span class="text-sm font-medium text-gray-700">Cambio:</span>
-                                                <span class="text-lg font-bold {{ $cambio >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                                                <span
+                                                    class="text-lg font-bold {{ $cambio >= 0 ? 'text-green-600' : 'text-red-600' }}">
                                                     ${{ number_format($cambio, 2) }}
                                                 </span>
                                             </div>
@@ -360,20 +397,22 @@
                                     <!-- Productos -->
                                     <div class="space-y-2 max-h-48 overflow-y-auto">
                                         @foreach ($productosSeleccionados as $idProducto => $item)
-                                            <div class="bg-gray-50 p-2 rounded-lg text-xs flex justify-between items-center">
+                                            <div
+                                                class="bg-gray-50 p-2 rounded-lg text-xs flex justify-between items-center">
                                                 <div class="flex-1">
                                                     <p class="font-medium text-gray-900">{{ $item['nombre'] }}</p>
-                                                    <p class="text-gray-500">{{ $item['cantidad'] }} × ${{ number_format($item['precio_unitario'], 2) }}</p>
+                                                    <p class="text-gray-500">{{ $item['cantidad'] }} ×
+                                                        ${{ number_format($item['precio_unitario'], 2) }}</p>
                                                 </div>
-                                                <span class="font-bold text-gray-900">${{ number_format($item['precio_unitario'] * $item['cantidad'], 2) }}</span>
+                                                <span
+                                                    class="font-bold text-gray-900">${{ number_format($item['precio_unitario'] * $item['cantidad'], 2) }}</span>
                                             </div>
                                         @endforeach
                                     </div>
                                 </div>
 
                                 <div class="space-y-2">
-                                    <button wire:click="registrarCompra" 
-                                        wire:loading.attr="disabled"
+                                    <button wire:click="registrarCompra" wire:loading.attr="disabled"
                                         wire:target="registrarCompra"
                                         class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:shadow-lg text-white py-3.5 rounded-xl font-semibold transition-all disabled:opacity-50">
                                         <span wire:loading.remove wire:target="registrarCompra">Registrar Compra</span>
@@ -436,8 +475,10 @@
                             const nombre = normalizeText(producto.dataset.nombre || '');
                             const descripcion = normalizeText(producto.dataset.descripcion || '');
                             const categoriaProducto = normalizeText(producto.dataset.categoria || '');
-                            const coincide = !terminoBusqueda || nombre.includes(terminoBusqueda) || descripcion
-                                .includes(terminoBusqueda) || categoriaProducto.includes(terminoBusqueda);
+                            const coincide = !terminoBusqueda || nombre.includes(terminoBusqueda) ||
+                                descripcion
+                                .includes(terminoBusqueda) || categoriaProducto.includes(
+                                    terminoBusqueda);
 
                             if (coincide) {
                                 producto.style.display = 'block';
@@ -454,7 +495,7 @@
                     if (contenedorProductos) {
                         contenedorProductos.style.display = hayResultados ? 'block' : 'none';
                     }
-                    
+
                     if (sinResultados) {
                         sinResultados.style.display = hayResultados ? 'none' : 'flex';
                     }

@@ -1,14 +1,13 @@
 <div class="min-h-screen bg-gray-50 pb-32 lg:pb-0">
     <!-- Header -->
-    <div class="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-20 shadow-sm">
-        <button onclick="window.history.back()"
-            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
-            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-            </svg>
-        </button>
-        <h1 class="text-lg font-semibold text-gray-900">Capturar Orden</h1>
-        <div class="w-10"></div>
+    <div class="bg-white border-b border-gray-200 sticky top-0 z-10 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">Registrar Compra</h1>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Notificaciones -->
@@ -66,15 +65,20 @@
                                 <!-- Título de categoría -->
                                 <div class="bg-linear-to-r from-blue-50 to-cyan-50 px-6 py-4 border-b border-gray-100">
                                     <h2 class="text-lg font-semibold text-gray-900">{{ $categoria }}</h2>
-                                    <p class="text-sm text-gray-600">{{ count($items) }} producto{{ count($items) !== 1 ? 's' : '' }}</p>
+                                    <p class="text-sm text-gray-600">{{ count($items) }}
+                                        producto{{ count($items) !== 1 ? 's' : '' }}</p>
                                 </div>
 
                                 <!-- Lista de productos -->
                                 <div class="divide-y divide-gray-100">
                                     @foreach ($items as $producto)
                                         @php
-                                            $estaSeleccionado = isset($productosSeleccionados[$producto['id_producto']]);
-                                            $cantidadSeleccionada = $estaSeleccionado ? $productosSeleccionados[$producto['id_producto']]['cantidad'] : 0;
+                                            $estaSeleccionado = isset(
+                                                $productosSeleccionados[$producto['id_producto']],
+                                            );
+                                            $cantidadSeleccionada = $estaSeleccionado
+                                                ? $productosSeleccionados[$producto['id_producto']]['cantidad']
+                                                : 0;
                                         @endphp
 
                                         <div class="producto-item p-4 hover:bg-gray-50 transition-colors {{ $estaSeleccionado ? 'bg-blue-50' : '' }}"
@@ -84,11 +88,12 @@
                                             <div class="flex gap-4">
                                                 <!-- Imagen -->
                                                 <div class="relative shrink-0">
-                                                    <img src="{{ $producto['imagen_url'] }}" 
+                                                    <img src="{{ $producto['imagen_url'] }}"
                                                         alt="{{ $producto['nombre'] ?? 'Producto' }}"
                                                         class="w-24 h-24 rounded-xl object-cover bg-gray-100">
                                                     @if ($estaSeleccionado)
-                                                        <div class="absolute -top-2 -right-2 bg-blue-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-xs font-bold shadow-lg">
+                                                        <div
+                                                            class="absolute -top-2 -right-2 bg-blue-600 text-white rounded-full w-7 h-7 flex items-center justify-center text-xs font-bold shadow-lg">
                                                             {{ $cantidadSeleccionada }}
                                                         </div>
                                                     @endif
@@ -96,7 +101,8 @@
 
                                                 <!-- Info -->
                                                 <div class="flex-1 min-w-0">
-                                                    <h3 class="font-semibold text-gray-900 mb-1">{{ $producto['nombre'] ?? 'Sin nombre' }}</h3>
+                                                    <h3 class="font-semibold text-gray-900 mb-1">
+                                                        {{ $producto['nombre'] ?? 'Sin nombre' }}</h3>
                                                     <p class="text-sm text-gray-500 mb-2 line-clamp-2">
                                                         {{ $producto['descripcion'] ?? 'Sin descripción' }}
                                                     </p>
@@ -108,42 +114,59 @@
 
                                                         @if ($estaSeleccionado)
                                                             <!-- Controles de cantidad -->
-                                                            <div class="flex items-center gap-2 bg-white rounded-xl px-2 py-1.5 border-2 border-blue-500 shadow-sm">
-                                                                <button wire:click="decrementarCantidad({{ $producto['id_producto'] }})"
+                                                            <div
+                                                                class="flex items-center gap-2 bg-white rounded-xl px-2 py-1.5 border-2 border-blue-500 shadow-sm">
+                                                                <button
+                                                                    wire:click="decrementarCantidad({{ $producto['id_producto'] }})"
                                                                     wire:loading.attr="disabled"
                                                                     wire:target="decrementarCantidad({{ $producto['id_producto'] }})"
                                                                     class="w-8 h-8 flex items-center justify-center hover:bg-gray-100 rounded-lg transition disabled:opacity-50">
-                                                                    <svg class="w-4 h-4 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M20 12H4" />
+                                                                    <svg class="w-4 h-4 text-gray-700" fill="none"
+                                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round" stroke-width="2.5"
+                                                                            d="M20 12H4" />
                                                                     </svg>
                                                                 </button>
 
-                                                                <span class="font-semibold text-gray-900 min-w-8 text-center text-lg">
+                                                                <span
+                                                                    class="font-semibold text-gray-900 min-w-8 text-center text-lg">
                                                                     {{ $cantidadSeleccionada }}
                                                                 </span>
 
-                                                                <button wire:click="incrementarCantidad({{ $producto['id_producto'] }})"
+                                                                <button
+                                                                    wire:click="incrementarCantidad({{ $producto['id_producto'] }})"
                                                                     wire:loading.attr="disabled"
                                                                     wire:target="incrementarCantidad({{ $producto['id_producto'] }})"
                                                                     class="w-8 h-8 flex items-center justify-center bg-blue-600 hover:bg-blue-700 rounded-lg transition disabled:opacity-50">
-                                                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4" />
+                                                                    <svg class="w-4 h-4 text-white" fill="none"
+                                                                        stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path stroke-linecap="round"
+                                                                            stroke-linejoin="round" stroke-width="2.5"
+                                                                            d="M12 4v16m8-8H4" />
                                                                     </svg>
                                                                 </button>
                                                             </div>
                                                         @else
                                                             <!-- Botón agregar -->
-                                                            <button wire:click="toggleProducto({{ $producto['id_producto'] }})"
+                                                            <button
+                                                                wire:click="toggleProducto({{ $producto['id_producto'] }})"
                                                                 wire:loading.attr="disabled"
                                                                 wire:target="toggleProducto({{ $producto['id_producto'] }})"
                                                                 class="px-5 py-2.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors text-sm font-semibold shadow-sm disabled:opacity-50">
-                                                                <span wire:loading.remove wire:target="toggleProducto({{ $producto['id_producto'] }})">
+                                                                <span wire:loading.remove
+                                                                    wire:target="toggleProducto({{ $producto['id_producto'] }})">
                                                                     Agregar
                                                                 </span>
-                                                                <span wire:loading wire:target="toggleProducto({{ $producto['id_producto'] }})"
+                                                                <span wire:loading
+                                                                    wire:target="toggleProducto({{ $producto['id_producto'] }})"
                                                                     class="flex items-center gap-2">
-                                                                    <svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24">
-                                                                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                                                    <svg class="animate-spin w-4 h-4" fill="none"
+                                                                        viewBox="0 0 24 24">
+                                                                        <circle class="opacity-25" cx="12"
+                                                                            cy="12" r="10"
+                                                                            stroke="currentColor" stroke-width="4">
+                                                                        </circle>
                                                                         <path class="opacity-75" fill="currentColor"
                                                                             d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                                                         </path>
@@ -163,8 +186,10 @@
                     </div>
 
                     <!-- Sin resultados -->
-                    <div id="sinResultados" class="hidden bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
-                        <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div id="sinResultados"
+                        class="hidden bg-white rounded-2xl shadow-sm border border-gray-100 p-12 text-center">
+                        <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -176,7 +201,8 @@
                 <!-- Resumen del pedido -->
                 <div class="lg:col-span-4" x-data="{ expandido: false }">
                     <!-- Desktop - Sidebar sticky -->
-                    <div class="hidden lg:block bg-white rounded-2xl p-6 shadow-lg border border-gray-100 sticky top-24">
+                    <div
+                        class="hidden lg:block bg-white rounded-2xl p-6 shadow-lg border border-gray-100 sticky top-24">
                         <h2 class="text-lg font-bold text-gray-900 mb-4">Resumen del Pedido</h2>
 
                         @if (!empty($productosSeleccionados))
@@ -188,13 +214,16 @@
                                             <div class="flex-1 pr-2">
                                                 <p class="font-medium text-sm text-gray-900">{{ $item['nombre'] }}</p>
                                                 <p class="text-xs text-gray-500 mt-1">
-                                                    {{ $item['cantidad'] }} × ${{ number_format($item['precio_unitario'], 2) }}
+                                                    {{ $item['cantidad'] }} ×
+                                                    ${{ number_format($item['precio_unitario'], 2) }}
                                                 </p>
                                             </div>
                                             <button wire:click="quitarProducto({{ $idProducto }})"
                                                 class="text-red-500 hover:text-red-700 hover:bg-red-50 p-1 rounded transition">
-                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
                                             </button>
                                         </div>
@@ -215,13 +244,16 @@
                             <div class="border-t border-gray-200 pt-4 mb-4">
                                 <div class="flex justify-between items-center mb-2">
                                     <span class="text-sm text-gray-600">
-                                        Subtotal ({{ count($productosSeleccionados) }} producto{{ count($productosSeleccionados) !== 1 ? 's' : '' }})
+                                        Subtotal ({{ count($productosSeleccionados) }}
+                                        producto{{ count($productosSeleccionados) !== 1 ? 's' : '' }})
                                     </span>
-                                    <span class="text-sm font-medium text-gray-900">${{ number_format($total, 2) }}</span>
+                                    <span
+                                        class="text-sm font-medium text-gray-900">${{ number_format($total, 2) }}</span>
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-base font-semibold text-gray-900">Total</span>
-                                    <span class="text-2xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                                    <span
+                                        class="text-2xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                                         ${{ number_format($total, 2) }}
                                     </span>
                                 </div>
@@ -229,14 +261,15 @@
 
                             <!-- Botones -->
                             <div class="space-y-2">
-                                <button wire:click="capturarOrden" 
-                                    wire:loading.attr="disabled"
+                                <button wire:click="capturarOrden" wire:loading.attr="disabled"
                                     wire:target="capturarOrden"
                                     class="w-full bg-linear-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-white py-3.5 rounded-xl font-semibold transition-all">
                                     <span wire:loading.remove wire:target="capturarOrden">Capturar Orden</span>
-                                    <span wire:loading wire:target="capturarOrden" class="flex items-center justify-center gap-2">
+                                    <span wire:loading wire:target="capturarOrden"
+                                        class="flex items-center justify-center gap-2">
                                         <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                            <circle class="opacity-25" cx="12" cy="12" r="10"
+                                                stroke="currentColor" stroke-width="4"></circle>
                                             <path class="opacity-75" fill="currentColor"
                                                 d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
                                             </path>
@@ -245,15 +278,15 @@
                                     </span>
                                 </button>
 
-                                <button wire:click="limpiarSeleccion"
-                                    wire:loading.attr="disabled"
+                                <button wire:click="limpiarSeleccion" wire:loading.attr="disabled"
                                     class="w-full bg-gray-200 text-gray-700 py-3 rounded-xl font-semibold hover:bg-gray-300 transition-colors disabled:opacity-50">
                                     Limpiar Todo
                                 </button>
                             </div>
                         @else
                             <div class="text-center py-8">
-                                <svg class="w-16 h-16 text-gray-300 mx-auto mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg class="w-16 h-16 text-gray-300 mx-auto mb-3" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                                 </svg>
@@ -264,39 +297,46 @@
                     </div>
 
                     <!-- Móvil - Resumen fijo abajo -->
-                    <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-30 rounded-t-3xl safe-area-bottom">
+                    <div
+                        class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-30 rounded-t-3xl safe-area-bottom">
                         <div class="p-4 pb-6">
                             @if (!empty($productosSeleccionados))
-                                <button @click="expandido = !expandido" class="w-full flex items-center justify-between mb-3">
+                                <button @click="expandido = !expandido"
+                                    class="w-full flex items-center justify-between mb-3">
                                     <div class="flex items-center gap-2">
                                         <span class="text-sm font-medium text-gray-600">Total</span>
-                                        <span class="text-xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                                        <span
+                                            class="text-xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                                             ${{ number_format($total, 2) }}
                                         </span>
                                     </div>
-                                    <svg class="w-5 h-5 text-gray-600 transition-transform" :class="expandido ? 'rotate-180' : ''" 
-                                        fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                                    <svg class="w-5 h-5 text-gray-600 transition-transform"
+                                        :class="expandido ? 'rotate-180' : ''" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M19 9l-7 7-7-7" />
                                     </svg>
                                 </button>
 
                                 <div x-show="expandido" x-transition style="display: none;">
                                     <div class="space-y-2 mb-3 max-h-60 overflow-y-auto">
                                         @foreach ($productosSeleccionados as $idProducto => $item)
-                                            <div class="bg-gray-50 p-2 rounded-lg text-xs flex justify-between items-center">
+                                            <div
+                                                class="bg-gray-50 p-2 rounded-lg text-xs flex justify-between items-center">
                                                 <div class="flex-1">
                                                     <p class="font-medium text-gray-900">{{ $item['nombre'] }}</p>
-                                                    <p class="text-gray-500">{{ $item['cantidad'] }} × ${{ number_format($item['precio_unitario'], 2) }}</p>
+                                                    <p class="text-gray-500">{{ $item['cantidad'] }} ×
+                                                        ${{ number_format($item['precio_unitario'], 2) }}</p>
                                                 </div>
-                                                <span class="font-bold text-gray-900">${{ number_format($item['precio_unitario'] * $item['cantidad'], 2) }}</span>
+                                                <span
+                                                    class="font-bold text-gray-900">${{ number_format($item['precio_unitario'] * $item['cantidad'], 2) }}</span>
                                             </div>
                                         @endforeach
                                     </div>
                                 </div>
 
                                 <div class="space-y-2">
-                                    <button wire:click="capturarOrden" 
-                                        wire:loading.attr="disabled"
+                                    <button wire:click="capturarOrden" wire:loading.attr="disabled"
                                         wire:target="capturarOrden"
                                         class="w-full bg-linear-to-r from-green-500 to-emerald-500 hover:shadow-lg text-white py-3.5 rounded-xl font-semibold transition-all disabled:opacity-50">
                                         <span wire:loading.remove wire:target="capturarOrden">Capturar Orden</span>
@@ -359,9 +399,11 @@
 
                             productos.forEach(producto => {
                                 const nombre = normalizeText(producto.dataset.nombre || '');
-                                const descripcion = normalizeText(producto.dataset.descripcion || '');
+                                const descripcion = normalizeText(producto.dataset
+                                    .descripcion || '');
 
-                                if (busqueda === '' || nombre.includes(busqueda) || descripcion.includes(busqueda)) {
+                                if (busqueda === '' || nombre.includes(busqueda) || descripcion
+                                    .includes(busqueda)) {
                                     producto.style.display = '';
                                     productosVisibles++;
                                 } else {
@@ -381,7 +423,7 @@
                         if (contenedorCategorias) {
                             contenedorCategorias.style.display = totalVisibles > 0 ? '' : 'none';
                         }
-                        
+
                         if (sinResultados) {
                             sinResultados.classList.toggle('hidden', totalVisibles > 0 || busqueda === '');
                         }
