@@ -13,7 +13,7 @@
 
     <!-- Sidebar -->
     <aside id="sidebar"
-        class="fixed top-0 left-0 h-screen w-[180px] bg-gradient-to-b from-blue-600 to-blue-800 transition-transform duration-300 ease-in-out z-40 flex flex-col -translate-x-full lg:translate-x-0">
+        class="fixed top-0 left-0 h-screen w-[180px] bg-linear-to-b from-blue-600 to-blue-800 transition-transform duration-300 ease-in-out z-40 flex flex-col -translate-x-full lg:translate-x-0">
 
         <!-- Logo Section Compacto -->
         <div class="px-4 py-5 flex items-center gap-3">

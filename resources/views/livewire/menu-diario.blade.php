@@ -151,6 +151,8 @@
                                                 wire:loading.attr="disabled"
                                                 class="bg-[#ea5f3a] hover:bg-[#951327] disabled:bg-[#768e78] text-white px-3 lg:px-4 py-2.5 lg:py-3 rounded-xl font-semibold transition-all duration-300 flex items-center gap-2 active:scale-95 text-sm lg:text-base shadow-md hover:shadow-lg"
                                                 @if ($producto['cantidad_disponible'] <= 0) disabled @endif>
+
+                                                <!-- Ícono del carrito - visible por defecto, oculto al cargar -->
                                                 <span wire:loading.remove
                                                     wire:target="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">
                                                     <svg class="w-5 h-5 lg:w-6 lg:h-6" fill="none"
@@ -161,8 +163,11 @@
                                                         </path>
                                                     </svg>
                                                 </span>
+
+                                                <!-- Spinner - OCULTO por defecto, visible al cargar -->
                                                 <span wire:loading
-                                                    wire:target="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">
+                                                    wire:target="agregarAlCarrito({{ $producto['id_producto'] }}, 1)"
+                                                    class="hidden">
                                                     <svg class="animate-spin w-5 h-5 lg:w-6 lg:h-6" fill="none"
                                                         viewBox="0 0 24 24">
                                                         <circle class="opacity-25" cx="12" cy="12"

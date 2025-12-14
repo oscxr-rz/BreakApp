@@ -233,15 +233,18 @@
                                 class="w-full py-3 rounded-lg font-medium transition-all duration-200 text-sm flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed {{ $orden['estado'] === 'PENDIENTE' ? 'bg-orange-500 hover:bg-orange-600 text-white' : 'bg-green-500 hover:bg-green-600 text-white' }}">
 
                                 @if ($orden['estado'] === 'PENDIENTE')
+                                    <!-- Ícono de reloj - visible por defecto -->
                                     <svg wire:loading.remove
                                         wire:target="cambiarEstado({{ $orden['id_orden'] }}, 'PREPARANDO')"
                                         class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
+
+                                    <!-- Spinner - OCULTO por defecto -->
                                     <svg wire:loading
                                         wire:target="cambiarEstado({{ $orden['id_orden'] }}, 'PREPARANDO')"
-                                        class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                                        class="animate-spin h-5 w-5 hidden">
                                         <circle class="opacity-25" cx="12" cy="12" r="10"
                                             stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor"
@@ -250,14 +253,17 @@
                                     </svg>
                                     <span>Preparando</span>
                                 @else
+                                    <!-- Ícono de check - visible por defecto -->
                                     <svg wire:loading.remove
                                         wire:target="cambiarEstado({{ $orden['id_orden'] }}, 'LISTO')"
                                         class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
+
+                                    <!-- Spinner - OCULTO por defecto -->
                                     <svg wire:loading wire:target="cambiarEstado({{ $orden['id_orden'] }}, 'LISTO')"
-                                        class="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
+                                        class="animate-spin h-5 w-5 hidden">
                                         <circle class="opacity-25" cx="12" cy="12" r="10"
                                             stroke="currentColor" stroke-width="4"></circle>
                                         <path class="opacity-75" fill="currentColor"
