@@ -28,4 +28,5 @@ Route::prefix('/admin')->group(function () {
     Route::view('/menus', 'admin.menus')->name('admin.menus');
     Route::view('/ordenes', 'admin.ordenes')->name('admin.ordenes');
     Route::view('/capturar-orden', 'admin.capturar-orden')->name('admin.capturar.orden');
+    Route::view('/registrar-compra', 'admin.registrar-compra')->name('admin.registrar.compra');
 });

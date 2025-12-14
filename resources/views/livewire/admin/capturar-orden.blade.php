@@ -24,8 +24,8 @@
         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-2"
         class="fixed top-20 right-6 px-6 py-4 rounded-2xl shadow-xl z-50 max-w-md"
-        :class="tipo === 'exito' ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white' :
-            'bg-gradient-to-r from-red-500 to-pink-500 text-white'"
+        :class="tipo === 'exito' ? 'bg-linear-to-r from-green-500 to-emerald-500 text-white' :
+            'bg-linear-to-r from-red-500 to-pink-500 text-white'"
         style="display: none;">
         <div class="flex items-center gap-3">
             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -64,7 +64,7 @@
                             <div class="categoria-card bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden mb-6"
                                 data-categoria="{{ strtolower($categoria) }}">
                                 <!-- Título de categoría -->
-                                <div class="bg-gradient-to-r from-blue-50 to-cyan-50 px-6 py-4 border-b border-gray-100">
+                                <div class="bg-linear-to-r from-blue-50 to-cyan-50 px-6 py-4 border-b border-gray-100">
                                     <h2 class="text-lg font-semibold text-gray-900">{{ $categoria }}</h2>
                                     <p class="text-sm text-gray-600">{{ count($items) }} producto{{ count($items) !== 1 ? 's' : '' }}</p>
                                 </div>
@@ -221,7 +221,7 @@
                                 </div>
                                 <div class="flex justify-between items-center">
                                     <span class="text-base font-semibold text-gray-900">Total</span>
-                                    <span class="text-2xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                                    <span class="text-2xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                                         ${{ number_format($total, 2) }}
                                     </span>
                                 </div>
@@ -232,7 +232,7 @@
                                 <button wire:click="capturarOrden" 
                                     wire:loading.attr="disabled"
                                     wire:target="capturarOrden"
-                                    class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-white py-3.5 rounded-xl font-semibold transition-all">
+                                    class="w-full bg-linear-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-white py-3.5 rounded-xl font-semibold transition-all">
                                     <span wire:loading.remove wire:target="capturarOrden">Capturar Orden</span>
                                     <span wire:loading wire:target="capturarOrden" class="flex items-center justify-center gap-2">
                                         <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
@@ -270,7 +270,7 @@
                                 <button @click="expandido = !expandido" class="w-full flex items-center justify-between mb-3">
                                     <div class="flex items-center gap-2">
                                         <span class="text-sm font-medium text-gray-600">Total</span>
-                                        <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
+                                        <span class="text-xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">
                                             ${{ number_format($total, 2) }}
                                         </span>
                                     </div>
@@ -298,7 +298,7 @@
                                     <button wire:click="capturarOrden" 
                                         wire:loading.attr="disabled"
                                         wire:target="capturarOrden"
-                                        class="w-full bg-gradient-to-r from-green-500 to-emerald-500 hover:shadow-lg text-white py-3.5 rounded-xl font-semibold transition-all disabled:opacity-50">
+                                        class="w-full bg-linear-to-r from-green-500 to-emerald-500 hover:shadow-lg text-white py-3.5 rounded-xl font-semibold transition-all disabled:opacity-50">
                                         <span wire:loading.remove wire:target="capturarOrden">Capturar Orden</span>
                                         <span wire:loading wire:target="capturarOrden">Procesando...</span>
                                     </button>

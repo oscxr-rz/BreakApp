@@ -35,13 +35,30 @@ class OrdenesService
                     'productos' => $productos
                 ]);
 
-                dd($response->json());
 
             return $response->successful();
         } catch (Exception $e) {
             throw $e;
         }
     }
+    public function registrarCompra(string $nombreCliente, ?int $idMenu, array $productos)
+    {
+        try {
+            $response = Http::withToken($this->token)
+                ->post("{$this->apiHost}/admin/ordenes", [
+                    'tipo' => 'COMPRA',
+                    'estado' => 'PENDIENTE',
+                    'id_menu' => $idMenu,
+                    'nombre_cliente' => $nombreCliente,
+                    'productos' => $productos
+                ]);
+
+            return $response->successful();
+        } catch (Exception $e) {
+            throw $e;
+        }
+    }
+
 
     public function cambiarEstado($idOrden, $estado)
     {
