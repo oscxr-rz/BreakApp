@@ -42,7 +42,7 @@ class NotificacionesUsuario extends Component
             $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'Ocurrió un error al momento de eliminar la notificación');
         }
     }
-    
+
     public function render()
     {
         return view('livewire.notificaciones-usuario');

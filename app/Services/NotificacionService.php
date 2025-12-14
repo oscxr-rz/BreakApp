@@ -17,7 +17,7 @@ class NotificacionService
         $this->apiHost = env('API_HOST');
     }
 
-      public function obtenerNotificaciones(int $idUsuario)
+    public function obtenerNotificaciones(int $idUsuario)
     {
         $response = Http::withToken($this->token)
             ->get("{$this->apiHost}/usuario/notificacion/{$idUsuario}");

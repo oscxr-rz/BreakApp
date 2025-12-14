@@ -17,6 +17,7 @@
             <livewire:notificaciones-usuario />
         </div>
     </main>
+    @stack('script')
     @livewireScripts
 </body>
 
