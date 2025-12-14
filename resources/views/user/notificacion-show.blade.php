@@ -4,18 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>BreakApp - Órdenes</title>
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>BreakApp - Notificación</title>
 </head>
 
-<body class="pb-20 lg:pb-24">
+<body>
     @include('layouts.navbar')
     <main>
-        <livewire:components.notificacion />
-        <livewire:ordenes-usuario />
+        <div class="max-w-7xl mx-auto">
+            <livewire:notificacion-show :id="$id" />
+        </div>
     </main>
     @stack('script')
+    @livewireScripts
 </body>
 
 </html>

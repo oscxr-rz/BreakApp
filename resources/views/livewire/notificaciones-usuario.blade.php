@@ -38,27 +38,25 @@
                         data-leido="{{ $notificacion['leido'] }}">
                         <div class="px-6 py-6">
                             <!-- Header -->
-                            <div class="flex items-start justify-between mb-3">
-                                <div class="flex-1">
-                                    <div class="flex items-center gap-2 mb-2">
-                                        @if ($notificacion['leido'] === 0)
-                                            <span class="w-2 h-2 bg-red-500 rounded-full"></span>
-                                        @endif
-                                        <span class="badge-tipo px-2 py-0.5 rounded-full text-white text-xs font-medium"
-                                            data-tipo="{{ $notificacion['tipo'] }}">
-                                            {{ $notificacion['tipo'] }}
-                                        </span>
+                            <a href="{{ route('notificacion', ['id' => $notificacion['id_notificacion']]) }}">
+                                <div class="flex items-start justify-between mb-3">
+                                    <div class="flex-1">
+                                        <div class="flex items-center gap-2 mb-2">
+                                            @if ($notificacion['leido'] === 0)
+                                                <span class="w-2 h-2 bg-red-500 rounded-full"></span>
+                                            @endif
+                                            <span
+                                                class="badge-tipo px-2 py-0.5 rounded-full text-white text-xs font-medium"
+                                                data-tipo="{{ $notificacion['tipo'] }}">
+                                                {{ $notificacion['tipo'] }}
+                                            </span>
+                                        </div>
+                                        <h3 class="text-lg font-semibold text-gray-900 mb-1">
+                                            {{ $notificacion['titulo'] }}
+                                        </h3>
                                     </div>
-                                    <h3 class="text-lg font-semibold text-gray-900 mb-1">
-                                        {{ $notificacion['titulo'] }}
-                                    </h3>
                                 </div>
-                            </div>
-
-                            <!-- Mensaje -->
-                            <p class="text-gray-600 text-sm leading-relaxed mb-4">
-                                {{ $notificacion['mensaje'] }}
-                            </p>
+                            </a>
 
                             <!-- Estado -->
                             <div class="flex items-center justify-between pt-3 border-t border-gray-100">
@@ -186,4 +184,14 @@
             });
         </script>
     @endpush>
+    @script
+        <script>
+            const id = localStorage.getItem('id');
+            if (id) {
+                Echo.private(`usuario.${id}`).listen('ActualizarEstadoOrden', (e) => {
+                    $wire.cargarNotificaciones();
+                });
+            }
+        </script>
+    @endscript
 </div>

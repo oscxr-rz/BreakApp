@@ -25,6 +25,14 @@ class NotificacionService
         return $response->successful() ? $response->json('data') : null;
     }
 
+    public function obtenerNotificacion(int $idUsuario, int $idNotificacion)
+    {
+        $response = Http::withToken($this->token)
+            ->get("{$this->apiHost}/usuario/notificacion/{$idUsuario}/{$idNotificacion}");
+
+        return $response->successful() ? $response->json('data') : null;
+    }
+
     public function ocultarNotificacion(int $idUsuario, int $idNotificacion)
     {
         try {

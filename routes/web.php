@@ -18,6 +18,7 @@ Route::middleware('auth.guest')->group(function () {
 Route::view('/mi-cuenta', 'user.cuenta')->name('cuenta');
 Route::view('/carrito', 'user.carrito')->name('carrito');
 Route::view('/notificaciones', 'user.notificaciones')->name('notificaciones');
+Route::view('/notificacion/{id}', 'user.notificacion-show')->name('notificacion');
 Route::view('/tarjeta-local', 'user.tarjeta-local')->name('tarjeta.local');
 Route::view('/ordenes', 'user.ordenes')->name('ordenes');
 

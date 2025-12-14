@@ -529,4 +529,11 @@
             });
         </script>
     @endpush
+    @script
+        <script>
+            Echo.channel('menu').listen('ActualizarMenu', (e) => {
+                $wire.cargarMenu();
+            });
+        </script>
+    @endscript
 </div>
