@@ -71,7 +71,7 @@ class CuentaUsuario extends Component
     protected function reglasPassword()
     {
         return [
-            'password' => 'required|string|min:6',
+            'password' => 'nullable|string|min:6',
             'newPassword' => 'required|string|min:6',
         ];
     }
@@ -100,7 +100,6 @@ class CuentaUsuario extends Component
         'telefono.min_digits' => 'El teléfono debe tener exactamente 10 dígitos',
         'telefono.max_digits' => 'El teléfono debe tener exactamente 10 dígitos',
 
-        'password.required' => 'Debe ingresar una contraseña',
         'password.string' => 'La contraseña debe ser texto válido',
         'password.min' => 'La contraseña debe tener al menos 6 caracteres',
 

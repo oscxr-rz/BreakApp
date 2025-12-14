@@ -75,10 +75,51 @@
                                     </p>
                                 </div>
 
-                                <button onclick="mostrarQR('{{ $orden['imagen_url'] }}', '{{ $orden['id_orden'] }}')"
-                                    class="shrink-0 bg-gray-50 hover:bg-gray-100 p-2 rounded-xl transition-colors border border-gray-200">
-                                    <img src="{{ $orden['imagen_url'] }}" alt="QR" class="w-16 h-16 rounded-lg">
-                                </button>
+                                <div class="flex items-center gap-2">
+                                    @if ($orden['estado'] === 'ENTREGADO')
+                                        <!-- Botón Descargar Ticket -->
+                                        <button wire:click="obtenerTicket({{ $orden['id_orden'] }})"
+                                            wire:loading.attr="disabled" wire:loading.class="opacity-50"
+                                            class="group relative shrink-0 bg-blue-50 hover:bg-blue-100 p-2 rounded-xl transition-colors border border-blue-200"
+                                            title="Descargar ticket">
+                                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                            </svg>
+                                            <!-- Tooltip -->
+                                            <span
+                                                class="absolute bottom-full right-0 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                                                Descargar ticket
+                                            </span>
+                                        </button>
+
+                                        <!-- Botón Eliminar -->
+                                        <button wire:click="ocultarOrden({{ $orden['id_orden'] }})"
+                                            wire:loading.attr="disabled" wire:loading.class="opacity-50"
+                                            class="group relative shrink-0 bg-red-50 hover:bg-red-100 p-2 rounded-xl transition-colors border border-red-200"
+                                            title="Eliminar orden">
+                                            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                            </svg>
+                                            <!-- Tooltip -->
+                                            <span
+                                                class="absolute bottom-full right-0 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+                                                Eliminar orden
+                                            </span>
+                                        </button>
+                                    @endif
+
+                                    <!-- Botón QR -->
+                                    <button
+                                        onclick="mostrarQR('{{ $orden['imagen_url'] }}', '{{ $orden['id_orden'] }}')"
+                                        class="shrink-0 bg-gray-50 hover:bg-gray-100 p-2 rounded-xl transition-colors border border-gray-200">
+                                        <img src="{{ $orden['imagen_url'] }}" alt="QR"
+                                            class="w-16 h-16 rounded-lg">
+                                    </button>
+                                </div>
                             </div>
 
                             <!-- Info -->
@@ -113,26 +154,6 @@
                                         d="M19 9l-7 7-7-7" />
                                 </svg>
                             </button>
-
-                            @if ($orden['estado'] === 'ENTREGADO')
-                                <button wire:click="ocultarOrden({{ $orden['id_orden'] }})"
-                                    wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                                    class="w-full mt-2 py-3 bg-red-50 text-red-600 rounded-xl font-medium hover:bg-red-100 transition-colors border border-red-200 text-sm">
-                                    <span wire:loading.remove
-                                        wire:target="ocultarOrden({{ $orden['id_orden'] }})">Eliminar orden</span>
-                                    <span wire:loading
-                                        wire:target="ocultarOrden({{ $orden['id_orden'] }})">Procesando...</span>
-                                </button>
-
-                                <button wire:click="obtenerTicket({{ $orden['id_orden'] }})"
-                                    wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                                    class="w-full mt-2 py-3 bg-red-50 text-red-600 rounded-xl font-medium hover:bg-red-100 transition-colors border border-red-200 text-sm">
-                                    <span wire:loading.remove
-                                        wire:target="obtenerTicket({{ $orden['id_orden'] }})">Obtener Ticket</span>
-                                    <span wire:loading
-                                        wire:target="obtenerTicket({{ $orden['id_orden'] }})">Procesando...</span>
-                                </button>
-                            @endif
                         </div>
 
                         <!-- Productos Ocultos -->

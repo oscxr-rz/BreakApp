@@ -217,7 +217,7 @@
                                 </div>
                                 <div class="flex-1">
                                     <label class="block text-xs text-gray-500 mb-1">Email</label>
-                                    <input type="email" wire:model.live="email"
+                                    <input type="email" wire:model="email"
                                         class="w-full text-gray-900 text-sm font-medium focus:outline-none"
                                         placeholder="refero.john.doe@gmail.com">
                                     @error('email')
@@ -237,7 +237,7 @@
                                 </div>
                                 <div class="flex-1">
                                     <label class="block text-xs text-gray-500 mb-1">Teléfono</label>
-                                    <input type="number" wire:model.live="telefono"
+                                    <input type="number" wire:model="telefono"
                                         class="w-full text-gray-900 text-sm font-medium focus:outline-none"
                                         placeholder="Agregar número de teléfono">
                                     @error('telefono')
@@ -257,7 +257,7 @@
                                 </div>
                                 <div class="flex-1">
                                     <label class="block text-xs text-gray-500 mb-1">Nombre</label>
-                                    <input type="text" wire:model.live="nombre"
+                                    <input type="text" wire:model="nombre"
                                         class="w-full text-gray-900 text-sm font-medium focus:outline-none"
                                         placeholder="Tu nombre">
                                     @error('nombre')
@@ -277,7 +277,7 @@
                                 </div>
                                 <div class="flex-1">
                                     <label class="block text-xs text-gray-500 mb-1">Apellido</label>
-                                    <input type="text" wire:model.live="apellido"
+                                    <input type="text" wire:model="apellido"
                                         class="w-full text-gray-900 text-sm font-medium focus:outline-none"
                                         placeholder="Tu apellido">
                                     @error('apellido')
@@ -297,7 +297,7 @@
                                 </div>
                                 <div class="flex-1">
                                     <label class="block text-xs text-gray-500 mb-1">Semestre</label>
-                                    <select wire:model.live="semestre"
+                                    <select wire:model="semestre"
                                         class="w-full text-gray-900 text-sm font-medium focus:outline-none bg-transparent">
                                         <option value="">Seleccionar semestre</option>
                                         <option value="1">1</option>
@@ -324,7 +324,7 @@
                                 </div>
                                 <div class="flex-1">
                                     <label class="block text-xs text-gray-500 mb-1">Grupo</label>
-                                    <select wire:model.live="grupo"
+                                    <select wire:model="grupo"
                                         class="w-full text-gray-900 text-sm font-medium focus:outline-none bg-transparent">
                                         <option value="">Seleccionar grupo</option>
                                         <option value="A">A</option>
@@ -382,7 +382,7 @@
                                 <div>
                                     <label class="block text-xs text-gray-500 mb-2">Contraseña Actual</label>
                                     <div class="relative">
-                                        <input id="current-password" type="password" wire:model.live="password"
+                                        <input id="current-password" type="password" wire:model="password"
                                             autocomplete="current-password"
                                             class="w-full px-4 py-3 pr-12 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-500 transition-colors"
                                             placeholder="••••••••">
@@ -410,7 +410,7 @@
                                 <div>
                                     <label class="block text-xs text-gray-500 mb-2">Nueva Contraseña</label>
                                     <div class="relative">
-                                        <input id="new-password" type="password" wire:model.live="newPassword"
+                                        <input id="new-password" type="password" wire:model="newPassword"
                                             autocomplete="new-password"
                                             class="w-full px-4 py-3 pr-12 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-purple-500 transition-colors"
                                             placeholder="••••••••">
