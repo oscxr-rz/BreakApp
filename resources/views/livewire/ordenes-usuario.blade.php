@@ -1,6 +1,7 @@
 <div class="min-h-screen bg-gray-50">
     <!-- Header -->
-    <div class="bg-[#951327] border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
+    <div
+        class="bg-[#951327] border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
         <button onclick="window.history.back()"
             class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors">
             <svg class="w-6 h-6 text-[#FBE8Da]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -59,9 +60,8 @@
             <!-- Lista de Órdenes -->
             <div id="lista" class="p-4 space-y-4">
                 @foreach ($ordenes as $orden)
-                    <div class="orden bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100" 
-                         data-estado="{{ $orden['estado'] }}"
-                         data-pagado="{{ $orden['pagado'] }}">
+                    <div class="orden bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100"
+                        data-estado="{{ $orden['estado'] }}" data-pagado="{{ $orden['pagado'] }}">
                         <div class="px-6 py-6">
                             <!-- Header -->
                             <div class="flex items-start justify-between mb-4">
@@ -73,11 +73,12 @@
                                             {{ $orden['estado'] }}
                                         </span>
                                     </div>
-                                    <p class="text-3xl font-bold text-gray-900">${{ number_format($orden['total'], 2) }}</p>
+                                    <p class="text-3xl font-bold text-gray-900">${{ number_format($orden['total'], 2) }}
+                                    </p>
                                 </div>
 
                                 <div class="flex items-center gap-2">
-                                    @if ($orden['estado'] === 'ENTREGADO')
+                                    @if ($orden['pagado'] === 1)
                                         <!-- Botón Descargar Ticket -->
                                         <button wire:click="obtenerTicket({{ $orden['id_orden'] }})"
                                             wire:loading.attr="disabled" wire:loading.class="opacity-50"
@@ -93,7 +94,8 @@
                                                 Descargar ticket
                                             </span>
                                         </button>
-
+                                    @endif
+                                    @if ($orden['estado'] === 'ENTREGADO')
                                         <!-- Botón Eliminar -->
                                         <button wire:click="ocultarOrden({{ $orden['id_orden'] }})"
                                             wire:loading.attr="disabled" wire:loading.class="opacity-50"
@@ -124,14 +126,16 @@
                             <!-- Info -->
                             <div class="flex flex-wrap items-center gap-3 mb-4">
                                 <div class="flex items-center gap-2 text-sm text-gray-600">
-                                    <svg class="w-4 h-4 text-[#951327]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 text-[#951327]" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     <span>{{ $orden['hora_recogida'] }}</span>
                                 </div>
                                 <div class="flex items-center gap-2 text-sm text-gray-600">
-                                    <svg class="w-4 h-4 text-[#951327]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 text-[#951327]" fill="none" stroke="currentColor"
+                                        viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                                     </svg>
@@ -149,8 +153,8 @@
                             <button onclick="toggleProductos({{ $orden['id_orden'] }})"
                                 class="w-full flex items-center justify-between text-sm text-gray-700 hover:text-[#951327] font-medium py-3 border-t border-gray-100 transition-colors">
                                 <span class="toggle-text">Ver {{ count($orden['productos']) }} producto(s)</span>
-                                <svg class="w-5 h-5 transition-transform text-[#951327]" fill="none" stroke="currentColor"
-                                    viewBox="0 0 24 24">
+                                <svg class="w-5 h-5 transition-transform text-[#951327]" fill="none"
+                                    stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 9l-7 7-7-7" />
                                 </svg>
@@ -187,7 +191,8 @@
             </div>
 
             <!-- Sin Resultados -->
-            <div id="sinResultados" class="hidden bg-white rounded-2xl shadow-sm p-8 text-center mx-4 mt-8 border border-gray-100">
+            <div id="sinResultados"
+                class="hidden bg-white rounded-2xl shadow-sm p-8 text-center mx-4 mt-8 border border-gray-100">
                 <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -271,7 +276,7 @@
             // Colores para badges de estado
             document.querySelectorAll('.badge').forEach(b => {
                 const e = b.dataset.estado;
-                b.style.backgroundColor = 
+                b.style.backgroundColor =
                     e === 'PENDIENTE' ? '#6b7280' :
                     e === 'PREPARANDO' ? '#F3B900' :
                     e === 'LISTO' ? '#951327' :

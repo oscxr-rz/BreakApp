@@ -2,6 +2,7 @@
 
 namespace App\Services\admin;
 
+use App\Services\TicketsService;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -11,10 +12,13 @@ class OrdenesService
     private string $token;
     private string $apiHost;
 
-    public function __construct()
+    protected TicketsService $ticketsService;
+
+    public function __construct(TicketsService $ticketsService)
     {
         $this->token = Session::get('api_token') ?? '';
         $this->apiHost = env('API_HOST');
+        $this->ticketsService = $ticketsService;
     }
 
     public function obtenerOrdenes()
@@ -41,7 +45,7 @@ class OrdenesService
             throw $e;
         }
     }
-    public function registrarCompra(string $nombreCliente, ?int $idMenu, array $productos)
+    public function registrarCompra(string $nombreCliente, ?int $idMenu, array $productos, $email)
     {
         try {
             $response = Http::withToken($this->token)
@@ -49,9 +53,13 @@ class OrdenesService
                     'tipo' => 'COMPRA',
                     'estado' => 'PENDIENTE',
                     'id_menu' => $idMenu,
-                    'nombre_cliente' => $nombreCliente,
+                    'nombre' => $nombreCliente,
+                    'email' => $email,
                     'productos' => $productos
                 ]);
+    
+            $orden = $response->json('data');
+            $ticket = $this->ticketsService->ticket($orden['id_orden'], $email);
 
             return $response->successful();
         } catch (Exception $e) {

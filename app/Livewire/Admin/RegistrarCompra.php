@@ -13,6 +13,7 @@ class RegistrarCompra extends Component
     public $productosSeleccionados = [];
     public $total = 0;
     public $nombreCliente = '';
+    public $email;
     public $montoPagado = 0;
     public $cambio = 0;
 
@@ -20,6 +21,7 @@ class RegistrarCompra extends Component
 
     protected $rules = [
         'nombreCliente' => 'required|string|min:2|max:100',
+        'email' => 'required|email',
         'montoPagado' => 'required|numeric|min:0',
         'productosSeleccionados' => 'required|array|min:1',
         'productosSeleccionados.*.cantidad' => 'required|integer|min:1',
@@ -28,6 +30,8 @@ class RegistrarCompra extends Component
     protected $messages = [
         'nombreCliente.required' => 'El nombre del cliente es requerido',
         'nombreCliente.min' => 'El nombre debe tener al menos 2 caracteres',
+        'email.required' => 'Debe ingresar un email para recibir el ticket',
+        'email.email' => 'Debe ser un email',
         'montoPagado.required' => 'El monto pagado es requerido',
         'montoPagado.min' => 'El monto debe ser mayor a 0',
         'productosSeleccionados.required' => 'Debes seleccionar al menos un producto',
@@ -165,7 +169,7 @@ class RegistrarCompra extends Component
                 ->values()
                 ->toArray();
 
-            if ($this->ordenesService->registrarCompra($this->nombreCliente, $idMenu, $productosParaEnviar)) {
+            if ($this->ordenesService->registrarCompra($this->nombreCliente, $idMenu, $productosParaEnviar, $this->email)) {
                 $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Compra registrada correctamente');
                 $this->limpiarFormulario();
                 $this->cargarMenu();

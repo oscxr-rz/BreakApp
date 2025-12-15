@@ -236,6 +236,16 @@
                                 @enderror
                             </div>
 
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Email</label>
+                                <input type="text" wire:model.live="email"
+                                    placeholder="Ingresa el email..."
+                                    class="w-full px-4 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                                @error('email')
+                                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                                @enderror
+                            </div>
+
                             <!-- Monto pagado -->
                             <div>
                                 <label class="block text-sm font-medium text-gray-700 mb-2">Con cuánto paga</label>
