@@ -4,7 +4,7 @@ let animation = null;
 
 export function initLoader() {
     const loaderHTML = `
-        <div id="pageLoader" class="fixed inset-0 bg-gray-900/20 backdrop-blur-sm z-50">
+        <div id="pageLoader" class="fixed inset-0 bg-gray-900/20 backdrop-blur-[2px] z-100">
             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
                 <div id="lottie-animation" class="w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[450px] md:h-[450px]"></div>
             </div>

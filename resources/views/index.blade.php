@@ -13,7 +13,7 @@
     @include('layouts.navbar')
 
     <main>
-        <div class="max-w-7xl mx-auto">
+        <div>
             <livewire:components.notificacion />
             <livewire:menu-diario />
         </div>

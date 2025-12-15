@@ -9,11 +9,11 @@
     <title>BreakApp - Notificaciones</title>
 </head>
 
-<body>
+<body class="pb-20 lg:pb-24">
     @include('layouts.navbar')
 
     <main>
-        <div class="max-w-7xl mx-auto">
+        <div>
             <livewire:notificaciones-usuario />
         </div>
     </main>

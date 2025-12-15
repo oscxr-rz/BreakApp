@@ -9,10 +9,10 @@
     <title>BreakApp - Notificación</title>
 </head>
 
-<body>
+<body class="pb-20 lg:pb-24">
     @include('layouts.navbar')
     <main>
-        <div class="max-w-7xl mx-auto">
+        <div>
             <livewire:notificacion-show :id="$id" />
         </div>
     </main>

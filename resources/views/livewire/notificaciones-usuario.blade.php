@@ -3,12 +3,12 @@
     <div
         class="bg-[#951327] border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
         <button onclick="window.history.back()"
-            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors">
-            <svg class="w-6 h-6 text-[#FBE8Da]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-colors">
+            <svg class="w-6 h-6 text-[#FBE8DA]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
-        <h1 class="text-lg font-semibold text-[#FBE8Da]">Mis Notificaciones</h1>
+        <h1 class="text-lg font-semibold text-[#FBE8DA]">Mis Notificaciones</h1>
         <div class="w-10"></div>
     </div>
 
@@ -112,88 +112,89 @@
             </div>
         </div>
     @endif
-
-    @push('script')
-        <script>
-            // Toast notifications
-            window.addEventListener('mostrar-toast', event => {
-                const tipo = event.detail.tipo;
-                const mensaje = event.detail.mensaje;
-
-                const toast = document.createElement('div');
-                toast.className = `fixed top-6 right-6 px-6 py-4 rounded-xl shadow-xl z-50 transform transition-all duration-300 border ${
-                    tipo === 'exito' 
-                        ? 'bg-white text-green-700 border-green-200' 
-                        : 'bg-white text-red-700 border-red-200'
-                }`;
-
-                toast.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            ${tipo === 'exito' 
-                                ? '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>'
-                                : '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>'
-                            }
-                        </svg>
-                        <span class="font-medium text-sm">${mensaje}</span>
-                    </div>
-                `;
-
-                document.body.appendChild(toast);
-
-                setTimeout(() => {
-                    toast.style.transform = 'translateX(400px)';
-                    toast.style.opacity = '0';
-                    setTimeout(() => toast.remove(), 300);
-                }, 3000);
-            });
-
-            // Colores para badges de tipo
-            document.querySelectorAll('.badge-tipo').forEach(b => {
-                const tipo = b.dataset.tipo;
-                b.className += tipo === 'ORDEN' ? ' bg-blue-500' :
-                    tipo === 'PROMOCION' ? ' bg-green-500' :
-                    tipo === 'SISTEMA' ? ' bg-purple-500' : ' bg-gray-400';
-            });
-
-            let filtroLeido = '';
-
-            function filtrarNotificaciones() {
-                const notificaciones = Array.from(document.querySelectorAll('.notificacion'));
-                let visibles = notificaciones.filter(n => !filtroLeido || n.dataset.leido === filtroLeido);
-
-                notificaciones.forEach(n => n.style.display = 'none');
-
-                if (visibles.length) {
-                    visibles.forEach(n => n.style.display = 'block');
-                    document.getElementById('sinResultados').classList.add('hidden');
-                } else {
-                    document.getElementById('sinResultados').classList.remove('hidden');
-                }
-            }
-
-            document.querySelectorAll('.filtro-notif').forEach(b => {
-                b.addEventListener('click', function() {
-                    document.querySelectorAll('.filtro-notif').forEach(f => {
-                        f.className =
-                            'filtro-notif px-4 py-2 rounded-lg bg-white border border-gray-200 text-gray-700 text-sm font-medium whitespace-nowrap hover:border-[#951327] hover:text-[#951327] transition-all';
-                    });
-                    this.className =
-                        'filtro-notif px-4 py-2 rounded-lg bg-[#951327] text-white text-sm font-medium whitespace-nowrap';
-                    filtroLeido = this.dataset.valor;
-                    filtrarNotificaciones();
-                });
-            });
-        </script>
-    @endpush
-    @script
-        <script>
-            const id = localStorage.getItem('id');
-            if (id) {
-                Echo.private(`usuario.${id}`).listen('ActualizarEstadoOrden', (e) => {
-                    $wire.cargarNotificaciones();
-                });
-            }
-        </script>
-    @endscript>
 </div>
+
+@push('script')
+    <script>
+        // Toast notifications
+        window.addEventListener('mostrar-toast', event => {
+            const tipo = event.detail.tipo;
+            const mensaje = event.detail.mensaje;
+
+            const toast = document.createElement('div');
+            toast.className = `fixed top-6 right-6 px-6 py-4 rounded-xl shadow-xl z-50 transform transition-all duration-300 border ${
+            tipo === 'exito' 
+                ? 'bg-white text-green-700 border-green-200' 
+                : 'bg-white text-red-700 border-red-200'
+        }`;
+
+            toast.innerHTML = `
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                    ${tipo === 'exito' 
+                        ? '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>'
+                        : '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>'
+                    }
+                </svg>
+                <span class="font-medium text-sm">${mensaje}</span>
+            </div>
+        `;
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.style.transform = 'translateX(400px)';
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        });
+
+        // Colores para badges de tipo
+        document.querySelectorAll('.badge-tipo').forEach(b => {
+            const tipo = b.dataset.tipo;
+            b.className += tipo === 'ORDEN' ? ' bg-blue-500' :
+                tipo === 'PROMOCION' ? ' bg-green-500' :
+                tipo === 'SISTEMA' ? ' bg-purple-500' : ' bg-gray-400';
+        });
+
+        let filtroLeido = '';
+
+        function filtrarNotificaciones() {
+            const notificaciones = Array.from(document.querySelectorAll('.notificacion'));
+            let visibles = notificaciones.filter(n => !filtroLeido || n.dataset.leido === filtroLeido);
+
+            notificaciones.forEach(n => n.style.display = 'none');
+
+            if (visibles.length) {
+                visibles.forEach(n => n.style.display = 'block');
+                document.getElementById('sinResultados').classList.add('hidden');
+            } else {
+                document.getElementById('sinResultados').classList.remove('hidden');
+            }
+        }
+
+        document.querySelectorAll('.filtro-notif').forEach(b => {
+            b.addEventListener('click', function() {
+                document.querySelectorAll('.filtro-notif').forEach(f => {
+                    f.className =
+                        'filtro-notif px-4 py-2 rounded-lg bg-white border border-gray-200 text-gray-700 text-sm font-medium whitespace-nowrap hover:border-[#951327] hover:text-[#951327] transition-all';
+                });
+                this.className =
+                    'filtro-notif px-4 py-2 rounded-lg bg-[#951327] text-white text-sm font-medium whitespace-nowrap';
+                filtroLeido = this.dataset.valor;
+                filtrarNotificaciones();
+            });
+        });
+    </script>
+@endpush
+
+@script
+    <script>
+        const id = localStorage.getItem('id');
+        if (id) {
+            Echo.private(`usuario.${id}`).listen('ActualizarEstadoOrden', (e) => {
+                $wire.cargarNotificaciones();
+            });
+        }
+    </script>
+@endscript
