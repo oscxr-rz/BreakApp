@@ -160,7 +160,7 @@
                                                                 </span>
                                                                 <span wire:loading
                                                                     wire:target="toggleProducto({{ $producto['id_producto'] }})"
-                                                                    class="flex items-center gap-2">
+                                                                    class="hidden wire:loading:flex items-center gap-2">
                                                                     <svg class="animate-spin w-4 h-4" fill="none"
                                                                         viewBox="0 0 24 24">
                                                                         <circle class="opacity-25" cx="12"
@@ -266,7 +266,7 @@
                                     class="w-full bg-linear-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600 hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed text-white py-3.5 rounded-xl font-semibold transition-all">
                                     <span wire:loading.remove wire:target="capturarOrden">Capturar Orden</span>
                                     <span wire:loading wire:target="capturarOrden"
-                                        class="flex items-center justify-center gap-2">
+                                        class="hidden wire:loading:flex items-center justify-center gap-2">
                                         <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
                                             <circle class="opacity-25" cx="12" cy="12" r="10"
                                                 stroke="currentColor" stroke-width="4"></circle>
