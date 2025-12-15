@@ -1,13 +1,13 @@
 <div class="min-h-screen bg-gray-50">
     <!-- Header -->
-    <div class="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10">
+    <div class="bg-[#951327] border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10">
         <button onclick="window.history.back()"
             class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
-            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-[#FBE8Da]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
-        <h1 class="text-lg font-semibold text-gray-900">Mi Perfil</h1>
+        <h1 class="text-lg font-semibold text-[#FBE8Da]">Mi Perfil</h1>
         <div class="w-10"></div>
     </div>
     @if (!session('id'))
@@ -34,8 +34,7 @@
                 <form wire:submit.prevent="actualizarImg">
                     <div class="flex items-start gap-4 mb-8">
                         <div class="relative">
-                            <div
-                                class="w-24 h-24 rounded-full overflow-hidden bg-linear-to-br from-blue-400 to-purple-500">
+                            <div class="w-24 h-24 rounded-full overflow-hidden bg-gray-600">
                                 @if ($usuario['imagen_url'] ?? false)
                                     <img src="{{ $usuario['imagen_url'] }}" alt="Perfil"
                                         class="w-full h-full object-cover">
@@ -75,7 +74,7 @@
 
                     @if ($imagen)
                         <button type="submit" wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                            class="w-full py-3 bg-linear-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all">
+                            class="w-full py-3 bg-[#951327] text-white rounded-xl font-medium hover:shadow-lg transition-all">
                             <span class="block" wire:loading.class="hidden" wire:target="actualizarImg">
                                 Guardar Imagen
                             </span>
@@ -344,7 +343,7 @@
 
                         <div class="px-6 py-4">
                             <button type="submit" wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                                class="w-full py-3 bg-linear-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all">
+                                class="w-full py-3 bg-[#951327] text-white rounded-xl font-medium hover:shadow-lg transition-all">
                                 <span class="block" wire:loading.class="hidden" wire:target="actualizarDatos">
                                     Guardar Cambios
                                 </span>
@@ -436,7 +435,7 @@
                                 </div>
 
                                 <button type="submit" wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                                    class="w-full py-3 bg-linear-to-r from-purple-500 to-pink-500 text-white rounded-xl font-medium hover:shadow-lg transition-all">
+                                    class="w-full py-3 bg-[#951327] text-white rounded-xl font-medium hover:shadow-lg transition-all">
                                     <span class="block" wire:loading.class="hidden"
                                         wire:target="actualizarPassword">
                                         Actualizar Contraseña
@@ -533,7 +532,7 @@
                             Cancelar
                         </button>
                         <button type="submit" wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                            class="flex-1 py-3 bg-linear-to-r from-[#951327] to-[#b50001] text-white rounded-xl font-medium hover:shadow-lg transition-all">
+                            class="flex-1 py-3 bg-[#951327] text-white rounded-xl font-medium hover:shadow-lg transition-all">
                             <span class="block" wire:loading.class="hidden" wire:target="desactivarCuenta">
                                 Desactivar
                             </span>
@@ -648,23 +647,23 @@
                 const mensaje = event.detail.mensaje;
 
                 const toast = document.createElement('div');
-                toast.className = `fixed top-6 right-6 px-6 py-4 rounded-2xl shadow-xl z-50 transform transition-all duration-300 ${
-                    tipo === 'exito' 
-                        ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white' 
-                        : 'bg-gradient-to-r from-red-500 to-pink-500 text-white'
-                }`;
+                toast.className = `fixed top-6 right-6 px-6 py-4 rounded-xl shadow-xl z-50 transform transition-all duration-300 border ${
+        tipo === 'exito' 
+            ? 'bg-white text-green-700 border-green-200' 
+            : 'bg-white text-red-700 border-red-200'
+    }`;
 
                 toast.innerHTML = `
-                    <div class="flex items-center gap-3">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                            ${tipo === 'exito' 
-                                ? '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>'
-                                : '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>'
-                            }
-                        </svg>
-                        <span class="font-medium text-sm">${mensaje}</span>
-                    </div>
-                `;
+        <div class="flex items-center gap-3">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                ${tipo === 'exito' 
+                    ? '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>'
+                    : '<path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>'
+                }
+            </svg>
+            <span class="font-medium text-sm">${mensaje}</span>
+        </div>
+    `;
 
                 document.body.appendChild(toast);
 

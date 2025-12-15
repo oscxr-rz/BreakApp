@@ -8,7 +8,7 @@
             <!-- Logo -->
             <div class="flex justify-center mb-6">
                 <a href="/" class="transform hover:scale-110 transition-transform duration-200">
-                    <img src="{{ asset('storage/logo.jpg') }}" alt="Logo" class="h-20 w-20 rounded-full shadow-sm">
+                    <img src="{{ asset('storage/logos/4.png') }}" alt="Logo" class="h-20 w-20 rounded-full shadow-sm">
                 </a>
             </div>
 

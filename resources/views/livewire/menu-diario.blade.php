@@ -4,8 +4,8 @@
         <div class="flex items-center justify-between mb-4">
             <!-- Logo -->
             <div class="flex items-center gap-2 lg:gap-3">
-                <div class="w-10 h-10 lg:w-12 lg:h-12 bg-[#951327] rounded-full flex items-center justify-center">
-                    <img src="{{ asset('storage/logo.jpg') }}" alt="Logo">
+                <div class="w-10 h-10 lg:w-12 lg:h-12 rounded-full flex items-center justify-center">
+                    <img src="{{ asset('storage/logos/4.png') }}" alt="Logo">
                 </div>
                 <span class="font-semibold text-lg lg:text-xl text-[#951327]">BreakApp</span>
             </div>
@@ -223,20 +223,17 @@
         mensaje: ''
     }"
         @mostrar-toast.window="
-    tipo = $event.detail.tipo;
-    mensaje = $event.detail.mensaje;
-    show = true;
-    setTimeout(() => show = false, 3000);
- "
+        tipo = $event.detail.tipo;
+        mensaje = $event.detail.mensaje;
+        show = true;
+        setTimeout(() => show = false, 3000);
+    "
         x-show="show" x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-2"
-        class="fixed top-6 right-6 px-6 py-4 rounded-2xl shadow-xl z-50 transform transition-all duration-300"
-        :class="tipo === 'exito'
-            ?
-            'bg-linear-to-r from-green-500 to-emerald-500 text-white' :
-            'bg-linear-to-r from-red-500 to-pink-500 text-white'"
+        class="fixed top-6 right-6 px-6 py-4 rounded-xl shadow-xl z-50 transform transition-all duration-300 border"
+        :class="tipo === 'exito' ? 'bg-white text-green-700 border-green-200' : 'bg-white text-red-700 border-red-200'"
         style="display: none;">
 
         <div class="flex items-center gap-3">

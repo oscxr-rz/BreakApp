@@ -21,7 +21,7 @@ class CarritoUsuario extends Component
     public $saldoLocal = 0;
 
     public $metodo_pago = 'EFECTIVO';
-    public $hora_recogida = '';
+    public $hora_recogida = '09:30';
 
     public function boot(CarritoService $carritoService, TarjetaLocalService $tarjetaLocalService)
     {

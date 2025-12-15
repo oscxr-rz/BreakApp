@@ -1,28 +1,29 @@
 <div class="min-h-screen bg-gray-50">
     <!-- Header -->
-    <div class="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10">
+    <div class="bg-[#951327] border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
         <button onclick="window.history.back()"
-            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
-            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors">
+            <svg class="w-6 h-6 text-[#FBE8Da]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
-        <h1 class="text-lg font-semibold text-gray-900">Mis Órdenes</h1>
+        <h1 class="text-lg font-semibold text-[#FBE8Da]">Mis Ordenes</h1>
         <div class="w-10"></div>
     </div>
+
     @if (!session('id'))
         <div class="max-w-md mx-auto pt-20 px-4">
-            <div class="bg-white rounded-3xl shadow-sm p-8 text-center">
-                <div class="w-20 h-20 bg-red-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="bg-white rounded-2xl shadow-sm p-8 text-center border border-gray-100">
+                <div class="w-20 h-20 bg-[#FBE8DA] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-[#951327]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                     </svg>
                 </div>
                 <h2 class="text-xl font-semibold text-gray-900 mb-2">Acceso Requerido</h2>
-                <p class="text-gray-500 text-sm mb-6">Inicie sesión para ver sus ordenes</p>
+                <p class="text-gray-500 text-sm mb-6">Inicie sesión para ver sus órdenes</p>
                 <a href="{{ route('login') }}"
-                    class="inline-block w-full py-3 bg-linear-to-r from-[#951327] to-[#b50001] text-white rounded-xl font-medium hover:shadow-lg transition-all">
+                    class="inline-block w-full py-3 bg-[#951327] text-white rounded-xl font-medium hover:bg-[#B50001] transition-colors">
                     Iniciar Sesión
                 </a>
             </div>
@@ -33,46 +34,46 @@
             <div class="bg-white border-b border-gray-100 px-4 py-3">
                 <div class="flex gap-2 overflow-x-auto">
                     <button data-valor=""
-                        class="filtro-estado px-4 py-2 rounded-lg bg-blue-500 text-white text-sm font-medium whitespace-nowrap">
+                        class="filtro-estado px-4 py-2 rounded-lg bg-[#951327] text-white text-sm font-medium whitespace-nowrap">
                         Todas
                     </button>
                     <button data-valor="PENDIENTE"
-                        class="filtro-estado px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium whitespace-nowrap hover:bg-gray-200">
+                        class="filtro-estado px-4 py-2 rounded-lg bg-white border border-gray-200 text-gray-700 text-sm font-medium whitespace-nowrap hover:border-[#951327] hover:text-[#951327] transition-all">
                         Pendiente
                     </button>
                     <button data-valor="PREPARANDO"
-                        class="filtro-estado px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium whitespace-nowrap hover:bg-gray-200">
+                        class="filtro-estado px-4 py-2 rounded-lg bg-white border border-gray-200 text-gray-700 text-sm font-medium whitespace-nowrap hover:border-[#951327] hover:text-[#951327] transition-all">
                         Preparando
                     </button>
                     <button data-valor="LISTO"
-                        class="filtro-estado px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium whitespace-nowrap hover:bg-gray-200">
+                        class="filtro-estado px-4 py-2 rounded-lg bg-white border border-gray-200 text-gray-700 text-sm font-medium whitespace-nowrap hover:border-[#951327] hover:text-[#951327] transition-all">
                         Listo
                     </button>
                     <button data-valor="ENTREGADO"
-                        class="filtro-estado px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium whitespace-nowrap hover:bg-gray-200">
+                        class="filtro-estado px-4 py-2 rounded-lg bg-white border border-gray-200 text-gray-700 text-sm font-medium whitespace-nowrap hover:border-[#951327] hover:text-[#951327] transition-all">
                         Entregado
                     </button>
                 </div>
             </div>
 
             <!-- Lista de Órdenes -->
-            <div id="lista">
+            <div id="lista" class="p-4 space-y-4">
                 @foreach ($ordenes as $orden)
-                    <div class="orden bg-white border-t border-red-200" data-estado="{{ $orden['estado'] }}"
-                        data-pagado="{{ $orden['pagado'] }}">
+                    <div class="orden bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100" 
+                         data-estado="{{ $orden['estado'] }}"
+                         data-pagado="{{ $orden['pagado'] }}">
                         <div class="px-6 py-6">
                             <!-- Header -->
                             <div class="flex items-start justify-between mb-4">
                                 <div>
                                     <div class="flex items-center gap-2 mb-2">
                                         <span class="text-xs text-gray-500">Orden #{{ $orden['id_orden'] }}</span>
-                                        <span class="badge px-2 py-0.5 rounded-full text-white text-xs font-medium"
+                                        <span class="badge px-2.5 py-0.5 rounded-full text-white text-xs font-medium"
                                             data-estado="{{ $orden['estado'] }}">
                                             {{ $orden['estado'] }}
                                         </span>
                                     </div>
-                                    <p class="text-3xl font-bold text-gray-900">${{ number_format($orden['total'], 2) }}
-                                    </p>
+                                    <p class="text-3xl font-bold text-gray-900">${{ number_format($orden['total'], 2) }}</p>
                                 </div>
 
                                 <div class="flex items-center gap-2">
@@ -80,14 +81,13 @@
                                         <!-- Botón Descargar Ticket -->
                                         <button wire:click="obtenerTicket({{ $orden['id_orden'] }})"
                                             wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                                            class="group relative shrink-0 bg-blue-50 hover:bg-blue-100 p-2 rounded-xl transition-colors border border-blue-200"
+                                            class="group relative shrink-0 bg-white hover:bg-[#FBE8DA] p-2 rounded-xl transition-colors border border-gray-200"
                                             title="Descargar ticket">
-                                            <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor"
+                                            <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                             </svg>
-                                            <!-- Tooltip -->
                                             <span
                                                 class="absolute bottom-full right-0 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                                                 Descargar ticket
@@ -97,14 +97,13 @@
                                         <!-- Botón Eliminar -->
                                         <button wire:click="ocultarOrden({{ $orden['id_orden'] }})"
                                             wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                                            class="group relative shrink-0 bg-red-50 hover:bg-red-100 p-2 rounded-xl transition-colors border border-red-200"
+                                            class="group relative shrink-0 bg-white hover:bg-red-50 p-2 rounded-xl transition-colors border border-gray-200"
                                             title="Eliminar orden">
-                                            <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor"
+                                            <svg class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor"
                                                 viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                                     d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
                                             </svg>
-                                            <!-- Tooltip -->
                                             <span
                                                 class="absolute bottom-full right-0 mb-2 px-2 py-1 bg-gray-900 text-white text-xs rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
                                                 Eliminar orden
@@ -115,7 +114,7 @@
                                     <!-- Botón QR -->
                                     <button
                                         onclick="mostrarQR('{{ $orden['imagen_url'] }}', '{{ $orden['id_orden'] }}')"
-                                        class="shrink-0 bg-gray-50 hover:bg-gray-100 p-2 rounded-xl transition-colors border border-gray-200">
+                                        class="shrink-0 bg-white hover:bg-gray-50 p-2 rounded-xl transition-colors border border-gray-200">
                                         <img src="{{ $orden['imagen_url'] }}" alt="QR"
                                             class="w-16 h-16 rounded-lg">
                                     </button>
@@ -125,30 +124,32 @@
                             <!-- Info -->
                             <div class="flex flex-wrap items-center gap-3 mb-4">
                                 <div class="flex items-center gap-2 text-sm text-gray-600">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 text-[#951327]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                                     </svg>
                                     <span>{{ $orden['hora_recogida'] }}</span>
                                 </div>
                                 <div class="flex items-center gap-2 text-sm text-gray-600">
-                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg class="w-4 h-4 text-[#951327]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                                     </svg>
                                     <span>{{ $orden['metodo_pago'] }}</span>
                                 </div>
-                                <span class="px-2.5 py-1 rounded-full text-xs font-medium"
-                                    style="background-color: {{ $orden['pagado'] === 1 ? '#dcfce7' : '#fef9c3' }}; color: {{ $orden['pagado'] === 1 ? '#166534' : '#854d0e' }}">
+                                <span class="px-2.5 py-1 rounded-full text-xs font-medium border"
+                                    style="background-color: {{ $orden['pagado'] === 1 ? '#dcfce7' : '#FBE8DA' }}; 
+                                           color: {{ $orden['pagado'] === 1 ? '#166534' : '#951327' }};
+                                           border-color: {{ $orden['pagado'] === 1 ? '#bbf7d0' : '#FCC88A' }}">
                                     {{ $orden['pagado'] === 1 ? 'Pagado' : 'Pendiente' }}
                                 </span>
                             </div>
 
                             <!-- Toggle Productos -->
                             <button onclick="toggleProductos({{ $orden['id_orden'] }})"
-                                class="w-full flex items-center justify-between text-sm text-blue-500 hover:text-blue-600 font-medium py-3 border-t border-gray-100">
+                                class="w-full flex items-center justify-between text-sm text-gray-700 hover:text-[#951327] font-medium py-3 border-t border-gray-100 transition-colors">
                                 <span class="toggle-text">Ver {{ count($orden['productos']) }} producto(s)</span>
-                                <svg class="w-5 h-5 transition-transform" fill="none" stroke="currentColor"
+                                <svg class="w-5 h-5 transition-transform text-[#951327]" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M19 9l-7 7-7-7" />
@@ -157,12 +158,12 @@
                         </div>
 
                         <!-- Productos Ocultos -->
-                        <div id="productos-{{ $orden['id_orden'] }}" class="hidden">
+                        <div id="productos-{{ $orden['id_orden'] }}" class="hidden bg-gray-50">
                             <div class="px-6 pb-6 divide-y divide-gray-100">
                                 @foreach ($orden['productos'] as $producto)
                                     <div class="py-4 flex items-center gap-4">
                                         <img src="{{ $producto['imagen_url'] }}" alt="{{ $producto['nombre'] }}"
-                                            class="w-16 h-16 rounded-xl object-cover shrink-0">
+                                            class="w-16 h-16 rounded-xl object-cover shrink-0 border border-gray-100">
                                         <div class="flex-1 min-w-0">
                                             <div class="flex items-start justify-between gap-2 mb-1">
                                                 <h4 class="font-medium text-gray-900 text-sm">
@@ -186,7 +187,7 @@
             </div>
 
             <!-- Sin Resultados -->
-            <div id="sinResultados" class="hidden bg-white rounded-3xl shadow-sm p-8 text-center mx-4 mt-8">
+            <div id="sinResultados" class="hidden bg-white rounded-2xl shadow-sm p-8 text-center mx-4 mt-8 border border-gray-100">
                 <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -198,7 +199,7 @@
     @else
         <!-- Sin Órdenes -->
         <div class="max-w-md mx-auto pt-20 px-4">
-            <div class="bg-white rounded-3xl shadow-sm p-8 text-center">
+            <div class="bg-white rounded-2xl shadow-sm p-8 text-center border border-gray-100">
                 <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -207,7 +208,7 @@
                 <h2 class="text-xl font-semibold text-gray-900 mb-2">Aún no tienes pedidos</h2>
                 <p class="text-gray-500 text-sm mb-6">Explora el menú y haz tu primer pedido</p>
                 <a href="{{ route('index') }}"
-                    class="inline-block w-full py-3 bg-linear-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all">
+                    class="inline-block w-full py-3 bg-[#951327] text-white rounded-xl font-medium hover:bg-[#B50001] transition-colors">
                     Ver Menú
                 </a>
             </div>
@@ -216,17 +217,17 @@
 
     <!-- Modal QR -->
     <div id="modalQR"
-        class="hidden fixed inset-0 bg-white/80 backdrop-blur-md z-50 flex items-center justify-center p-4"
+        class="hidden fixed inset-0 bg-black/40 backdrop-blur-sm z-50 flex items-center justify-center p-4"
         onclick="cerrarQR()">
-        <div class="bg-white rounded-3xl shadow-2xl max-w-sm w-full p-6 border border-gray-100"
+        <div class="bg-white rounded-2xl shadow-2xl max-w-sm w-full p-6 border border-gray-100"
             onclick="event.stopPropagation()">
             <h3 class="text-lg font-semibold text-gray-900 text-center mb-1">Código QR</h3>
             <p class="text-sm text-gray-500 text-center mb-4">Orden #<span id="qrOrdenId"></span></p>
-            <div class="bg-gray-50 p-4 rounded-xl mb-4">
+            <div class="bg-gray-50 p-4 rounded-xl mb-4 border border-gray-100">
                 <img id="qrImagen" alt="QR" class="w-full rounded-lg">
             </div>
             <button onclick="cerrarQR()"
-                class="w-full py-3 bg-linear-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all">
+                class="w-full py-3 bg-[#951327] text-white rounded-xl font-medium hover:bg-[#B50001] transition-colors">
                 Cerrar
             </button>
         </div>
@@ -240,10 +241,10 @@
                 const mensaje = event.detail.mensaje;
 
                 const toast = document.createElement('div');
-                toast.className = `fixed top-6 right-6 px-6 py-4 rounded-2xl shadow-xl z-50 transform transition-all duration-300 ${
+                toast.className = `fixed top-6 right-6 px-6 py-4 rounded-xl shadow-xl z-50 transform transition-all duration-300 border ${
                     tipo === 'exito' 
-                        ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white' 
-                        : 'bg-gradient-to-r from-red-500 to-pink-500 text-white'
+                        ? 'bg-white text-green-700 border-green-200' 
+                        : 'bg-white text-red-700 border-red-200'
                 }`;
 
                 toast.innerHTML = `
@@ -270,10 +271,11 @@
             // Colores para badges de estado
             document.querySelectorAll('.badge').forEach(b => {
                 const e = b.dataset.estado;
-                b.className += e === 'PENDIENTE' ? ' bg-gray-500' :
-                    e === 'PREPARANDO' ? ' bg-yellow-500' :
-                    e === 'LISTO' ? ' bg-blue-500' :
-                    e === 'ENTREGADO' ? ' bg-green-500' : ' bg-gray-400';
+                b.style.backgroundColor = 
+                    e === 'PENDIENTE' ? '#6b7280' :
+                    e === 'PREPARANDO' ? '#F3B900' :
+                    e === 'LISTO' ? '#951327' :
+                    e === 'ENTREGADO' ? '#16a34a' : '#9ca3af';
             });
 
             let estadoFiltro = '';
@@ -296,10 +298,10 @@
                 b.addEventListener('click', function() {
                     document.querySelectorAll('.filtro-estado').forEach(f => {
                         f.className =
-                            'filtro-estado px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium whitespace-nowrap hover:bg-gray-200';
+                            'filtro-estado px-4 py-2 rounded-lg bg-white border border-gray-200 text-gray-700 text-sm font-medium whitespace-nowrap hover:border-[#951327] hover:text-[#951327] transition-all';
                     });
                     this.className =
-                        'filtro-estado px-4 py-2 rounded-lg bg-blue-500 text-white text-sm font-medium whitespace-nowrap';
+                        'filtro-estado px-4 py-2 rounded-lg bg-[#951327] text-white text-sm font-medium whitespace-nowrap';
                     estadoFiltro = this.dataset.valor;
                     filtrar();
                 });

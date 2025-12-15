@@ -10,7 +10,7 @@
     <title>BreakApp - Iniciar sesión</title>
 </head>
 
-<body class="bg-[#951327] min-h-screen flex items-center justify-center p-4 pb-20 lg:pb-24">
+<body class="min-h-screen flex items-center justify-center p-4 pb-20 lg:pb-24">
     @include('layouts.navbar')
     <main>
         <livewire:auth.login />

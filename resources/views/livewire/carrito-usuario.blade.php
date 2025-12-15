@@ -1,21 +1,22 @@
 <div class="min-h-screen bg-gray-50">
     <!-- Header -->
-    <div class="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-20">
+    <div
+        class="bg-[#951327] border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-20 shadow-sm">
         <button onclick="window.history.back()"
-            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
-            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors">
+            <svg class="w-6 h-6 text-[#FBE8Da]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
-        <h1 class="text-lg font-semibold text-gray-900">Mi Carrito</h1>
+        <h1 class="text-lg font-semibold text-[#FBE8Da]">Mi Carrito</h1>
         <div class="w-10"></div>
     </div>
     @if (!session('id'))
         <!-- Sin sesión -->
         <div class="max-w-md mx-auto pt-20 px-4">
-            <div class="bg-white rounded-3xl shadow-sm p-8 text-center">
-                <div class="w-20 h-20 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg class="w-10 h-10 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div class="bg-white rounded-2xl shadow-sm p-8 text-center border border-gray-100">
+                <div class="w-20 h-20 bg-[#FBE8DA] rounded-full flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-10 h-10 text-[#951327]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                             d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
@@ -23,7 +24,7 @@
                 <h2 class="text-xl font-semibold text-gray-900 mb-2">Inicie sesión</h2>
                 <p class="text-gray-500 text-sm mb-6">Necesita iniciar sesión para ver su carrito</p>
                 <a href="{{ route('login') }}"
-                    class="inline-block w-full py-3 bg-linear-to-r from-[#951327] to-[#b50001] text-white rounded-xl font-medium hover:shadow-lg transition-all">
+                    class="inline-block w-full py-3 bg-[#951327] text-white rounded-xl font-medium hover:bg-[#B50001] transition-colors">
                     Iniciar Sesión
                 </a>
             </div>
@@ -140,7 +141,7 @@
                                                 <button
                                                     wire:click="agregarAlCarrito({{ $producto['id_producto'] }}, 1)"
                                                     wire:loading.attr="disabled"
-                                                    class="w-8 h-8 flex items-center justify-center bg-linear-to-r from-blue-500 to-cyan-500 hover:shadow-md rounded-lg transition">
+                                                    class="w-8 h-8 flex items-center justify-center bg-[#951327] hover:bg-[#B50001] hover:shadow-md rounded-lg transition">
                                                     <span wire:loading.remove
                                                         wire:target="agregarAlCarrito({{ $producto['id_producto'] }}, 1)">
                                                         <svg class="w-4 h-4 text-white" fill="none"
@@ -182,7 +183,7 @@
                         <div class="mb-4">
                             <label class="block text-xs font-medium text-gray-500 mb-2">Método de pago</label>
                             <select wire:model.live="metodo_pago"
-                                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-gray-50">
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#951327] focus:border-[#951327] transition bg-gray-50">
                                 <option value="EFECTIVO">Efectivo</option>
                                 <option value="SALDO">Tarjeta Local</option>
                             </select>
@@ -195,7 +196,8 @@
                         <div class="mb-4">
                             <label class="block text-xs font-medium text-gray-500 mb-2">Hora de recogida</label>
                             <input type="time" wire:model.live="hora_recogida"
-                                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition bg-gray-50" placeholder="Hora de recogida">
+                                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#951327] focus:border-[#951327] transition bg-gray-50"
+                                placeholder="Hora de recogida">
                             @error('hora_recogida')
                                 <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                             @enderror
@@ -203,20 +205,18 @@
 
                         <!-- Saldo disponible -->
                         @if ($metodo_pago === 'SALDO')
-                            <div
-                                class="bg-linear-to-rrom-blue-50 to-cyan-50 rounded-xl p-4 mb-4 border border-blue-100">
+                            <div class="bg-[#FBE8DA] rounded-xl p-4 mb-4 border border-[#FCC88A]">
                                 <div class="flex justify-between items-center">
-                                    <span class="text-sm text-blue-900 font-medium">Saldo disponible</span>
+                                    <span class="text-sm text-[#951327] font-medium">Saldo disponible</span>
                                     <span
-                                        class="text-lg text-blue-900 font-bold">${{ number_format($saldoLocal['saldo'], 2) }}</span>
+                                        class="text-lg text-[#951327] font-bold">${{ number_format($saldoLocal['saldo'], 2) }}</span>
                                 </div>
                             </div>
                         @endif
 
                         <!-- Alerta saldo insuficiente -->
                         @if ($saldoLocal['saldo'] < $total && $metodo_pago === 'SALDO')
-                            <div
-                                class="bg-linear-to-r from-red-50 to-pink-50 border border-red-200 rounded-xl p-4 mb-4 flex items-start gap-3">
+                            <div class="bg-red-50 border border-red-200 rounded-xl p-4 mb-4 flex items-start gap-3">
                                 <svg class="w-5 h-5 text-red-600 shrink-0 mt-0.5" fill="currentColor"
                                     viewBox="0 0 20 20">
                                     <path fill-rule="evenodd"
@@ -248,15 +248,14 @@
                             </div>
                             <div class="flex justify-between items-center">
                                 <span class="text-base font-semibold text-gray-900">Total</span>
-                                <span
-                                    class="text-2xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">${{ $total }}</span>
+                                <span class="text-2xl font-bold text-[#951327]">${{ $total }}</span>
                             </div>
                         </div>
 
                         <!-- Botón checkout -->
                         @if ($metodo_pago !== 'SALDO' || $saldoLocal['saldo'] >= $total)
                             <button wire:click="comprarCarrito" wire:loading.attr="disabled"
-                                class="w-full bg-linear-to-r from-blue-500 to-cyan-500 hover:shadow-lg disabled:opacity-50 text-white py-3.5 rounded-xl font-semibold transition-all flex items-center justify-center gap-2">
+                                class="w-full bg-[#951327] hover:bg-[#B50001] hover:shadow-lg disabled:opacity-50 text-white py-3.5 rounded-xl font-semibold transition-all flex items-center justify-center gap-2">
                                 <span wire:loading.remove wire:target="comprarCarrito">Finalizar compra</span>
                                 <span wire:loading wire:target="comprarCarrito" class="flex items-center gap-2">
                                     <svg class="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
@@ -286,8 +285,7 @@
                                 class="w-full flex items-center justify-between mb-3">
                                 <div class="flex items-center gap-2">
                                     <span class="text-sm font-medium text-gray-600">Total</span>
-                                    <span
-                                        class="text-xl font-bold bg-linear-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent">${{ $total }}</span>
+                                    <span class="text-xl font-bold text-[#951327]">${{ $total }}</span>
                                 </div>
                                 <svg class="w-5 h-5 text-gray-600 transition-transform"
                                     :class="expandido ? 'rotate-180' : ''" fill="none" stroke="currentColor"
@@ -329,12 +327,11 @@
 
                                 <!-- Saldo disponible móvil -->
                                 @if ($metodo_pago === 'SALDO')
-                                    <div
-                                        class="bg-linear-to-r from-blue-50 to-cyan-50 rounded-xl p-3 mb-3 border border-blue-100">
+                                    <div class="bg-[#FBE8DA] rounded-xl p-3 mb-3 border border-[#FCC88A]">
                                         <div class="flex justify-between text-xs">
-                                            <span class="text-blue-900 font-medium">Saldo disponible</span>
+                                            <span class="text-[#951327] font-medium">Saldo disponible</span>
                                             <span
-                                                class="text-blue-900 font-bold">${{ number_format($saldoLocal['saldo'], 2) }}</span>
+                                                class="text-[#951327] font-bold">${{ number_format($saldoLocal['saldo'], 2) }}</span>
                                         </div>
                                     </div>
                                 @endif
@@ -358,7 +355,7 @@
                             <!-- Botón checkout móvil -->
                             @if ($metodo_pago !== 'SALDO' || $saldoLocal['saldo'] >= $total)
                                 <button wire:click="comprarCarrito" wire:loading.attr="disabled"
-                                    class="w-full bg-linear-to-r from-blue-500 to-cyan-500 hover:shadow-lg text-white py-3.5 rounded-xl font-semibold transition-all">
+                                    class="w-full bg-[#951327] hover:bg-[#B50001] hover:shadow-lg text-white py-3.5 rounded-xl font-semibold transition-all">
                                     <span wire:loading.remove wire:target="comprarCarrito">Finalizar compra</span>
                                     <span wire:loading wire:target="comprarCarrito">Procesando...</span>
                                 </button>
@@ -376,7 +373,7 @@
     @else
         <!-- Carrito vacío -->
         <div class="max-w-md mx-auto pt-20 px-4">
-            <div class="bg-white rounded-3xl shadow-sm p-8 text-center">
+            <div class="bg-white rounded-2xl shadow-sm p-8 text-center border border-gray-100">
                 <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg class="w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -386,7 +383,7 @@
                 <h3 class="text-xl font-semibold text-gray-900 mb-2">Tu carrito está vacío</h3>
                 <p class="text-sm text-gray-500 mb-6">Explora el menú y agrega tus productos favoritos</p>
                 <a href="{{ route('index') }}"
-                    class="inline-block bg-linear-to-r from-blue-500 to-cyan-500 hover:shadow-lg text-white px-6 py-3 rounded-xl font-semibold transition-all">
+                    class="inline-block bg-[#951327] hover:bg-[#B50001] hover:shadow-lg text-white px-6 py-3 rounded-xl font-semibold transition-all">
                     Explorar Menú
                 </a>
             </div>
@@ -405,9 +402,9 @@
         x-transition:enter-start="opacity-0 translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
         x-transition:leave="transition ease-in duration-200" x-transition:leave-start="opacity-100 translate-y-0"
         x-transition:leave-end="opacity-0 translate-y-2"
-        class="fixed top-6 right-6 px-6 py-4 rounded-2xl shadow-xl z-[9999] text-sm font-medium flex items-center gap-3"
-        :class="tipo === 'exito' ? 'bg-linear-to-r from-green-500 to-emerald-500 text-white' :
-            'bg-linear-to-r from-red-500 to-pink-500 text-white'"
+        class="fixed top-6 right-6 px-6 py-4 rounded-xl shadow-xl z-[9999] text-sm font-medium flex items-center gap-3 border"
+        :class="tipo === 'exito' ? 'bg-white text-green-700 border-green-200' :
+            'bg-white text-red-700 border-red-200'"
         style="display: none;">
 
         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
@@ -421,7 +418,7 @@
 
         <span x-text="mensaje"></span>
 
-        <button @click="show = false" class="ml-1 hover:bg-white/20 rounded-full p-1 transition-colors">
+        <button @click="show = false" class="ml-1 hover:bg-gray-100 rounded-full p-1 transition-colors">
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
             </svg>

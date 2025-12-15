@@ -1,13 +1,14 @@
 <div class="min-h-screen bg-gray-50">
     <!-- Header -->
-    <div class="bg-white border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10">
+    <div
+        class="bg-[#951327] border-b border-gray-100 px-4 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
         <button onclick="window.history.back()"
-            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
-            <svg class="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-50 transition-colors">
+            <svg class="w-6 h-6 text-[#FBE8Da]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
-        <h1 class="text-lg font-semibold text-gray-900">Mis Notificaciones</h1>
+        <h1 class="text-lg font-semibold text-[#FBE8Da]">Mis Notificaciones</h1>
         <div class="w-10"></div>
     </div>
 
@@ -17,24 +18,24 @@
             <div class="bg-white border-b border-gray-100 px-4 py-3">
                 <div class="flex gap-2 overflow-x-auto">
                     <button data-valor=""
-                        class="filtro-notif px-4 py-2 rounded-lg bg-blue-500 text-white text-sm font-medium whitespace-nowrap">
+                        class="filtro-notif px-4 py-2 rounded-lg bg-[#951327] text-white text-sm font-medium whitespace-nowrap">
                         Todas
                     </button>
                     <button data-valor="0"
-                        class="filtro-notif px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium whitespace-nowrap hover:bg-gray-200">
+                        class="filtro-notif px-4 py-2 rounded-lg bg-white border border-gray-200 text-gray-700 text-sm font-medium whitespace-nowrap hover:border-[#951327] hover:text-[#951327] transition-all">
                         No leídas
                     </button>
                     <button data-valor="1"
-                        class="filtro-notif px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium whitespace-nowrap hover:bg-gray-200">
+                        class="filtro-notif px-4 py-2 rounded-lg bg-white border border-gray-200 text-gray-700 text-sm font-medium whitespace-nowrap hover:border-[#951327] hover:text-[#951327] transition-all">
                         Leídas
                     </button>
                 </div>
             </div>
 
             <!-- Lista de Notificaciones -->
-            <div id="lista-notificaciones">
+            <div id="lista-notificaciones" class="p-4 space-y-4">
                 @foreach ($notificaciones as $notificacion)
-                    <div class="notificacion bg-white border-t border-red-200"
+                    <div class="notificacion bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100"
                         data-leido="{{ $notificacion['leido'] }}">
                         <div class="px-6 py-6">
                             <!-- Header -->
@@ -61,14 +62,14 @@
                             <!-- Estado -->
                             <div class="flex items-center justify-between pt-3 border-t border-gray-100">
                                 <span class="px-2.5 py-1 rounded-full text-xs font-medium"
-                                    style="background-color: {{ $notificacion['leido'] === 0 ? '#fef9c3' : '#dcfce7' }}; color: {{ $notificacion['leido'] === 0 ? '#854d0e' : '#166534' }}">
+                                    style="background-color: {{ $notificacion['leido'] === 0 ? '#FBE8DA' : '#dcfce7' }}; color: {{ $notificacion['leido'] === 0 ? '#951327' : '#166534' }}">
                                     {{ $notificacion['leido'] === 0 ? 'No leída' : 'Leída' }}
                                 </span>
 
                                 @if ($notificacion['leido'] === 1)
                                     <button wire:click="ocultarNotificacion({{ $notificacion['id_notificacion'] }})"
                                         wire:loading.attr="disabled" wire:loading.class="opacity-50"
-                                        class="w-9 h-9 flex items-center justify-center bg-red-50 text-red-600 rounded-lg hover:bg-red-100 transition-colors border border-red-200"
+                                        class="w-9 h-9 flex items-center justify-center bg-white hover:bg-red-50 text-gray-700 rounded-lg transition-colors border border-gray-200"
                                         title="Eliminar notificación">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -83,7 +84,8 @@
             </div>
 
             <!-- Sin Resultados -->
-            <div id="sinResultados" class="hidden bg-white rounded-3xl shadow-sm p-8 text-center mx-4 mt-8">
+            <div id="sinResultados"
+                class="hidden bg-white rounded-2xl shadow-sm p-8 text-center mx-4 mt-8 border border-gray-100">
                 <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -95,7 +97,7 @@
     @else
         <!-- Sin Notificaciones -->
         <div class="max-w-md mx-auto pt-20 px-4">
-            <div class="bg-white rounded-3xl shadow-sm p-8 text-center">
+            <div class="bg-white rounded-2xl shadow-sm p-8 text-center border border-gray-100">
                 <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor"
                     viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -104,7 +106,7 @@
                 <h2 class="text-xl font-semibold text-gray-900 mb-2">No tienes notificaciones</h2>
                 <p class="text-gray-500 text-sm mb-6">Aquí aparecerán las actualizaciones importantes</p>
                 <a href="{{ route('index') }}"
-                    class="inline-block w-full py-3 bg-linear-to-r from-blue-500 to-cyan-500 text-white rounded-xl font-medium hover:shadow-lg transition-all">
+                    class="inline-block w-full py-3 bg-[#951327] text-white rounded-xl font-medium hover:bg-[#B50001] transition-colors">
                     Ir al Inicio
                 </a>
             </div>
@@ -119,10 +121,10 @@
                 const mensaje = event.detail.mensaje;
 
                 const toast = document.createElement('div');
-                toast.className = `fixed top-6 right-6 px-6 py-4 rounded-2xl shadow-xl z-50 transform transition-all duration-300 ${
+                toast.className = `fixed top-6 right-6 px-6 py-4 rounded-xl shadow-xl z-50 transform transition-all duration-300 border ${
                     tipo === 'exito' 
-                        ? 'bg-gradient-to-r from-green-500 to-emerald-500 text-white' 
-                        : 'bg-gradient-to-r from-red-500 to-pink-500 text-white'
+                        ? 'bg-white text-green-700 border-green-200' 
+                        : 'bg-white text-red-700 border-red-200'
                 }`;
 
                 toast.innerHTML = `
@@ -174,16 +176,16 @@
                 b.addEventListener('click', function() {
                     document.querySelectorAll('.filtro-notif').forEach(f => {
                         f.className =
-                            'filtro-notif px-4 py-2 rounded-lg bg-gray-100 text-gray-700 text-sm font-medium whitespace-nowrap hover:bg-gray-200';
+                            'filtro-notif px-4 py-2 rounded-lg bg-white border border-gray-200 text-gray-700 text-sm font-medium whitespace-nowrap hover:border-[#951327] hover:text-[#951327] transition-all';
                     });
                     this.className =
-                        'filtro-notif px-4 py-2 rounded-lg bg-blue-500 text-white text-sm font-medium whitespace-nowrap';
+                        'filtro-notif px-4 py-2 rounded-lg bg-[#951327] text-white text-sm font-medium whitespace-nowrap';
                     filtroLeido = this.dataset.valor;
                     filtrarNotificaciones();
                 });
             });
         </script>
-    @endpush>
+    @endpush
     @script
         <script>
             const id = localStorage.getItem('id');
@@ -193,5 +195,5 @@
                 });
             }
         </script>
-    @endscript
+    @endscript>
 </div>

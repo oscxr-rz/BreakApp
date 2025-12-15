@@ -1,9 +1,9 @@
 <div class="min-h-screen bg-white flex flex-col">
     <!-- Header minimalista -->
-    <div class="bg-white px-4 py-4 flex items-center">
+    <div class="bg-[#951327] px-4 py-4 flex items-center">
         <button onclick="window.history.back()"
             class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors">
-            <svg class="w-6 h-6 text-gray-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-6 h-6 text-[#FBE8Da]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
         </button>
