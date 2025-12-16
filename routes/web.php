@@ -23,7 +23,7 @@ Route::view('/tarjeta-local', 'user.tarjeta-local')->name('tarjeta.local');
 Route::view('/ordenes', 'user.ordenes')->name('ordenes');
 
 Route::middleware('auth.admin')->prefix('/admin')->group(function () {
-    Route::view('/admin', 'admin.dashboard')->name('dashboard');
+    Route::view('/', 'admin.dashboard')->name('dashboard');
     Route::view('/categorias', 'admin.categorias')->name('admin.categorias');
     Route::view('/productos', 'admin.productos')->name('admin.productos');
     Route::view('/menus', 'admin.menus')->name('admin.menus');
