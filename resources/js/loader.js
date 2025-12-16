@@ -4,8 +4,8 @@ let animation = null;
 
 export function initLoader() {
     const loaderHTML = `
-        <div id="pageLoader" class="fixed inset-0 bg-gray-900/20 backdrop-blur-[2px] z-50 flex items-center justify-center">
-            <div id="lottie-animation" class="w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[450px] md:h-[450px]"></div>
+        <div id="pageLoader" style="display: flex !important; align-items: center !important; justify-content: center !important;" class="fixed inset-0 bg-gray-900/20 backdrop-blur-[2px] z-50">
+            <div id="lottie-animation" style="display: flex; align-items: center; justify-content: center;" class="w-[280px] h-[280px] sm:w-[350px] sm:h-[350px] md:w-[450px] md:h-[450px]"></div>
         </div>
     `;
 
@@ -24,6 +24,13 @@ export function initLoader() {
     animation.addEventListener('DOMLoaded', function () {
         const svgElement = container.querySelector('svg');
         if (svgElement) {
+            // Centrar el SVG completamente
+            svgElement.style.display = 'block';
+            svgElement.style.margin = '0 auto';
+            svgElement.style.position = 'relative';
+            svgElement.style.left = '0';
+            svgElement.style.right = '0';
+
             const paths = svgElement.querySelectorAll('path, circle, rect, ellipse, line, polyline, polygon');
             paths.forEach(path => {
                 const currentStroke = path.getAttribute('stroke-width');
