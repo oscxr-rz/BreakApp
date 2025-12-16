@@ -1,5 +1,5 @@
 <nav
-    class="fixed bottom-0 left-0 right-0 w-full bg-white backdrop-blur-xl rounded-t-3xl lg:rounded-t-4xl px-4 lg:px-10 xl:px-12 py-3 lg:py-4 xl:py-5 border-t border-x border-gray-400 z-50">
+    class="fixed bottom-0 left-0 right-0 w-full bg-white backdrop-blur-xl rounded-t-3xl lg:rounded-t-4xl px-4 lg:px-10 xl:px-12 py-3 lg:py-4 xl:py-5 border-t border-x border-gray-400 z-40">
     <div class="max-w-[1400px] mx-auto flex items-center justify-around gap-1 lg:gap-4">
 
         <!-- Menú Principal -->
