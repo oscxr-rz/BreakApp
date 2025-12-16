@@ -30,4 +30,5 @@ Route::middleware('auth.admin')->prefix('/admin')->group(function () {
     Route::view('/ordenes', 'admin.ordenes')->name('admin.ordenes');
     Route::view('/registrar-compra', 'admin.capturar-orden')->name('admin.registrar.compra');
     Route::view('/capturar-orden', 'admin.registrar-compra')->name('admin.capturar.orden');
+    Route::view('/tarjeta-local', 'admin.tarjeta-local')->name('admin.tarjeta.local');
 });

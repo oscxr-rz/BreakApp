@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Services\Admin;
+namespace App\Services\admin;
 
 use Exception;
 use Illuminate\Support\Facades\Http;
