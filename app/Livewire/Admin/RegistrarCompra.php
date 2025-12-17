@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Admin;
 
-use App\Services\Admin\OrdenesService;
+use App\Services\admin\OrdenesService;
 use Exception;
 use Illuminate\Support\Facades\Http;
 use Livewire\Component;

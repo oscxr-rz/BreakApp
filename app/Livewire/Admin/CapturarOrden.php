@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Admin;
 
-use App\Services\Admin\OrdenesService;
-use App\Services\Admin\ProductosService;
+use App\Services\admin\OrdenesService;
+use App\Services\admin\ProductosService;
 use Exception;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;

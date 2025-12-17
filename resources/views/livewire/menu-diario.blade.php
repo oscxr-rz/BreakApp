@@ -14,13 +14,13 @@
             <div class="flex items-center gap-2 lg:gap-3">
                 @if (!session('id'))
                     <a href="{{ route('login') }}"
-                        class="flex items-center gap-2 px-3 py-2 lg:px-4 lg:py-2.5 bg-[#7a0f1f] hover:bg-[#5d0b17] text-[#FBE8DA] rounded-xl transition-all">
+                        class="flex items-center gap-2 px-3 py-2 lg:px-4 lg:py-2.5 bg-[#7a0f1f] hover:bg-[#5d0b17] text-[#FBE8DA] rounded-xl lg:rounded-xl rounded-full transition-all">
                         <svg class="w-5 h-5 lg:w-5 lg:h-5" fill="none" stroke="currentColor" stroke-width="1.5"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"
                                 d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                         </svg>
-                        <span class="text-sm lg:text-base font-medium">Iniciar sesión</span>
+                        <span class="hidden lg:inline text-sm lg:text-base font-medium">Iniciar sesión</span>
                     </a>
                 @endif
 
