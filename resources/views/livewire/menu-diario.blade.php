@@ -14,7 +14,7 @@
             <div class="flex items-center gap-2 lg:gap-3">
                 @if (!session('id'))
                     <a href="{{ route('login') }}"
-                        class="flex items-center gap-2 px-3 py-2 lg:px-4 lg:py-2.5 bg-[#7a0f1f] hover:bg-[#5d0b17] text-[#FBE8DA] rounded-xl lg:rounded-xl rounded-full transition-all">
+                        class="flex items-center gap-2 px-3 py-2 lg:px-4 lg:py-2.5 bg-[#7a0f1f] hover:bg-[#5d0b17] text-[#FBE8DA] lg:rounded-xl rounded-full transition-all">
                         <svg class="w-5 h-5 lg:w-5 lg:h-5" fill="none" stroke="currentColor" stroke-width="1.5"
                             viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round"

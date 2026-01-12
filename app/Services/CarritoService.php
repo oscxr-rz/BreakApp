@@ -69,7 +69,7 @@ class CarritoService
         }
     }
 
-    public function comprar(int $idUsuario, string $metodoPago, string $horaRecogida, array $productos)
+    public function comprar(int $idUsuario, string $metodoPago, $tokenStripe, string $horaRecogida, array $productos)
     {
         try {
             $idMenu = collect($productos)
@@ -83,6 +83,7 @@ class CarritoService
                 ->post("{$this->apiHost}/usuario/orden/{$idUsuario}", [
                     'id_menu' => $idMenu,
                     'metodo_pago' => $metodoPago,
+                    'tokenStripe' => $tokenStripe ?? null,
                     'hora_recogida' => $horaRecogida,
                     'productos' => $productos
                 ]);

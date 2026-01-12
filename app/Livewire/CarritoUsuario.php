@@ -21,6 +21,7 @@ class CarritoUsuario extends Component
     public $saldoLocal = 0;
 
     public $metodo_pago = 'EFECTIVO';
+    public $tokenStripe = null;
     public $hora_recogida = '09:30';
 
     public function boot(CarritoService $carritoService, TarjetaLocalService $tarjetaLocalService)
@@ -125,7 +126,7 @@ class CarritoUsuario extends Component
                 return;
             }
 
-            if ($this->carritoService->comprar($this->id, $this->metodo_pago, $this->hora_recogida, $productos)) {
+            if ($this->carritoService->comprar($this->id, $this->metodo_pago, $this->tokenStripe, $this->hora_recogida, $productos)) {
                 $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Orden generada correctamente');
                 $this->cargarCarrito();
                 $this->metodo_pago = 'EFECTIVO';
