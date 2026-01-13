@@ -20,6 +20,7 @@ Route::view('/carrito', 'user.carrito')->name('carrito');
 Route::view('/notificaciones', 'user.notificaciones')->name('notificaciones');
 Route::view('/notificacion/{id}', 'user.notificacion-show')->name('notificacion');
 Route::view('/tarjeta-local', 'user.tarjeta-local')->name('tarjeta.local');
+Route::view('/tarjetas', 'user.tarjetas')->name('tarjetas');
 Route::view('/ordenes', 'user.ordenes')->name('ordenes');
 
 Route::middleware('auth.admin')->prefix('/admin')->group(function () {
