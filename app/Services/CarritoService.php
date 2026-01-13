@@ -69,7 +69,7 @@ class CarritoService
         }
     }
 
-    public function comprar(int $idUsuario, string $metodoPago, $tokenStripe, string $horaRecogida, array $productos)
+    public function comprar(int $idUsuario, string $metodoPago, $tokenStripe, $idTarjeta, string $horaRecogida, array $productos)
     {
         try {
             $idMenu = collect($productos)
@@ -84,6 +84,7 @@ class CarritoService
                     'id_menu' => $idMenu,
                     'metodo_pago' => $metodoPago,
                     'tokenStripe' => $tokenStripe ?? null,
+                    'id_tarjeta' => $idTarjeta ?? null,
                     'hora_recogida' => $horaRecogida,
                     'productos' => $productos
                 ]);

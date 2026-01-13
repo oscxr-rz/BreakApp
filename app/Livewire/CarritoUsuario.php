@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Services\CarritoService;
 use App\Services\TarjetaLocalService;
+use App\Services\TarjetaService;
 use Exception;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\ValidationException;
@@ -16,18 +17,23 @@ class CarritoUsuario extends Component
     public $carrito = [];
     protected CarritoService $carritoService;
     protected TarjetaLocalService $tajetaLocalService;
+    protected TarjetaService $tarjetaService;
 
     public $total = 0;
     public $saldoLocal = 0;
 
+    public $tarjetas = [];
+
     public $metodo_pago = 'EFECTIVO';
     public $tokenStripe = null;
+    public $idTarjeta = null;
     public $hora_recogida = '09:30';
 
-    public function boot(CarritoService $carritoService, TarjetaLocalService $tarjetaLocalService)
+    public function boot(CarritoService $carritoService, TarjetaLocalService $tarjetaLocalService, TarjetaService $tarjetaService)
     {
         $this->carritoService = $carritoService;
         $this->tajetaLocalService = $tarjetaLocalService;
+        $this->tarjetaService = $tarjetaService;
     }
 
     public function mount()
@@ -49,6 +55,7 @@ class CarritoUsuario extends Component
             );
 
             $this->saldoLocal = $this->tajetaLocalService->obtenerSaldo($this->id) ?? 0;
+            $this->tarjetas = $this->tarjetaService->obtenerTarjetas($this->id) ?? [];
         }
     }
 
@@ -126,7 +133,7 @@ class CarritoUsuario extends Component
                 return;
             }
 
-            if ($this->carritoService->comprar($this->id, $this->metodo_pago, $this->tokenStripe, $this->hora_recogida, $productos)) {
+            if ($this->carritoService->comprar($this->id, $this->metodo_pago, $this->tokenStripe, $this->idTarjeta, $this->hora_recogida, $productos)) {
                 $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Orden generada correctamente');
                 $this->cargarCarrito();
                 $this->metodo_pago = 'EFECTIVO';
