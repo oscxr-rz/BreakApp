@@ -263,7 +263,7 @@
                             <button @click="expandido = !expandido" class="w-full mb-3">
                                 <div class="flex items-center justify-between">
                                     <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 bg-[#FBE8DA] rounded-full flex items-center justify-center flex-shrink-0">
+                                        <div class="w-10 h-10 bg-[#FBE8DA] rounded-full flex items-center justify-center shrink-0">
                                             <svg class="w-5 h-5 text-[#951327]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" />
                                             </svg>
@@ -354,7 +354,7 @@
                                     <!-- Alerta saldo insuficiente móvil -->
                                     @if ($saldoLocal['saldo'] < $total && $metodo_pago === 'SALDO')
                                         <div class="bg-red-50 rounded-xl p-3 border border-red-200 flex items-center gap-2">
-                                            <svg class="w-4 h-4 text-red-600 flex-shrink-0" fill="currentColor" viewBox="0 0 20 20">
+                                            <svg class="w-4 h-4 text-red-600 shrink-0" fill="currentColor" viewBox="0 0 20 20">
                                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
                                             </svg>
                                             <p class="text-xs text-red-800 font-medium">Faltan ${{ number_format($total - $saldoLocal['saldo'], 2) }}</p>
@@ -417,7 +417,7 @@
         <div x-show="mostrarModalPago" x-transition:enter="transition ease-out duration-400" x-transition:enter-start="translate-y-full lg:scale-95 lg:translate-y-0 opacity-0" x-transition:enter-end="translate-y-0 lg:scale-100 opacity-100" x-transition:leave="transition ease-in duration-300" x-transition:leave-start="translate-y-0 lg:scale-100 opacity-100" x-transition:leave-end="translate-y-full lg:scale-95 lg:translate-y-0 opacity-0" class="bg-white w-full lg:max-w-2xl rounded-t-3xl lg:rounded-3xl shadow-2xl overflow-hidden max-h-[90vh] flex flex-col" @click.stop>
 
             <!-- Header -->
-            <div class="px-6 py-6 border-b border-gray-100 flex-shrink-0">
+            <div class="px-6 py-6 border-b border-gray-100 shrink-0">
                 <div class="flex items-center justify-between">
                     <div>
                         <h2 class="text-xl font-semibold text-gray-900">Pago con Tarjeta</h2>
@@ -434,7 +434,7 @@
             <!-- Contenido -->
             <div class="px-6 py-6 overflow-y-auto flex-1">
                 <!-- Monto a pagar -->
-                <div class="bg-gradient-to-br from-[#951327] to-[#B50001] rounded-2xl p-6 text-white text-center mb-6">
+                <div class="bg-linear-to-br from-[#951327] to-[#B50001] rounded-2xl p-6 text-white text-center mb-6">
                     <div class="text-xs font-medium uppercase tracking-wider opacity-90 mb-2">
                         Total a Pagar
                     </div>
@@ -463,7 +463,7 @@
 
                                     <div class="flex items-center gap-4">
                                         <!-- Logo de la tarjeta -->
-                                        <div class="flex-shrink-0 w-12 h-12 bg-gradient-to-br {{ 
+                                        <div class="shrink-0 w-12 h-12 bg-linear-to-br {{ 
                                             $tarjeta['marca'] === 'Visa' ? 'from-[#1434CB] to-[#0B1F71]' :
                                             ($tarjeta['marca'] === 'MasterCard' ? 'from-[#0a0a0a] to-[#1a1a1a]' :
                                             ($tarjeta['marca'] === 'American Express' ? 'from-[#006FCF] to-[#00509E]' :
@@ -504,7 +504,7 @@
                         class="w-full border-2 border-dashed border-gray-300 hover:border-[#951327] hover:bg-[#FBE8DA] rounded-xl p-4 transition-all text-left">
                         
                         <div class="flex items-center gap-3">
-                            <div class="w-12 h-12 bg-[#FBE8DA] rounded-full flex items-center justify-center flex-shrink-0">
+                            <div class="w-12 h-12 bg-[#FBE8DA] rounded-full flex items-center justify-center shrink-0">
                                 <svg class="w-6 h-6 text-[#951327]" fill="none" stroke="currentColor" viewBox="0 0 24 24" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
                                 </svg>
@@ -519,7 +519,7 @@
             </div>
 
             <!-- Footer -->
-            <div class="px-6 py-5 border-t border-gray-100 bg-gray-50 flex-shrink-0">
+            <div class="px-6 py-5 border-t border-gray-100 bg-gray-50 shrink-0">
                 <button 
                     @click="async () => { 
                         if (!tarjetaSeleccionada) {
@@ -540,7 +540,7 @@
                     :disabled="procesando || !tarjetaSeleccionada"
                     class="w-full bg-[#951327] hover:bg-[#B50001] hover:shadow-xl text-white py-4 rounded-xl font-semibold transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed relative overflow-hidden group">
 
-                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+                    <span class="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
 
                     <span x-show="!procesando" class="relative">
                         Confirmar Pago - ${{ $total }}
@@ -580,7 +580,7 @@
             <!-- Contenido del Modal -->
             <div class="px-6 py-6 max-h-[70vh] overflow-y-auto">
                 <!-- Monto a pagar -->
-                <div class="bg-gradient-to-br from-[#951327] to-[#B50001] rounded-2xl p-6 text-white text-center mb-6">
+                <div class="bg-linear-to-br from-[#951327] to-[#B50001] rounded-2xl p-6 text-white text-center mb-6">
                     <div class="text-xs font-medium uppercase tracking-wider opacity-90 mb-2">
                         Total a Pagar
                     </div>
@@ -647,7 +647,7 @@
                     :disabled="procesando" 
                     class="w-full bg-[#951327] hover:bg-[#B50001] hover:shadow-xl text-white py-4 rounded-xl font-semibold transition-all duration-300 disabled:opacity-60 disabled:cursor-not-allowed relative overflow-hidden group">
 
-                    <span class="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
+                    <span class="absolute inset-0 w-full h-full bg-linear-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-700"></span>
 
                     <span x-show="!procesando" class="relative">
                         Confirmar Pago - ${{ $total }}
