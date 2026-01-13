@@ -257,8 +257,8 @@
                     </div>
 
                     <!-- Móvil - Resumen fijo abajo MEJORADO -->
-                    <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-30 safe-area-bottom">
-                        <div class="p-4">
+                    <div class="lg:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-2xl z-30">
+                        <div class="p-4 pb-20">
                             <!-- Header siempre visible con indicador visual -->
                             <button @click="expandido = !expandido" class="w-full mb-3">
                                 <div class="flex items-center justify-between">
@@ -318,9 +318,9 @@
                                             Método de pago
                                         </label>
                                         <select wire:model.live="metodo_pago" class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-gray-50 focus:ring-2 focus:ring-[#951327] focus:border-[#951327]">
-                                            <option value="EFECTIVO">💵 Efectivo</option>
-                                            <option value="SALDO">💳 Tarjeta Local</option>
-                                            <option value="TARJETA">💳 Tarjeta de Crédito/Débito</option>
+                                            <option value="EFECTIVO">Efectivo</option>
+                                            <option value="SALDO">Tarjeta Local</option>
+                                            <option value="TARJETA">Tarjeta de Crédito/Débito</option>
                                         </select>
                                         @error('metodo_pago')
                                             <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
