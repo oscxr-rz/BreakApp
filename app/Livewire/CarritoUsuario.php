@@ -26,6 +26,8 @@ class CarritoUsuario extends Component
 
     public $metodo_pago = 'EFECTIVO';
     public $tokenStripe = null;
+    public $tokenGuardar = null;
+    public $guardarTarjeta = false;
     public $idTarjeta = null;
     public $hora_recogida = '09:30';
 
@@ -134,10 +136,29 @@ class CarritoUsuario extends Component
             }
 
             if ($this->carritoService->comprar($this->id, $this->metodo_pago, $this->tokenStripe, $this->idTarjeta, $this->hora_recogida, $productos)) {
-                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Orden generada correctamente');
+                $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Pedido realizado correctamente');
+
+                // Guardar tarjeta con tokenGuardar (token separado)
+                if ($this->guardarTarjeta === true && !empty($this->tokenGuardar)) {
+                    try {
+                        $response = $this->tarjetaService->guardarTarjeta($this->tokenGuardar, $this->id);
+                        if ($response === true) {
+                            $this->dispatch('mostrar-toast-delayed', tipo: 'exito', mensaje: 'Tarjeta guardada correctamente', delay: 3500);
+                        } else {
+                            $this->dispatch('mostrar-toast-delayed', tipo: 'error', mensaje: $response, delay: 3500);
+                        }
+                    } catch (Exception $e) {
+                        $this->dispatch('mostrar-toast-delayed', tipo: 'error', mensaje: 'Ocurrió un error al guardar la tarjeta', delay: 3500);
+                    }
+                }
+
                 $this->cargarCarrito();
                 $this->metodo_pago = 'EFECTIVO';
                 $this->hora_recogida = '';
+                $this->guardarTarjeta = false;
+                $this->tokenStripe = null;
+                $this->tokenGuardar = null;
+                $this->idTarjeta = null;
             } else {
                 $this->dispatch('mostrar-toast', tipo: 'error', mensaje: 'No se pudo procesar la orden');
             }
