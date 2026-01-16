@@ -88,6 +88,89 @@
 
             <!-- Menu Principal -->
             <div id="menu-section" class="bg-white rounded-2xl shadow-sm overflow-hidden mx-4 mt-4">
+                <!-- Mi Cuenta -->
+                <div class="px-6 py-3">
+                    <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Mi cuenta</p>
+                </div>
+
+                <div class="divide-y divide-gray-100">
+                    <!-- Tarjetas -->
+                    <a href="{{ route('tarjetas') }}"
+                        class="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 flex items-center justify-center bg-blue-50 rounded-lg">
+                                <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                                </svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-900">Tarjetas</span>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+
+                    <!-- Tarjeta Local -->
+                    <a href="{{ route('tarjeta.local') }}"
+                        class="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 flex items-center justify-center bg-amber-50 rounded-lg">
+                                <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-900">Tarjeta Local</span>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+
+                    <!-- Órdenes -->
+                    <a href="{{ route('ordenes') }}"
+                        class="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 flex items-center justify-center bg-green-50 rounded-lg">
+                                <svg class="w-4 h-4 text-green-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                                </svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-900">Mis órdenes</span>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+
+                    <!-- Notificaciones -->
+                    <a href="{{ route('notificaciones') }}"
+                        class="w-full px-6 py-4 flex items-center justify-between hover:bg-gray-50 transition-colors">
+                        <div class="flex items-center gap-3">
+                            <div class="w-8 h-8 flex items-center justify-center bg-purple-50 rounded-lg">
+                                <svg class="w-4 h-4 text-purple-500" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24" stroke-width="1.5">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                </svg>
+                            </div>
+                            <span class="text-sm font-medium text-gray-900">Notificaciones</span>
+                        </div>
+                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                            stroke-width="1.5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </a>
+                </div>
+
                 <!-- Settings Section -->
                 <div class="px-6 py-3">
                     <p class="text-xs font-medium text-gray-400 uppercase tracking-wider">Configuración</p>
