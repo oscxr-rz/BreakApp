@@ -60,8 +60,21 @@
             <!-- Lista de Órdenes -->
             <div id="lista" class="p-4 space-y-4">
                 @foreach ($ordenes as $orden)
-                    <div class="orden bg-white rounded-2xl shadow-sm overflow-hidden border border-gray-100"
+                    <div class="orden bg-white rounded-2xl shadow-sm overflow-hidden border {{ $orden['vencido'] === 1 ? 'border-red-300' : 'border-gray-100' }}"
                         data-estado="{{ $orden['estado'] }}" data-pagado="{{ $orden['pagado'] }}">
+
+                        @if ($orden['vencido'] === 1)
+                            <!-- Banner de orden vencida -->
+                            <div class="bg-red-50 border-b border-red-200 px-6 py-3 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor"
+                                    viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span class="text-sm font-medium text-red-700">Esta orden ha vencido</span>
+                            </div>
+                        @endif
+
                         <div class="px-6 py-6">
                             <!-- Header -->
                             <div class="flex items-start justify-between mb-4">
@@ -95,7 +108,7 @@
                                             </span>
                                         </button>
                                     @endif
-                                    @if ($orden['estado'] === 'ENTREGADO')
+                                    @if ($orden['estado'] === 'ENTREGADO' || $orden['vencido'] === 1)
                                         <!-- Botón Eliminar -->
                                         <button wire:click="ocultarOrden({{ $orden['id_orden'] }})"
                                             wire:loading.attr="disabled" wire:loading.class="opacity-50"
@@ -123,16 +136,32 @@
                                 </div>
                             </div>
 
+                            <!-- Mensaje de pago pendiente -->
+                            @if ($orden['pagado'] === 0 && !empty($orden['fecha_vencimiento']))
+                                <div class="mb-4 p-3 bg-amber-50 border border-amber-200 rounded-xl flex items-start gap-3">
+                                    <svg class="w-5 h-5 text-amber-600 shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                            d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                    </svg>
+                                    <p class="text-sm text-amber-800">
+                                        <span class="font-semibold">Paga tu orden antes de <span class="fecha-vencimiento" data-timestamp="{{ $orden['fecha_vencimiento'] }}"></span></span> para comenzar a prepararla
+                                    </p>
+                                </div>
+                            @endif
+
                             <!-- Info -->
                             <div class="flex flex-wrap items-center gap-3 mb-4">
-                                <div class="flex items-center gap-2 text-sm text-gray-600">
-                                    <svg class="w-4 h-4 text-[#951327]" fill="none" stroke="currentColor"
-                                        viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                    </svg>
-                                    <span>{{ $orden['hora_recogida'] }}</span>
-                                </div>
+                                @if ($orden['estado'] !== 'ENTREGADO' && !empty($orden['hora_recogida']))
+                                    <div class="flex items-center gap-2 text-sm text-gray-600">
+                                        <svg class="w-4 h-4 text-[#951327]" fill="none" stroke="currentColor"
+                                            viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                        </svg>
+                                        <span class="hora-recogida" data-timestamp="{{ $orden['hora_recogida'] }}"></span>
+                                    </div>
+                                @endif
+
                                 <div class="flex items-center gap-2 text-sm text-gray-600">
                                     <svg class="w-4 h-4 text-[#951327]" fill="none" stroke="currentColor"
                                         viewBox="0 0 24 24">
@@ -141,12 +170,27 @@
                                     </svg>
                                     <span>{{ $orden['metodo_pago'] }}</span>
                                 </div>
+
                                 <span class="px-2.5 py-1 rounded-full text-xs font-medium border"
                                     style="background-color: {{ $orden['pagado'] === 1 ? '#dcfce7' : '#FBE8DA' }}; 
                                            color: {{ $orden['pagado'] === 1 ? '#166534' : '#951327' }};
                                            border-color: {{ $orden['pagado'] === 1 ? '#bbf7d0' : '#FCC88A' }}">
                                     {{ $orden['pagado'] === 1 ? 'Pagado' : 'Pendiente' }}
                                 </span>
+
+                                @if (!empty($orden['fecha_vencimiento']))
+                                    <div
+                                        class="flex items-center gap-2 text-sm {{ $orden['vencido'] === 1 ? 'text-red-600' : 'text-gray-600' }}">
+                                        <svg class="w-4 h-4 {{ $orden['vencido'] === 1 ? 'text-red-600' : 'text-[#951327]' }}"
+                                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                                        </svg>
+                                        <span class="{{ $orden['vencido'] === 1 ? 'font-semibold' : '' }}">
+                                            Vence: <span class="fecha-vencimiento" data-timestamp="{{ $orden['fecha_vencimiento'] }}"></span>
+                                        </span>
+                                    </div>
+                                @endif
                             </div>
 
                             <!-- Toggle Productos -->
@@ -240,6 +284,58 @@
 
     @push('script')
         <script>
+            // Función para formatear fecha MySQL/SQL a "Hoy/Mañana - H:i"
+            function formatearFecha(fechaSQL) {
+                if (!fechaSQL) return '';
+                
+                // Convertir fecha SQL (YYYY-MM-DD HH:MM:SS) a objeto Date
+                const fecha = new Date(fechaSQL.replace(' ', 'T'));
+                const hoy = new Date();
+                const manana = new Date(hoy);
+                manana.setDate(hoy.getDate() + 1);
+                
+                // Resetear horas para comparar solo fechas
+                const fechaSinHora = new Date(fecha.getFullYear(), fecha.getMonth(), fecha.getDate());
+                const hoySinHora = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
+                const mananaSinHora = new Date(manana.getFullYear(), manana.getMonth(), manana.getDate());
+                
+                let dia = '';
+                if (fechaSinHora.getTime() === hoySinHora.getTime()) {
+                    dia = 'Hoy';
+                } else if (fechaSinHora.getTime() === mananaSinHora.getTime()) {
+                    dia = 'Mañana';
+                } else {
+                    // Si no es hoy ni mañana, mostrar día de la semana
+                    const dias = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+                    dia = dias[fecha.getDay()];
+                }
+                
+                // Formatear hora en formato H:i (24 horas)
+                const horas = fecha.getHours().toString().padStart(2, '0');
+                const minutos = fecha.getMinutes().toString().padStart(2, '0');
+                
+                return `${dia} - ${horas}:${minutos}`;
+            }
+            
+            // Aplicar formateo a todas las fechas SQL
+            document.addEventListener('DOMContentLoaded', function() {
+                // Formatear horas de recogida
+                document.querySelectorAll('.hora-recogida').forEach(el => {
+                    const fechaSQL = el.dataset.timestamp;
+                    if (fechaSQL) {
+                        el.textContent = formatearFecha(fechaSQL);
+                    }
+                });
+                
+                // Formatear fechas de vencimiento
+                document.querySelectorAll('.fecha-vencimiento').forEach(el => {
+                    const fechaSQL = el.dataset.timestamp;
+                    if (fechaSQL) {
+                        el.textContent = formatearFecha(fechaSQL);
+                    }
+                });
+            });
+
             // Toast notifications
             window.addEventListener('mostrar-toast', event => {
                 const tipo = event.detail.tipo;
