@@ -228,17 +228,6 @@
                             @enderror
                         </div>
 
-                        <!-- Hora de recogida -->
-                        <div class="mb-4">
-                            <label class="block text-xs font-medium text-gray-500 mb-2">Hora de recogida</label>
-                            <input type="time" wire:model.live="hora_recogida"
-                                class="w-full border border-gray-200 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-[#951327] focus:border-[#951327] transition bg-gray-50"
-                                placeholder="Hora de recogida">
-                            @error('hora_recogida')
-                                <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                            @enderror
-                        </div>
-
                         <!-- Saldo disponible -->
                         @if ($metodo_pago === 'SALDO')
                             <div class="bg-[#FBE8DA] rounded-xl p-4 mb-4 border border-[#FCC88A]">
@@ -361,13 +350,9 @@
                                 <div x-show="!expandido" class="mt-2 flex items-center gap-2 text-xs text-gray-500">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                                     </svg>
                                     <span>{{ $metodo_pago === 'EFECTIVO' ? 'Efectivo' : ($metodo_pago === 'SALDO' ? 'Tarjeta Local' : 'Tarjeta') }}</span>
-                                    @if ($hora_recogida)
-                                        <span class="mx-1">•</span>
-                                        <span>{{ $hora_recogida }}</span>
-                                    @endif
                                 </div>
                             </button>
 
@@ -398,24 +383,6 @@
                                             <option value="TARJETA">Tarjeta de Crédito/Débito</option>
                                         </select>
                                         @error('metodo_pago')
-                                            <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
-                                        @enderror
-                                    </div>
-
-                                    <!-- Hora de recogida con icono -->
-                                    <div>
-                                        <label class="flex items-center gap-2 text-xs font-medium text-gray-700 mb-2">
-                                            <svg class="w-4 h-4 text-[#951327]" fill="none" stroke="currentColor"
-                                                viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                            </svg>
-                                            Hora de recogida
-                                        </label>
-                                        <input type="time" wire:model.live="hora_recogida"
-                                            placeholder="Hora de recogida"
-                                            class="w-full border border-gray-200 rounded-xl px-3 py-2.5 text-sm bg-gray-50 focus:ring-2 focus:ring-[#951327] focus:border-[#951327]">
-                                        @error('hora_recogida')
                                             <p class="text-xs text-red-600 mt-1">{{ $message }}</p>
                                         @enderror
                                     </div>
@@ -626,8 +593,7 @@
                         class="w-full border-2 border-dashed border-gray-300 hover:border-[#951327] hover:bg-[#FBE8DA] rounded-xl p-4 transition-all text-left">
 
                         <div class="flex items-center gap-3">
-                            <div
-                                class="w-12 h-12 bg-[#FBE8DA] rounded-full flex items-center justify-center shrink-0">
+                            <div class="w-12 h-12 bg-[#FBE8DA] rounded-full flex items-center justify-center shrink-0">
                                 <svg class="w-6 h-6 text-[#951327]" fill="none" stroke="currentColor"
                                     viewBox="0 0 24 24" stroke-width="2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />

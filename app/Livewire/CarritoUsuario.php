@@ -29,7 +29,6 @@ class CarritoUsuario extends Component
     public $tokenGuardar = null;
     public $guardarTarjeta = false;
     public $idTarjeta = null;
-    public $hora_recogida = '09:30';
 
     public function boot(CarritoService $carritoService, TarjetaLocalService $tarjetaLocalService, TarjetaService $tarjetaService)
     {
@@ -104,13 +103,11 @@ class CarritoUsuario extends Component
     }
 
     protected $rules = [
-        'metodo_pago' => 'required|string|in:EFECTIVO,SALDO,TARJETA',
-        'hora_recogida' => 'required|date_format:H:i',
+        'metodo_pago' => 'required|string|in:EFECTIVO,SALDO,TARJETA'
     ];
 
     protected $messages = [
         'metodo_pago.required' => 'Debes seleccionar un método de pago',
-        'hora_recogida.required' => 'Debes seleccionar una hora para recoger tus productos',
     ];
 
     public function updated($propertyName)
@@ -135,7 +132,7 @@ class CarritoUsuario extends Component
                 return;
             }
 
-            if ($this->carritoService->comprar($this->id, $this->metodo_pago, $this->tokenStripe, $this->idTarjeta, $this->hora_recogida, $productos)) {
+            if ($this->carritoService->comprar($this->id, $this->metodo_pago, $this->tokenStripe, $this->idTarjeta, $productos)) {
                 $this->dispatch('mostrar-toast', tipo: 'exito', mensaje: 'Pedido realizado correctamente');
 
                 // Guardar tarjeta con tokenGuardar (token separado)
@@ -154,7 +151,6 @@ class CarritoUsuario extends Component
 
                 $this->cargarCarrito();
                 $this->metodo_pago = 'EFECTIVO';
-                $this->hora_recogida = '';
                 $this->guardarTarjeta = false;
                 $this->tokenStripe = null;
                 $this->tokenGuardar = null;
